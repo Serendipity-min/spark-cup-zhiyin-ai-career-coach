@@ -1,0 +1,792 @@
+flowMeta:
+  name: 职引 · AI职业诊断官
+  description: 面向大学生的AI就业竞争力诊断智能体。通过多轮对话深挖能力画像，对比岗位需求生成差距分析与4周学习计划。
+  avatarIcon: https://openres.xfyun.cn/xfyundoc/2026-01-13/4c8f6a33-3a77-4eae-8af6-f89efe33c477/1768290622067/8%402x.png
+  avatarColor: '#4F8BFF'
+  advancedConfig: '{"needGuide":false,"prologue":{"enabled":true,"prologueText":"你好，我是「职引」——你的AI职业诊断官
+    🎯。告诉我你心仪的岗位，我帮你做一次深度能力诊断，输出一份定制化的能力差距报告与4周冲刺计划。","inputExample":["我的目标是产品经理，请帮我诊断","我想应聘数据分析师","我是应届生，岗位还没定"]},"suggestedQuestionsAfterAnswer":{"enabled":true},"chatBackground":{"enabled":true}}'
+  category: 10
+  dslVersion: v1
+flowData:
+  nodes:
+  - id: node-start::fa611938-9ee8-4756-9480-de538a31f56c
+    dragging: false
+    selected: false
+    width: 255
+    height: 73
+    position:
+      x: 0
+      y: 48.94453131634256
+    positionAbsolute:
+      x: -658.9520719869857
+      y: 229.128064704115
+    type: 开始节点
+    data:
+      allowInputReference: false
+      allowOutputReference: true
+      label: 开始
+      status: ''
+      nodeMeta:
+        aliasName: 开始节点
+        nodeType: 基础节点
+      inputs: [
+        ]
+      outputs:
+      - id: cad1c5f4-5a67-4b96-b8a2-e9ccbef03f89
+        name: AGENT_USER_INPUT
+        nameErrMsg: ''
+        schema:
+          type: string
+          default: 用户本轮对话输入内容
+        required: true
+        deleteDisabled: true
+      nodeParam: {
+        }
+      icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/start-node-icon.png
+      description: 工作流的开启节点，用于定义流程调用所需的业务变量信息。
+      updatable: false
+  - id: node-end::051340b1-7118-4842-9ae5-fae466e13054
+    dragging: false
+    selected: false
+    width: 255
+    height: 73
+    position:
+      x: 2172.0910120574204
+      y: 42.39752770335309
+    positionAbsolute:
+      x: 2172.0910120574204
+      y: 42.39752770335309
+    type: 结束节点
+    data:
+      allowInputReference: true
+      allowOutputReference: false
+      label: 结束
+      references: [
+        ]
+      status: ''
+      nodeMeta:
+        aliasName: 结束节点
+        nodeType: 基础节点
+      inputs:
+      - id: b99a49b9-200b-4817-960d-bbca0982ca57
+        name: output
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: output
+              id: 20e5e2e5-2c24-4e26-8514-ae28cb5fecf4
+              nodeId: spark-llm::b6927f92-d655-4c5d-92ad-deff6af18ba9
+            contentErrMsg: ''
+        fileType: ''
+      outputs: [
+        ]
+      nodeParam:
+        template: |-
+          📊 **诊断完成！** 以下几个建议帮你最大化利用这份报告：
+
+          1️⃣ 重点看「四、补齐方案」，这是你接下来 4 周的行动指南
+          2️⃣ 对照「三、关键差距」，优先补最影响求职成败的短板
+          3️⃣ 保存「五、面试准备建议」，面试前一天再复习一遍
+
+          ---
+
+          {{output}}
+
+          ---
+
+          💡 **觉得报告有帮助？你可以：**
+          - 🔄 发送「重新诊断」换一个岗位试试
+          - ⭐ 收藏本次对话，随时回顾
+          - 📤 分享给同届同学，一起备战秋招
+
+          > ——你的AI职业诊断官，**职引**。
+        streamOutput: true
+        templateErrMsg: ''
+        outputMode: 1
+        reasoningTemplate: |-
+          诊断完成 ✅ 我已根据你的目标岗位、教育背景和实践经验，为你生成了一份完整的能力诊断报告。
+
+          📋 报告包含 6 个核心板块：岗位能力拆解 → 现状评估 → 差距分析 → 4周行动表 → 面试建议 → 综合评级。
+
+          建议你仔细阅读每个章节，特别关注「关键差距 TOP3」和「4周行动表」，这两部分最值得立刻行动。
+      icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/end-node-icon.png
+      description: 工作流的结束节点，用于输出工作流运行后的最终结果。
+      updatable: false
+  - id: spark-llm::b6927f92-d655-4c5d-92ad-deff6af18ba9
+    dragging: false
+    selected: false
+    width: 361
+    height: 123
+    position:
+      x: 1737.9740624568085
+      y: 20.655442126940812
+    positionAbsolute:
+      x: 1737.9740624568085
+      y: 20.655442126940812
+    type: 大模型
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: 生成诊断报告
+      labelEdit: false
+      references: [
+        ]
+      status: ''
+      nodeMeta:
+        aliasName: 大模型
+        nodeType: 基础节点
+      inputs:
+      - id: 11fe142c-ec86-439f-b94e-18816d43e878
+        name: input
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: content
+              id: db2c8ecc-0b36-400a-b006-756a7db2e017
+              nodeId: question-answer::3f928444-790d-4fd6-a5d6-471ccd3bc5d3
+            contentErrMsg: ''
+        fileType: ''
+      - id: 7d8844af-31ec-47be-a734-3be37cec87a2
+        name: target_position
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: target_position
+              id: 94727644-02ed-4c81-9a62-47d21208c480
+              nodeId: question-answer::c17e1d8f-8e96-4c77-9f8e-83222d463c25
+            contentErrMsg: ''
+        fileType: ''
+      - id: 87c3ef4e-8aa5-42c5-9948-11b4ae29c411
+        name: major
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: major
+              id: 9864f6bc-95fd-4d68-9fed-5834c97e4164
+              nodeId: question-answer::8b7f2f5a-d6e6-4d90-a0b8-3bb1886efad6
+            contentErrMsg: ''
+        fileType: ''
+      - id: b9ff7742-f401-4307-bf53-35e1af7bc77e
+        name: grade
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: grade
+              id: 6404118a-37cc-464b-abeb-e7a67ab8d23f
+              nodeId: question-answer::8b7f2f5a-d6e6-4d90-a0b8-3bb1886efad6
+            contentErrMsg: ''
+        fileType: ''
+      - id: 7cd972bf-ac7b-4e31-8efc-1cdb45b92c0b
+        name: internship
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: internship
+              id: 6b12c97b-6d74-4409-b372-fe0b82934d31
+              nodeId: question-answer::3f928444-790d-4fd6-a5d6-471ccd3bc5d3
+            contentErrMsg: ''
+        fileType: ''
+      - id: b3b9e14f-38f0-44e6-9e7b-e34b987bddd9
+        name: skills
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: skills
+              id: c6f0f4c8-d2ce-482b-a52e-bf35143d4589
+              nodeId: question-answer::3f928444-790d-4fd6-a5d6-471ccd3bc5d3
+            contentErrMsg: ''
+        fileType: ''
+      outputs:
+      - id: 20e5e2e5-2c24-4e26-8514-ae28cb5fecf4
+        name: output
+        nameErrMsg: ''
+        schema:
+          type: string
+          default: 大模型回复内容
+      nodeParam:
+        template: '{{input}}'
+        modelId: 10000015
+        handlingEdge: normal_one_of::397da8bf-69b9-491f-b3fa-d75153bb58d9
+        auditing: default
+        llmId: 10000015
+        uid: '21912656217'
+        patchId: '0'
+        isThink: false
+        templateErrMsg: ''
+        appId: 12a0a7e2
+        maxTokens: 8192
+        temperature: 0.5
+        model: spark
+        modelEnabled: true
+        serviceId: xdeepseekv31
+        llmIdErrMsg: ''
+        topK: 4
+        enableChatHistoryV2:
+          isEnabled: false
+          rounds: 1
+        exceptionHandlingEdge: fail_one_of::49344075-37d0-4403-b804-dc978946d80b
+        url: wss://maas-api.cn-huabei-1.xf-yun.com/v1.1/chat
+        multiMode: false
+        modelName: DeepSeek-V3.1
+        searchDisable: true
+        domain: xopdeepseekv32
+        systemTemplate: |-
+          你是「职引」——一位拥有12年校招经验的资深就业辅导顾问。
+          你的背景：前字节跳动3年校招面试官、前阿里P7产品专家，累计辅导3000+大学生拿到心仪Offer。
+          你的风格：温暖但不敷衍，专业但不居高临下，敢于指出真实差距但始终给出可执行的解决方案。
+
+          你正在为一名中国大学生做目标岗位能力诊断。请基于以下信息生成诊断报告。
+
+          【学生信息】
+          目标岗位：{{target_position}}
+          当前专业：{{major}}
+          当前年级：{{grade}}
+          实习或项目经历：{{internship}}
+          掌握工具或技能：{{skills}}
+
+          ═══════════════════════════════════════
+          ██  6 大不可违背的输出铁律  ██
+          ═══════════════════════════════════════
+
+          【铁律1：固定结构】报告必须严格包含以下6章，不得增减：
+          ## 一、{{target_position}} 岗位核心能力拆解（正好6项，用表格）
+          ## 二、能力现状评估（正好6项对应一中的6项，用表格）
+          ## 三、关键差距分析 TOP3（正好3项，用表格）
+          ## 四、补齐方案：4周行动表（严格4行：P0/P1/P2/P3，用表格）
+          ## 五、面试准备建议（正好5条，用编号列表）
+          ## 六、整体评分与寄语
+
+          【铁律2：评分可解释】
+          - 第二章评估依据栏必须直接引用学生原话（如"你提到有Hive实习经验"）
+          - 评分≤5分的维度必须附带1句改进建议
+          - 严禁出现无依据的高分或低分
+
+          【铁律3：知识库引用】
+          - 第四章行动表中必须至少引用2个专业方法/工具名词（如RFM模型、STAR法则、窗口函数、LeetCode Hot 100等）
+          - 第五章面试建议必须覆盖：①项目深挖准备 ②业务场景题 ③反问环节策略
+
+          【铁律4：绝对禁止幻觉】
+          - 严禁编造具体课程名称、薪资数字、公司内部信息
+          - 不确定的信息用"建议自行查证"替代
+
+          【铁律5：温度开场】
+          - 报告开头必须有1-2句有温度的开场白，显式提及学生的目标岗位
+          - 示例："同学你好！看到你把{{target_position}}作为目标方向，这是一个非常有前景的选择。让我们一起来看看你的准备情况👇"
+
+          【铁律6：字数与格式】
+          - 总字数严格控制在1500~1800字
+          - 必须使用Markdown标题、表格、加粗
+          - 表格列对齐，列表编号连续
+
+          ═══════════════════════════════════════
+          ██  量化评分对照标准（第六章使用）  ██
+          ═══════════════════════════════════════
+
+          | 评级 | 分数 | 对应画像 |
+          |------|------|----------|
+          | S 级 | 8.5-10 | 985/顶尖211 + 2段大厂核心实习 + 完整上线项目 + 国赛/顶会 |
+          | A 级 | 7.0-8.4 | 211/强校 + 1段大厂实习 + 个人side project |
+          | B+ 级 | 6.0-6.9 | 普通本科 + 1段普通实习 + 有一定技能基础 |
+          | B 级 | 5.0-5.9 | 普通本科 + 0~1段实习 + 课程项目为主 |
+          | C+ 级 | 4.0-4.9 | 普通本科 + 0实习 + 基础薄弱 |
+          | C 级 | 3.0-3.9 | 严重缺乏准备 |
+
+          第六章格式要求：
+          - 综合能力评分：X.X/10
+          - 校招竞争力评级：X 级
+          - 一句话寄语（2-3句，温暖鼓励但不虚假）
+
+          ---
+          你的AI职业诊断官，职引。
+        respFormat: 0
+      retryConfig:
+        maxRetries: 1
+        shouldRetry: false
+      icon: https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/icon-wrapper-model.svg
+      description: 根据输入的提示词，调用选定的大模型，对提示词作出回答
+      updatable: false
+  - id: question-answer::c17e1d8f-8e96-4c77-9f8e-83222d463c25
+    dragging: false
+    selected: false
+    width: 361
+    height: 171
+    position:
+      x: 363.7399756390115
+      y: 0
+    positionAbsolute:
+      x: 397.0379560528994
+      y: 45.27076400020928
+    type: 问答节点
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: 询问目标岗位
+      labelEdit: false
+      references: [
+        ]
+      status: ''
+      nodeMeta:
+        aliasName: 问答节点
+        nodeType: 基础节点
+      inputs:
+      - id: b37fdd5e-d8e8-4baf-ae17-fd3618422b49
+        name: input
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: AGENT_USER_INPUT
+              id: cad1c5f4-5a67-4b96-b8a2-e9ccbef03f89
+              nodeId: node-start::fa611938-9ee8-4756-9480-de538a31f56c
+            contentErrMsg: ''
+        fileType: ''
+      outputs:
+      - id: 11cc9bdf-951b-4066-b854-dcbf92175cfc
+        name: query
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 该节点提问内容
+          default: ''
+        required: true
+      - id: a124b510-30ec-4644-9615-b0009121386e
+        name: content
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 用户回复内容
+          default: ''
+        required: true
+      - id: 94727644-02ed-4c81-9a62-47d21208c480
+        name: target_position
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: |-
+            从用户回复中提取目标岗位方向。
+            要求：输出标准岗位名称，如"产品经理"、"数据分析师"、"Java后端开发"、"前端开发"、"算法工程师"、"UI设计师"、"运营"、"市场营销"等。
+            如果用户提到多个方向，提取第一个（首选方向）。
+            如果用户表示犹豫、还没想好，输出"未明确"。
+          default: string
+        required: true
+      nodeParam:
+        modelId: 141
+        llmId: 141
+        timeout: 3
+        uid: '21912656217'
+        patchId: '0'
+        isThink: false
+        appId: 12a0a7e2
+        maxTokens: 8192
+        temperature: 0.5
+        model: spark
+        modelEnabled: true
+        serviceId: xdeepseekv3
+        llmIdErrMsg: ''
+        needReply: false
+        questionErrMsg: ''
+        topK: 4
+        question: |-
+          嗨同学 👋 我是「职引」，你的AI职业诊断官！
+
+          在开始诊断之前，先告诉我：**你最想拿到哪个方向的 Offer？**
+
+          比如：
+          🔹 产品经理 / 数据分析师 / 后端开发
+          🔹 前端开发 / 算法工程师 / UI设计师
+          🔹 运营 / 市场营销 / 公务员 / 教师 ...
+
+          > 💡 如果还没完全确定也没关系，告诉我你目前最倾向的方向就行，我们可以先做一次诊断看看匹配度！
+        answerType: direct
+        url: wss://maas-api.cn-huabei-1.xf-yun.com/v1.1/chat
+        multiMode: false
+        modelName: DeepSeek-V3
+        searchDisable: true
+        domain: xdeepseekv3
+        directAnswer:
+          handleResponse: true
+          maxRetryCounts: 2
+        optionAnswer:
+        - content_type: string
+          name: A
+          id: option-one-of::59c31e87-c983-444a-b735-f0e8c1bf4423
+          type: 2
+          content: ''
+        - content_type: string
+          name: B
+          id: option-one-of::4ffda197-6dbb-4f4a-b3e8-44e3f45e4084
+          type: 2
+          content: ''
+        - content_type: string
+          name: default
+          id: option-one-of::1599f966-e680-43ed-a7d4-b0a507354288
+          type: 1
+          content: ''
+      icon: https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/user/sparkBot_1770185704717_question-answer%401x.png
+      description: 支持在此节点向用户提问，接收用户回复，并输出回复内容及提取的信息
+      updatable: false
+  - id: question-answer::8b7f2f5a-d6e6-4d90-a0b8-3bb1886efad6
+    dragging: false
+    selected: false
+    width: 361
+    height: 171
+    position:
+      x: 833.359958814538
+      y: 1.6585640295829762E-5
+    positionAbsolute:
+      x: 795.7879560528993
+      y: 46.770764000209255
+    type: 问答节点
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: 询问教育背景
+      labelEdit: false
+      references: [
+        ]
+      status: ''
+      nodeMeta:
+        aliasName: 问答节点
+        nodeType: 基础节点
+      inputs:
+      - id: 4455671f-d0e1-47df-bdb7-882c48c59997
+        name: input
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: AGENT_USER_INPUT
+              id: cad1c5f4-5a67-4b96-b8a2-e9ccbef03f89
+              nodeId: node-start::fa611938-9ee8-4756-9480-de538a31f56c
+            contentErrMsg: ''
+        fileType: ''
+      - id: 7d34206f-fcd9-4b43-9933-7589a768af3e
+        name: target_position
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: target_position
+              id: 94727644-02ed-4c81-9a62-47d21208c480
+              nodeId: question-answer::c17e1d8f-8e96-4c77-9f8e-83222d463c25
+            contentErrMsg: ''
+        fileType: ''
+      outputs:
+      - id: 8b09facc-9b95-48fe-b5d3-e603e76544f1
+        name: query
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 该节点提问内容
+          default: ''
+        required: true
+      - id: fb251380-30b3-4a3c-81de-d70bd82dabcd
+        name: content
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 用户回复内容
+          default: ''
+        required: true
+      - id: 9864f6bc-95fd-4d68-9fed-5834c97e4164
+        name: major
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: |-
+            从用户回复中提取当前所学专业名称。
+            要求：输出标准专业名，如"计算机科学与技术"、"软件工程"、"金融学"、"市场营销"等。
+            如果用户未明确细分专业，按大类填写，如"工科（未细分）"、"商科（未细分）"。
+            如果完全无法判断，输出"未提及"。
+          default: ''
+        required: true
+      - id: 6404118a-37cc-464b-abeb-e7a67ab8d23f
+        name: grade
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: |-
+            从用户回复中提取当前年级。
+            必须输出以下9个固定标签之一：大一、大二、大三、大四、研一、研二、研三、已毕业、已工作。
+            如果用户说"大三下"或"大三下学期"，统一输出"大三"。
+            如果无法判断，输出"大四"作为默认值。
+          default: ''
+        required: true
+      nodeParam:
+        modelId: 141
+        llmId: 141
+        timeout: 3
+        uid: '21912656217'
+        patchId: '0'
+        isThink: false
+        appId: 12a0a7e2
+        maxTokens: 8192
+        temperature: 0.5
+        model: spark
+        modelEnabled: true
+        serviceId: xdeepseekv3
+        llmIdErrMsg: ''
+        needReply: false
+        questionErrMsg: ''
+        topK: 4
+        question: |-
+          收到！**{{target_position}}** 是个很有发展前景的方向 👍
+
+          接下来我需要了解你的教育背景，这样才能更精准地评估你的起点。请告诉我：
+
+          1️⃣ 你的**专业**是什么？
+          2️⃣ 你目前是**几年级**？（大一~大四 / 研一~研三 / 已毕业）
+
+          > 📝 格式参考：「计算机科学，大三」或「金融学，研二」
+          >
+          > 💡 跨专业转行也完全OK，很多成功案例都是跨专业选手！如实告诉我就好，诊断会帮你找到跨专业的突破口。
+        answerType: direct
+        url: wss://maas-api.cn-huabei-1.xf-yun.com/v1.1/chat
+        multiMode: false
+        modelName: DeepSeek-V3
+        searchDisable: true
+        domain: xdeepseekv3
+        directAnswer:
+          handleResponse: true
+          maxRetryCounts: 2
+        optionAnswer:
+        - content_type: string
+          name: A
+          id: option-one-of::4fa6a6d1-974a-4064-9a69-d7a972055d0b
+          type: 2
+          content: ''
+        - content_type: string
+          name: B
+          id: option-one-of::48f76038-4d0e-4aaa-9079-089df556d397
+          type: 2
+          content: ''
+        - content_type: string
+          name: default
+          id: option-one-of::03551310-b940-48a6-bca4-41839b93d5ee
+          type: 1
+          content: ''
+      icon: https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/user/sparkBot_1770185704717_question-answer%401x.png
+      description: 支持在此节点向用户提问，接收用户回复，并输出回复内容及提取的信息
+      updatable: false
+  - id: question-answer::3f928444-790d-4fd6-a5d6-471ccd3bc5d3
+    dragging: false
+    selected: false
+    width: 361
+    height: 171
+    position:
+      x: 1302.9799419900644
+      y: 0
+    positionAbsolute:
+      x: 1214.6997678487785
+      y: 44.91801118372868
+    type: 问答节点
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: 询问实践经验
+      labelEdit: false
+      references: [
+        ]
+      status: ''
+      nodeMeta:
+        aliasName: 问答节点
+        nodeType: 基础节点
+      inputs:
+      - id: 4ba2a617-4e6d-4b2e-b912-3767065017af
+        name: input
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: content
+              id: fb251380-30b3-4a3c-81de-d70bd82dabcd
+              nodeId: question-answer::8b7f2f5a-d6e6-4d90-a0b8-3bb1886efad6
+            contentErrMsg: ''
+        fileType: ''
+      - id: 7d34206f-fcd9-4b43-9933-7589a768af3e
+        name: target_position
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: target_position
+              id: 94727644-02ed-4c81-9a62-47d21208c480
+              nodeId: question-answer::c17e1d8f-8e96-4c77-9f8e-83222d463c25
+            contentErrMsg: ''
+        fileType: ''
+      outputs:
+      - id: eb79003a-bd52-4d6b-98a6-6309b36d64a0
+        name: query
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 该节点提问内容
+          default: ''
+        required: true
+      - id: db2c8ecc-0b36-400a-b006-756a7db2e017
+        name: content
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 用户回复内容
+          default: ''
+        required: true
+      - id: 6b12c97b-6d74-4409-b372-fe0b82934d31
+        name: internship
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: |-
+            从用户回复中提取实习或项目经历。
+            要求：保留学生原话中的关键信息，包括公司/项目名称、职责描述、量化成果。
+            如果用户说"暂无"或"没有"，输出"暂无实习或项目经历"。
+            不要编造或推测用户未提及的经历。
+          default: ''
+        required: true
+      - id: c6f0f4c8-d2ce-482b-a52e-bf35143d4589
+        name: skills
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: |-
+            从用户回复中提取掌握的工具和技能。
+            要求：以顿号分隔，标准化输出。如"Python、SQL、Excel、Tableau"。
+            如果用户说"暂无"或未提及任何技能，输出"暂无明确技能"。
+            保留用户原话中提到的所有工具、编程语言、框架、软件名称。
+          default: ''
+        required: true
+      nodeParam:
+        modelId: 141
+        llmId: 141
+        timeout: 3
+        uid: '21912656217'
+        patchId: '0'
+        isThink: false
+        appId: 12a0a7e2
+        maxTokens: 8192
+        temperature: 0.5
+        model: spark
+        modelEnabled: true
+        serviceId: xdeepseekv3
+        llmIdErrMsg: ''
+        needReply: false
+        questionErrMsg: ''
+        topK: 4
+        question: |-
+          了解了！最后一个关键问题——你的**实战经验**。
+
+          这部分信息对诊断质量影响最大，请尽量详细地告诉我：
+
+          📌 **实习经历**：你做过哪些实习？在哪家公司/什么岗位？主要做了什么？
+          📌 **技能工具**：你会使用哪些与 **{{target_position}}** 相关的工具？（如 SQL、Python、Figma、Axure、Java、Spring 等）
+          📌 **比赛/项目/证书**：参加过相关比赛？有个人项目或作品集？考过什么证？
+
+          > 📝 格式参考：「在XX公司做过3个月数据分析实习，主要用SQL+Python做用户行为分析；会用Tableau做报表；参加过数学建模比赛获省二等奖」
+          >
+          > 💡 如果暂时没有实习经历也没关系，回复「暂无」即可。课程项目、自学经历、校园活动都可以写上来！你的信息我会严格保密，仅用于本次诊断 🔒
+        answerType: direct
+        url: wss://maas-api.cn-huabei-1.xf-yun.com/v1.1/chat
+        multiMode: false
+        modelName: DeepSeek-V3
+        searchDisable: true
+        domain: xdeepseekv3
+        directAnswer:
+          handleResponse: true
+          maxRetryCounts: 2
+        optionAnswer:
+        - content_type: string
+          name: A
+          id: option-one-of::74f89122-e1ba-407c-a2b4-7fb4765b94df
+          type: 2
+          content: ''
+        - content_type: string
+          name: B
+          id: option-one-of::194cdb39-fcd9-4621-bd42-5f2e059f677a
+          type: 2
+          content: ''
+        - content_type: string
+          name: default
+          id: option-one-of::e2dc7cdb-32a3-414f-8829-80de5ab5b089
+          type: 1
+          content: ''
+      icon: https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/user/sparkBot_1770185704717_question-answer%401x.png
+      description: 支持在此节点向用户提问，接收用户回复，并输出回复内容及提取的信息
+      updatable: false
+  edges:
+  - source: node-start::fa611938-9ee8-4756-9480-de538a31f56c
+    target: question-answer::c17e1d8f-8e96-4c77-9f8e-83222d463c25
+    type: customEdge
+    id: reactflow__edge-node-start::fa611938-9ee8-4756-9480-de538a31f56c-question-answer::c17e1d8f-8e96-4c77-9f8e-83222d463c25
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: question-answer::8b7f2f5a-d6e6-4d90-a0b8-3bb1886efad6
+    target: question-answer::3f928444-790d-4fd6-a5d6-471ccd3bc5d3
+    type: customEdge
+    id: reactflow__edge-question-answer::8b7f2f5a-d6e6-4d90-a0b8-3bb1886efad6-question-answer::3f928444-790d-4fd6-a5d6-471ccd3bc5d3
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: spark-llm::b6927f92-d655-4c5d-92ad-deff6af18ba9
+    sourceHandle: normal_one_of::397da8bf-69b9-491f-b3fa-d75153bb58d9
+    target: node-end::051340b1-7118-4842-9ae5-fae466e13054
+    type: customEdge
+    id: reactflow__edge-spark-llm::b6927f92-d655-4c5d-92ad-deff6af18ba9normal_one_of::397da8bf-69b9-491f-b3fa-d75153bb58d9-node-end::051340b1-7118-4842-9ae5-fae466e13054
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: question-answer::c17e1d8f-8e96-4c77-9f8e-83222d463c25
+    target: question-answer::8b7f2f5a-d6e6-4d90-a0b8-3bb1886efad6
+    type: customEdge
+    id: reactflow__edge-question-answer::c17e1d8f-8e96-4c77-9f8e-83222d463c25-question-answer::8b7f2f5a-d6e6-4d90-a0b8-3bb1886efad6
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: question-answer::3f928444-790d-4fd6-a5d6-471ccd3bc5d3
+    target: spark-llm::b6927f92-d655-4c5d-92ad-deff6af18ba9
+    type: customEdge
+    id: reactflow__edge-question-answer::3f928444-790d-4fd6-a5d6-471ccd3bc5d3-spark-llm::b6927f92-d655-4c5d-92ad-deff6af18ba9
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
