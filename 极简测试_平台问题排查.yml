@@ -1,0 +1,216 @@
+flowMeta:
+  name: 极简测试_平台问题排查
+  description: 极简3节点流程，用于排查平台问答节点是否正常工作
+  avatarIcon: https://oss-beijing-m8.openstorage.cn/SparkBotProd/aicloud-robot/user-icon/d626d6e10706a87ecee3af8321424257.jpg
+  avatarColor: '#4F8BFF'
+  advancedConfig: '{"needGuide":false,"prologue":{"enabled":true,"prologueText":"这是一个测试流程。我会问你叫什么名字。","inputExample":["张无忌","小红","我是小李"]}}'
+  category: 10
+  dslVersion: v1
+flowData:
+  nodes:
+  - id: node-start::11111111-1111-1111-1111-111111111111
+    dragging: false
+    selected: false
+    width: 255
+    height: 73
+    position:
+      x: -200
+      y: 0
+    positionAbsolute:
+      x: -200
+      y: 0
+    type: 开始节点
+    data:
+      allowInputReference: false
+      allowOutputReference: true
+      label: 开始
+      status: ''
+      nodeMeta:
+        aliasName: 开始节点
+        nodeType: 基础节点
+      inputs: []
+      outputs:
+      - id: cad1c5f4-5a67-4b96-b8a2-e9ccbef03f89
+        name: AGENT_USER_INPUT
+        nameErrMsg: ''
+        schema:
+          type: string
+          default: 用户本轮对话输入内容
+        required: true
+        deleteDisabled: true
+      nodeParam: {}
+      icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/start-node-icon.png
+      description: 工作流的开启节点，用于定义流程调用所需的业务变量信息。
+      updatable: false
+  - id: question-answer::22222222-2222-2222-2222-222222222222
+    dragging: false
+    selected: false
+    width: 361
+    height: 171
+    position:
+      x: 200
+      y: -50
+    positionAbsolute:
+      x: 200
+      y: -50
+    type: 问答节点
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: 询问名字
+      labelEdit: false
+      references: []
+      status: ''
+      nodeMeta:
+        aliasName: 问答节点
+        nodeType: 基础节点
+      inputs:
+      - id: b37fdd5e-d8e8-4baf-ae17-fd3618422b49
+        name: input
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: AGENT_USER_INPUT
+              id: cad1c5f4-5a67-4b96-b8a2-e9ccbef03f89
+              nodeId: node-start::11111111-1111-1111-1111-111111111111
+            contentErrMsg: ''
+        fileType: ''
+      outputs:
+      - id: 11cc9bdf-951b-4066-b854-dcbf92175cfc
+        name: query
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 该节点提问内容
+          default: ''
+        required: true
+      - id: a124b510-30ec-4644-9615-b0009121386e
+        name: content
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 用户回复内容
+          default: ''
+        required: true
+      - id: c0f0c0f0-c0f0-c0f0-c0f0-c0f0c0f0c0f0
+        name: name
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 用户自报的姓名，如"张三"、"李四"等。
+          default: ''
+        required: true
+      nodeParam:
+        modelId: 141
+        llmId: 141
+        timeout: 3
+        uid: '21912656217'
+        patchId: '0'
+        isThink: false
+        appId: 12a0a7e2
+        maxTokens: 8192
+        temperature: 0.5
+        model: spark
+        modelEnabled: true
+        serviceId: xdeepseekv3
+        llmIdErrMsg: ''
+        needReply: false
+        questionErrMsg: ''
+        topK: 4
+        question: 你好呀！请告诉我你的名字是什么？
+        answerType: direct
+        url: wss://maas-api.cn-huabei-1.xf-yun.com/v1.1/chat
+        multiMode: false
+        modelName: DeepSeek-V3
+        searchDisable: true
+        domain: xdeepseekv3
+        directAnswer:
+          handleResponse: true
+          maxRetryCounts: 5
+        optionAnswer:
+        - content_type: string
+          name: A
+          id: option-one-of::a1111111-a111-a111-a111-a11111111111
+          type: 2
+          content: ''
+        - content_type: string
+          name: B
+          id: option-one-of::b2222222-b222-b222-b222-b22222222222
+          type: 2
+          content: ''
+        - content_type: string
+          name: default
+          id: option-one-of::c3333333-c333-c333-c333-c33333333333
+          type: 1
+          content: ''
+      icon: https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/user/sparkBot_1770185704717_question-answer%401x.png
+      description: 支持在此节点向用户提问，接收用户回复，并输出回复内容及提取的信息
+      updatable: false
+  - id: node-end::33333333-3333-3333-3333-333333333333
+    dragging: false
+    selected: false
+    width: 255
+    height: 73
+    position:
+      x: 700
+      y: -50
+    positionAbsolute:
+      x: 700
+      y: -50
+    type: 结束节点
+    data:
+      allowInputReference: true
+      allowOutputReference: false
+      label: 结束
+      references: []
+      status: ''
+      nodeMeta:
+        aliasName: 结束节点
+        nodeType: 基础节点
+      inputs:
+      - id: b99a49b9-200b-4817-960d-bbca0982ca57
+        name: output
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: content
+              id: a124b510-30ec-4644-9615-b0009121386e
+              nodeId: question-answer::22222222-2222-2222-2222-222222222222
+            contentErrMsg: ''
+        fileType: ''
+      outputs: []
+      nodeParam:
+        template: |-
+          你好，{{output}}！欢迎使用职引 AI 职业诊断官。
+        streamOutput: false
+        templateErrMsg: ''
+        outputMode: 0
+        reasoningTemplate: 名字已收到，回复问候语。
+      icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/end-node-icon.png
+      description: 工作流的结束节点，用于输出工作流运行后的最终结果。
+      updatable: false
+  edges:
+  - source: node-start::11111111-1111-1111-1111-111111111111
+    target: question-answer::22222222-2222-2222-2222-222222222222
+    type: customEdge
+    id: reactflow__edge-node-start-test-question-answer-test
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: question-answer::22222222-2222-2222-2222-222222222222
+    target: node-end::33333333-3333-3333-3333-333333333333
+    type: customEdge
+    id: reactflow__edge-question-answer-test-node-end-test
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve

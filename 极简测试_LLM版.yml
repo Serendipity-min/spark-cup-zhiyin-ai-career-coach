@@ -1,0 +1,380 @@
+flowMeta:
+  name: 极简测试_平台问题排查_LLM版
+  description: 用大模型节点替代问答节点，绕过平台问答节点Bug。极简4节点流程。
+  avatarIcon: https://oss-beijing-m8.openstorage.cn/SparkBotProd/aicloud-robot/user-icon/d626d6e10706a87ecee3af8321424257.jpg
+  avatarColor: '#4F8BFF'
+  advancedConfig: '{"needGuide":false,"prologue":{"enabled":true,"prologueText":"这是一个应急测试流程。","inputExample":["你好","我叫什么不重要"]}}'
+  category: 10
+  dslVersion: v1
+flowData:
+  nodes:
+  - id: node-start::11111111-1111-1111-1111-111111111111
+    dragging: false
+    selected: false
+    width: 255
+    height: 73
+    position:
+      x: -300
+      y: 0
+    positionAbsolute:
+      x: -300
+      y: 0
+    type: 开始节点
+    data:
+      allowInputReference: false
+      allowOutputReference: true
+      label: 开始
+      status: ''
+      nodeMeta:
+        aliasName: 开始节点
+        nodeType: 基础节点
+      inputs: []
+      outputs:
+      - id: cad1c5f4-5a67-4b96-b8a2-e9ccbef03f89
+        name: AGENT_USER_INPUT
+        nameErrMsg: ''
+        schema:
+          type: string
+          default: 用户本轮对话输入内容
+        required: true
+        deleteDisabled: true
+      nodeParam: {}
+      icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/start-node-icon.png
+      description: 工作流的开启节点
+      updatable: false
+  - id: llm-node::22222222-2222-2222-2222-222222222222
+    dragging: false
+    selected: false
+    width: 361
+    height: 171
+    position:
+      x: 0
+      y: -50
+    positionAbsolute:
+      x: 0
+      y: -50
+    type: 大模型节点
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: LLM_询问岗位
+      labelEdit: false
+      references: []
+      status: ''
+      nodeMeta:
+        aliasName: 大模型节点
+        nodeType: 基础节点
+      inputs:
+      - id: d1111111-d111-d111-d111-d11111111111
+        name: AGENT_USER_INPUT
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: AGENT_USER_INPUT
+              id: cad1c5f4-5a67-4b96-b8a2-e9ccbef03f89
+              nodeId: node-start::11111111-1111-1111-1111-111111111111
+            contentErrMsg: ''
+        fileType: ''
+      outputs:
+      - id: e1111111-e111-e111-e111-e11111111111
+        name: output
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 大模型的回复内容
+          default: ''
+        required: true
+      nodeParam:
+        modelId: 141
+        llmId: 141
+        timeout: 3
+        uid: '21912656217'
+        patchId: '0'
+        isThink: false
+        appId: 12a0a7e2
+        maxTokens: 8192
+        temperature: 0.5
+        model: spark
+        modelEnabled: true
+        serviceId: xdeepseekv3
+        llmIdErrMsg: ''
+        topK: 4
+        systemPrompt: 你是职业诊断助手。请用一句简短友好的话问候用户，然后问他/她："请问您想投递哪个岗位？"
+        url: wss://maas-api.cn-huabei-1.xf-yun.com/v1.1/chat
+        multiMode: false
+        modelName: DeepSeek-V3
+        searchDisable: true
+        domain: xdeepseekv3
+        prompt:
+          type: string
+          value: 用户说：{{AGENT_USER_INPUT}}
+          default: 用户说：{{AGENT_USER_INPUT}}
+      icon: https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/user/sparkBot_1770185704717_model%401x.png
+      description: 用大模型处理问候和提问
+      updatable: false
+  - id: llm-node::33333333-3333-3333-3333-333333333333
+    dragging: false
+    selected: false
+    width: 361
+    height: 171
+    position:
+      x: 350
+      y: -50
+    positionAbsolute:
+      x: 350
+      y: -50
+    type: 大模型节点
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: LLM_询问教育
+      labelEdit: false
+      references: []
+      status: ''
+      nodeMeta:
+        aliasName: 大模型节点
+        nodeType: 基础节点
+      inputs:
+      - id: d2222222-d222-d222-d222-d22222222222
+        name: AGENT_USER_INPUT
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: AGENT_USER_INPUT
+              id: cad1c5f4-5a67-4b96-b8a2-e9ccbef03f89
+              nodeId: node-start::11111111-1111-1111-1111-111111111111
+            contentErrMsg: ''
+        fileType: ''
+      outputs:
+      - id: e2222222-e222-e222-e222-e22222222222
+        name: output
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 大模型的回复内容
+          default: ''
+        required: true
+      nodeParam:
+        modelId: 141
+        llmId: 141
+        timeout: 3
+        uid: '21912656217'
+        patchId: '0'
+        isThink: false
+        appId: 12a0a7e2
+        maxTokens: 8192
+        temperature: 0.5
+        model: spark
+        modelEnabled: true
+        serviceId: xdeepseekv3
+        llmIdErrMsg: ''
+        topK: 4
+        systemPrompt: 你是职业诊断助手。用户刚回答了目标岗位。现在请简短确认用户说的岗位，然后问下一个问题："请问您的教育背景是什么？（比如：计算机本科大三）"
+        url: wss://maas-api.cn-huabei-1.xf-yun.com/v1.1/chat
+        multiMode: false
+        modelName: DeepSeek-V3
+        searchDisable: true
+        domain: xdeepseekv3
+        prompt:
+          type: string
+          value: 用户说：{{AGENT_USER_INPUT}}
+          default: 用户说：{{AGENT_USER_INPUT}}
+      icon: https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/user/sparkBot_1770185704717_model%401x.png
+      description: 用大模型处理岗位确认和教育背景询问
+      updatable: false
+  - id: llm-node::44444444-4444-4444-4444-444444444444
+    dragging: false
+    selected: false
+    width: 361
+    height: 171
+    position:
+      x: 700
+      y: -50
+    positionAbsolute:
+      x: 700
+      y: -50
+    type: 大模型节点
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: LLM_询问经验
+      labelEdit: false
+      references: []
+      status: ''
+      nodeMeta:
+        aliasName: 大模型节点
+        nodeType: 基础节点
+      inputs:
+      - id: d3333333-d333-d333-d333-d33333333333
+        name: AGENT_USER_INPUT
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: AGENT_USER_INPUT
+              id: cad1c5f4-5a67-4b96-b8a2-e9ccbef03f89
+              nodeId: node-start::11111111-1111-1111-1111-111111111111
+            contentErrMsg: ''
+        fileType: ''
+        fileType: ''
+      outputs:
+      - id: e3333333-e333-e333-e333-e33333333333
+        name: output
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 大模型的回复内容
+          default: ''
+        required: true
+      nodeParam:
+        modelId: 141
+        llmId: 141
+        timeout: 3
+        uid: '21912656217'
+        patchId: '0'
+        isThink: false
+        appId: 12a0a7e2
+        maxTokens: 8192
+        temperature: 0.5
+        model: spark
+        modelEnabled: true
+        serviceId: xdeepseekv3
+        llmIdErrMsg: ''
+        topK: 4
+        systemPrompt: 你是职业诊断助手。用户刚回答了教育背景。现在请简短确认，然后问最后一个问题："请告诉我您的实践经验和技能（比如：会Python，有过XX实习）"
+        url: wss://maas-api.cn-huabei-1.xf-yun.com/v1.1/chat
+        multiMode: false
+        modelName: DeepSeek-V3
+        searchDisable: true
+        domain: xdeepseekv3
+        prompt:
+          type: string
+          value: 用户说：{{AGENT_USER_INPUT}}
+          default: 用户说：{{AGENT_USER_INPUT}}
+      icon: https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/user/sparkBot_1770185704717_model%401x.png
+      description: 用大模型处理教育确认和经验询问
+      updatable: false
+  - id: llm-node::55555555-5555-5555-5555-555555555555
+    dragging: false
+    selected: false
+    width: 361
+    height: 171
+    position:
+      x: 1050
+      y: -50
+    positionAbsolute:
+      x: 1050
+      y: -50
+    type: 大模型节点
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: LLM_生成报告
+      labelEdit: false
+      references: []
+      status: ''
+      nodeMeta:
+        aliasName: 大模型节点
+        nodeType: 基础节点
+      inputs:
+      - id: d4444444-d444-d444-d444-d44444444444
+        name: AGENT_USER_INPUT
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: AGENT_USER_INPUT
+              id: cad1c5f4-5a67-4b96-b8a2-e9ccbef03f89
+              nodeId: node-start::11111111-1111-1111-1111-111111111111
+            contentErrMsg: ''
+        fileType: ''
+      outputs:
+      - id: e4444444-e444-e444-e444-e44444444444
+        name: output
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 大模型的回复内容
+          default: ''
+        required: true
+      nodeParam:
+        modelId: 141
+        llmId: 141
+        timeout: 3
+        uid: '21912656217'
+        patchId: '0'
+        isThink: false
+        appId: 12a0a7e2
+        maxTokens: 8192
+        temperature: 0.5
+        model: spark
+        modelEnabled: true
+        serviceId: xdeepseekv3
+        llmIdErrMsg: ''
+        topK: 4
+        systemPrompt: 你是职业诊断专家。用户刚回答了实践经验。请根据用户提供的目标岗位、教育背景和实践经验，生成一份结构化的职业诊断报告。报告需包含：
+1. 目标岗位匹配度评估
+2. 用户当前能力盘点
+3. 与目标岗位的差距分析
+4. 3-5条具体可执行的提升建议
+
+语气专业但亲切，800字以内。
+        url: wss://maas-api.cn-huabei-1.xf-yun.com/v1.1/chat
+        multiMode: false
+        modelName: DeepSeek-V3
+        searchDisable: true
+        domain: xdeepseekv3
+        prompt:
+          type: string
+          value: 用户说：{{AGENT_USER_INPUT}}。请基于此前的所有对话历史，生成职业诊断报告。
+          default: 用户说：{{AGENT_USER_INPUT}}
+      icon: https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/user/sparkBot_1770185704717_model%401x.png
+      description: 用大模型生成职业诊断报告
+      updatable: false
+  edges:
+  - source: node-start::11111111-1111-1111-1111-111111111111
+    target: llm-node::22222222-2222-2222-2222-222222222222
+    type: customEdge
+    id: reactflow__edge-start-test-llm1
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: llm-node::22222222-2222-2222-2222-222222222222
+    target: llm-node::33333333-3333-3333-3333-333333333333
+    type: customEdge
+    id: reactflow__edge-llm1-llm2
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: llm-node::33333333-3333-3333-3333-333333333333
+    target: llm-node::44444444-4444-4444-4444-444444444444
+    type: customEdge
+    id: reactflow__edge-llm2-llm3
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: llm-node::44444444-4444-4444-4444-444444444444
+    target: llm-node::55555555-5555-5555-5555-555555555555
+    type: customEdge
+    id: reactflow__edge-llm3-llm4
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve

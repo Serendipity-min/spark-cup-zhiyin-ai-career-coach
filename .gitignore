@@ -1,0 +1,28 @@
+# 系统文件
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 临时文件
+*.tmp
+*.bak
+~$*
+
+# 大文件（视频等）
+*.mp4
+*.avi
+*.mov
+*.wmv

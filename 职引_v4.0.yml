@@ -1,0 +1,1214 @@
+flowMeta:
+  name: 职引 · A20260717150000
+  description: 面向大学生的AI就业竞争力诊断智能体。通过多轮对话深挖能力画像，对比岗位需求生成差距分析与4周学习计划。
+  avatarIcon: 
+    https://openres.xfyun.cn/xfyundoc/2026-01-13/14430b84-fdb8-4443-b1ff-02964d9cc8a0/1768290625890/18%402x.png
+  avatarColor: '#4F8BFF'
+  advancedConfig: '{"needGuide":false,"prologue":{"enabled":true,"prologueText":"你好，我是「职引」——你的AI职业诊断官
+    🎯。告诉我你心仪的岗位，我帮你做一次深度能力诊断，输出一份定制化的能力差距报告与4周冲刺计划。","inputExample":["我的目标是产品经理，请帮我诊断","我想应聘数据分析师","我是应届生，岗位还没定"]},"suggestedQuestionsAfterAnswer":{"enabled":true},"chatBackground":{"enabled":true}}'
+  category: 10
+  dslVersion: v1
+flowData:
+  nodes:
+  - id: node-start::fa611938-9ee8-4756-9480-de538a31f56c
+    dragging: false
+    selected: false
+    width: 255
+    height: 73
+    position:
+      x: -119.36267961269391
+      y: 12.946262861720612
+    positionAbsolute:
+      x: -119.36267961269391
+      y: 12.946262861720612
+    type: 开始节点
+    data:
+      allowInputReference: false
+      allowOutputReference: true
+      label: 开始
+      status: ''
+      nodeMeta:
+        aliasName: 开始节点
+        nodeType: 基础节点
+      inputs: []
+      outputs:
+      - id: cad1c5f4-5a67-4b96-b8a2-e9ccbef03f89
+        name: AGENT_USER_INPUT
+        nameErrMsg: ''
+        schema:
+          type: string
+          default: 用户本轮对话输入内容
+        required: true
+        deleteDisabled: true
+      nodeParam: {}
+      icon: 
+        https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/start-node-icon.png
+      description: 工作流的开启节点，用于定义流程调用所需的业务变量信息。
+      updatable: false
+  - id: node-end::051340b1-7118-4842-9ae5-fae466e13054
+    dragging: false
+    selected: false
+    width: 255
+    height: 73
+    position:
+      x: 2299.0059007133577
+      y: 26.856929092422007
+    positionAbsolute:
+      x: 2299.0059007133577
+      y: 26.856929092422007
+    type: 结束节点
+    data:
+      allowInputReference: true
+      allowOutputReference: false
+      label: 结束
+      references: []
+      status: ''
+      nodeMeta:
+        aliasName: 结束节点
+        nodeType: 基础节点
+      inputs:
+      - id: b99a49b9-200b-4817-960d-bbca0982ca57
+        name: output
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: output
+              id: 20e5e2e5-2c24-4e26-8514-ae28cb5fecf4
+              nodeId: spark-llm::b6927f92-d655-4c5d-92ad-deff6af18ba9
+            contentErrMsg: ''
+        fileType: ''
+      outputs: []
+      nodeParam:
+        template: '{{output}}
+
+
+
+          ---
+
+
+          ✨ **觉得报告有用？**
+
+          - 点个 ⭐「收藏」方便回看，下次打开直接继续
+
+          - 分享给身边 2026 届的同学，他们一定也需要
+
+          - 回复「重新诊断」，换一个岗位再来一次
+
+
+          ---
+
+
+          你的 AI 职业诊断官，**职引**。祝你秋招顺利！'
+        streamOutput: true
+        templateErrMsg: ''
+        outputMode: 1
+        reasoningTemplate: '✅ 诊断完成！我已基于你的背景，为你生成了一份深度目标岗位能力诊断报告。请查看下方完整内容。
+
+
+          📌 **报告使用建议**：
+
+          - 🔍 **重点看「四、补齐方案」**：这是你未来 4 周的冲刺清单
+
+          - ⭐ **重点看「六、整体评分与寄语」**：这是你的起点 + 终点
+
+          - 🎯 **重点看「三、关键差距分析」**：这是你和目标岗位的真正距离
+
+
+          💡 **你还可以**：
+
+          - 🔄 回复「重新诊断」，换 1 个岗位再来一次
+
+          - 📤 把这份报告分享给身边需要的朋友'
+      icon: 
+        https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/end-node-icon.png
+      description: 工作流的结束节点，用于输出工作流运行后的最终结果。
+      updatable: false
+  - id: spark-llm::b6927f92-d655-4c5d-92ad-deff6af18ba9
+    dragging: false
+    selected: false
+    width: 361
+    height: 123
+    position:
+      x: 1737.9740624568085
+      y: 20.655442126940812
+    positionAbsolute:
+      x: 1737.9740624568085
+      y: 20.655442126940812
+    type: 大模型
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: 生成诊断报告
+      labelEdit: false
+      references: []
+      status: ''
+      nodeMeta:
+        aliasName: 大模型
+        nodeType: 基础节点
+      inputs:
+      - id: 11fe142c-ec86-439f-b94e-18816d43e878
+        name: input
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: content
+              id: db2c8ecc-0b36-400a-b006-756a7db2e017
+              nodeId: question-answer::3f928444-790d-4fd6-a5d6-471ccd3bc5d3
+            contentErrMsg: ''
+        fileType: ''
+      - id: 7d8844af-31ec-47be-a734-3be37cec87a2
+        name: target_position
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: target_position
+              id: 94727644-02ed-4c81-9a62-47d21208c480
+              nodeId: question-answer::c17e1d8f-8e96-4c77-9f8e-83222d463c25
+            contentErrMsg: ''
+        fileType: ''
+      - id: 87c3ef4e-8aa5-42c5-9948-11b4ae29c411
+        name: major
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: major
+              id: 9864f6bc-95fd-4d68-9fed-5834c97e4164
+              nodeId: question-answer::8b7f2f5a-d6e6-4d90-a0b8-3bb1886efad6
+            contentErrMsg: ''
+        fileType: ''
+      - id: b9ff7742-f401-4307-bf53-35e1af7bc77e
+        name: grade
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: grade
+              id: 6404118a-37cc-464b-abeb-e7a67ab8d23f
+              nodeId: question-answer::8b7f2f5a-d6e6-4d90-a0b8-3bb1886efad6
+            contentErrMsg: ''
+        fileType: ''
+      - id: 7cd972bf-ac7b-4e31-8efc-1cdb45b92c0b
+        name: internship
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: internship
+              id: 6b12c97b-6d74-4409-b372-fe0b82934d31
+              nodeId: question-answer::3f928444-790d-4fd6-a5d6-471ccd3bc5d3
+            contentErrMsg: ''
+        fileType: ''
+      - id: b3b9e14f-38f0-44e6-9e7b-e34b987bddd9
+        name: skills
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: skills
+              id: c6f0f4c8-d2ce-482b-a52e-bf35143d4589
+              nodeId: question-answer::3f928444-790d-4fd6-a5d6-471ccd3bc5d3
+            contentErrMsg: ''
+        fileType: ''
+      - id: a5c0d2e1-9b3f-4e8a-9c5d-7e1f2b3a4c5d
+        name: online_jd
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: msg
+              id: 1a4377dd-2444-40e3-ba8a-18020a3445c6
+              nodeId: plugin::2423857b-6779-4656-bcb0-cfbce615bdf3
+            contentErrMsg: ''
+        fileType: ''
+      outputs:
+      - id: 20e5e2e5-2c24-4e26-8514-ae28cb5fecf4
+        name: output
+        nameErrMsg: ''
+        schema:
+          type: string
+          default: 大模型回复内容
+      nodeParam:
+        template: '{{input}}
+
+
+          【v3.9可视化精细强化】⚠️ 严格可视化规范警告（输出前必读）
+
+          请严格遵守规则0中的所有可视化规范，重点注意：
+
+          1. **二节评分条必须是20格**，■数 = round(评分×2)，长度不能是18/19/21！
+
+          2. **七节成长路径条必须是10格**，■数 = round(评分)，不能是20格！
+
+          3. **四节P0-P3进度条必须是10格**，不能是12格！
+
+          4. **六节综合能力条必须是10格**。
+
+          写完后请用自检清单逐条核对，否则报告将被视为不合格！
+
+
+          **生成报告时必须使用的可视化字符**：
+
+          - 进度条：`■`（已完成）+ `□`（未完成）
+
+          - 差距图：`◆`（差距）+ `◇`（达标）
+
+          - 周进度：`━`（已完成）+ `─`（未完成）
+
+          - **不要使用 #、-、+、. 做进度条**，要美观'
+        modelId: 10000015
+        handlingEdge: normal_one_of::397da8bf-69b9-491f-b3fa-d75153bb58d9
+        auditing: default
+        llmId: 10000015
+        uid: '21912656217'
+        patchId: '0'
+        isThink: false
+        templateErrMsg: ''
+        appId: 12a0a7e2
+        maxTokens: 12288
+        temperature: 0.5
+        model: spark
+        modelEnabled: true
+        serviceId: xdeepseekv31
+        llmIdErrMsg: ''
+        topK: 4
+        enableChatHistoryV2:
+          isEnabled: false
+          rounds: 1
+        exceptionHandlingEdge: fail_one_of::49344075-37d0-4403-b804-dc978946d80b
+        url: wss://maas-api.cn-huabei-1.xf-yun.com/v1.1/chat
+        multiMode: false
+        modelName: DeepSeek-V3.1
+        searchDisable: true
+        domain: xopdeepseekv32
+        systemTemplate: "你是一位资深的大学生就业辅导顾问。\n你正在为一名中国大学生做目标岗位能力诊断。\n\n你的核心能力是：\n1.
+          联网推理：使用联网搜索工具实时获取最新校招 JD，识别岗位真实要求\n2. 结构化输出：使用 Markdown 表格、列表、加粗，让报告清晰易读\n\
+          3. 给出可执行建议：每条建议都要具体到做什么、用什么资源、衡量标准\n4. 培养能力：温暖专业、不居高临下、鼓励学生但也指出真实差距、避免虚假赞美\n\
+          \n======\n## 一、数据来源（按优先级）\n\n### 1. 学生基本信息（最重要）\n目标岗位：{{target_position}}\n\
+          当前专业：{{major}}\n当前年级：{{grade}}\n实习或项目经历：{{internship}}\n掌握工具或技能：{{skills}}\n\
+          \n### 2. 实时联网搜索（次重要）\n{{online_jd}}\n\n### 3. 知识库参考资料（辅助）\n{{kb_context}}\n\
+          \n======\n## 二、使用规则\n\n**【V4.0 核心改进】进度条必须先写\"验证行\"，再写报告内容。禁止跳过验证行！**\n\n\
+          ---\n\n**规则 0：可视化精确规范（V4.0 强制验证版）**\n\n**⚠️ V4.0 核心改进：每生成一条进度条之前，必须先写验证行，再写报告正文。验证行写在报告正文的【之前】。禁止跳过验证行直接写报告！**\n\
+          \n---\n\n### 一、字符清单（必须使用，禁止其他字符）\n\n| 用途 | 字符 | Unicode |\n|------|------|---------|\n\
+          | 能力评分（已填） | `■` | U+25A0 |\n| 能力评分（未填） | `□` | U+25A1 |\n| 差距（已有缺口） | `◆`
+          | U+25C6 |\n| 差距（已达标） | `◇` | U+25C7 |\n| 周进度（已完成） | `━` | U+2501 |\n| 周进度（未完成）
+          | `─` | U+2500 |\n\n---\n\n### 二、精确长度规范\n\n| 章节 | 用途 | 固定长度 |\n|------|------|---------|\n\
+          | 二、能力现状评估 | 能力评分条 | **20 格** |\n| 三、关键差距分析 | 差距柱状图 | **10 格** |\n| 四、补齐方案
+          | P0-P3 进度可视化 | **10 格** |\n| 四·补、时间线 | 四周总进度 | **10 格** |\n| 六、整体评分 | 综合能力条
+          | **10 格** |\n| 七、能力成长路径 | 起点/终点条 | **10 格** |\n\n---\n\n### 三、验证行机制（V4.0
+          核心改进）\n\n**每生成一条进度条之前，必须先写以下格式的验证行：**\n\n**二节验证行格式：**\n```\n【二节验证】评分 X.X
+          → ■=round(X.X×2)=N → 进度条 → [■×N + □×(20-N)] 总长=20 ✅\n```\n\n**三节验证行格式：**\n\
+          ```\n【三节验证】差距 N.N → ◆=round(N.N)=M → 进度条 → [◆×M + ◇×(10-M)] 总长=10 ✅\n```\n\
+          \n**七节验证行格式：**\n```\n【七节验证】分数 X.X → ■=round(X.X)=N → 进度条 → [■×N + □×(10-N)]
+          总长=10 ✅\n```\n\n**四·补验证行格式（直接查表，不用计算）：**\n```\n【四·补验证】第N周 → ━=N → 进度条 →
+          [━×N + ─×(10-N)] 总长=10 ✅\n```\n\n**⚠️ 重要提醒：**\n- **二节：round(X.X×2)，即先乘2再四舍五入**\n\
+          - **三节和七节：round(数值)，直接四舍五入**\n- **round(0.5)=1, round(1.5)=2, round(2.5)=3,
+          round(3.5)=4, round(4.5)=5**\n- **round(5.5)=6, round(6.5)=13, round(7.5)=15,
+          round(8.5)=17, round(9.5)=19**\n\n---\n\n### 四、二节评分条对照表（20格）\n\n**步骤：①从下表查■数
+          → ②写■×N → ③用□补齐到20格**\n\n| 评分 | ■数 | □数 | 进度条（20格） |\n|------|-----|-----|---------------|\n\
+          | 1.0 | 2 | 18 | `[■■□□□□□□□□□□□□□□□□]` |\n| 1.5 | 3 | 17 | `[■■■□□□□□□□□□□□□□□□]`
+          |\n| 2.0 | 4 | 16 | `[■■■■□□□□□□□□□□□□□□]` |\n| 2.5 | 5 | 15 | `[■■■■■□□□□□□□□□□□□□]`
+          |\n| 3.0 | 6 | 14 | `[■■■■■■□□□□□□□□□□□□]` |\n| 3.5 | 7 | 13 | `[■■■■■■■□□□□□□□□□□□□]`
+          |\n| 4.0 | 8 | 12 | `[■■■■■■■■□□□□□□□□□□]` |\n| 4.5 | 9 | 11 | `[■■■■■■■■■□□□□□□□□□□]`
+          |\n| 5.0 | 10 | 10 | `[■■■■■■■■■■□□□□□□□□□]` |\n| 5.5 | 11 | 9 | `[■■■■■■■■■■■□□□□□□□□]`
+          |\n| 6.0 | 12 | 8 | `[■■■■■■■■■■■□□□□□□□□]` |\n| 6.5 | 13 | 7 | `[■■■■■■■■■■■■□□□□□□□]`
+          |\n| 7.0 | 14 | 6 | `[■■■■■■■■■■■■■□□□□□□]` |\n| 7.5 | 15 | 5 | `[■■■■■■■■■■■■■■□□□□□]`
+          |\n| 8.0 | 16 | 4 | `[■■■■■■■■■■■■■■■□□□□]` |\n| 8.5 | 17 | 3 | `[■■■■■■■■■■■■■■■■□□□]`
+          |\n| 9.0 | 18 | 2 | `[■■■■■■■■■■■■■■■■■□□]` |\n| 9.5 | 19 | 1 | `[■■■■■■■■■■■■■■■■■■■□]`
+          |\n| 10.0 | 20 | 0 | `[■■■■■■■■■■■■■■■■■■■]` |\n\n**严格示例（必须先写验证行）：**\n```\n\
+          【二节验证】评分 3.5 → ■=round(3.5×2)=round(7)=7 → [■■■■■■■□□□□□□□□□□□□] 总长=20 ✅\n\
+          ```\n\n---\n\n### 五、三节差距条对照表（10格）\n\n**步骤：①从下表查◆数 → ②写◆×N → ③用◇补齐到10格**\n\
+          \n| 差距值 | ◆数 | ◇数 | 进度条（10格） |\n|--------|-----|------|---------------|\n\
+          | 0 | 0 | 10 | `[◇◇◇◇◇◇◇◇◇◇]` |\n| 0.5 | 1 | 9 | `[◆◇◇◇◇◇◇◇◇◇]` |\n| 1.0
+          | 1 | 9 | `[◆◇◇◇◇◇◇◇◇◇]` |\n| 1.5 | 2 | 8 | `[◆◆◇◇◇◇◇◇◇◇]` |\n| 2.0 | 2
+          | 8 | `[◆◆◇◇◇◇◇◇◇◇]` |\n| 2.5 | 3 | 7 | `[◆◆◆◇◇◇◇◇◇◇]` |\n| 3.0 | 3 | 7
+          | `[◆◆◆◇◇◇◇◇◇◇]` |\n| 3.5 | 4 | 6 | `[◆◆◆◆◇◇◇◇◇◇]` |\n| 4.0 | 4 | 6 | `[◆◆◆◆◇◇◇◇◇◇]`
+          |\n| 4.5 | 5 | 5 | `[◆◆◆◆◆◇◇◇◇◇]` |\n| 5.0 | 5 | 5 | `[◆◆◆◆◆◇◇◇◇◇]` |\n\
+          | 5.5 | 6 | 4 | `[◆◆◆◆◆◆◇◇◇◇]` |\n| 6.0 | 6 | 4 | `[◆◆◆◆◆◆◇◇◇◇]` |\n| 6.5
+          | 7 | 3 | `[◆◆◆◆◆◆◆◇◇◇]` |\n| 7.0 | 7 | 3 | `[◆◆◆◆◆◆◆◇◇◇]` |\n| 7.5 | 8
+          | 2 | `[◆◆◆◆◆◆◆◆◇◇]` |\n| 8.0 | 8 | 2 | `[◆◆◆◆◆◆◆◆◇◇]` |\n| 8.5 | 9 | 1
+          | `[◆◆◆◆◆◆◆◆◆◇]` |\n| 9.0 | 9 | 1 | `[◆◆◆◆◆◆◆◆◆◇]` |\n| 9.5 | 10 | 0 | `[◆◆◆◆◆◆◆◆◆◆]`
+          |\n| 10.0 | 10 | 0 | `[◆◆◆◆◆◆◆◆◆◆]` |\n\n**严格示例（必须先写验证行）：**\n```\n【三节验证】差距
+          2.5 → ◆=round(2.5)=3 → [◆◆◆◇◇◇◇◇◇◇] 总长=10 ✅\n```\n\n---\n\n### 六、四节 P0-P3
+          进度条对照表（10格，固定）\n\n| 优先级 | ━数 | ─数 | 进度条（10格） |\n|--------|-----|------|---------------|\n\
+          | P0 全周期 | 10 | 0 | `[━━━━━━━━━━]` |\n| P1 后3周 | 7 | 3 | `[━━━━━━━───]`
+          |\n| P2 中间2周 | 5 | 5 | `[━━━━━─────]` |\n| P3 最后1周 | 3 | 7 | `[━━━───────]`
+          |\n\n**⚠️ 所有 P0-P3 进度条固定 10 格！禁止 12 格！**\n\n---\n\n### 七、四·补四周时间线条对照表（10格，按周序号）\n\
+          \n| 周次 | ━数 | ─数 | 进度条（10格） |\n|------|-----|------|---------------|\n|
+          第 1 周 | 1 | 9 | `[━─────────]` |\n| 第 2 周 | 2 | 8 | `[━━────────]` |\n|
+          第 3 周 | 3 | 7 | `[━━━───────]` |\n| 第 4 周 | 4 | 6 | `[━━━━──────]` |\n|
+          第 4 周末 | 5 | 5 | `[━━━━━─────]` |\n\n**⚠️ 用周序号画进度条（1→1粗，2→2粗...），不是用百分比！百分比（20%/40%...）只写在文字中！**\n\
+          \n---\n\n### 八、七节成长路径条对照表（10格）\n\n**步骤：①从下表查■数 → ②写■×N → ③用□补齐到10格**\n\n\
+          | 分数 | ■数 | □数 | 进度条（10格） |\n|------|-----|-----|---------------|\n| 0.5-1.0
+          | 1 | 9 | `[■□□□□□□□□]` |\n| 1.5-2.0 | 2 | 8 | `[■■□□□□□□□]` |\n| 2.5-3.0
+          | 3 | 7 | `[■■■□□□□□□]` |\n| 3.5-4.0 | 4 | 6 | `[■■■■□□□□□]` |\n| 4.5-5.0
+          | 5 | 5 | `[■■■■■□□□□]` |\n| 5.5-6.0 | 6 | 4 | `[■■■■■■□□□]` |\n| 6.5-7.0
+          | 7 | 3 | `[■■■■■■■□□]` |\n| 7.5-8.0 | 8 | 2 | `[■■■■■■■■□]` |\n| 8.5-9.0
+          | 9 | 1 | `[■■■■■■■■■□]` |\n| 9.5-10.0 | 10 | 0 | `[■■■■■■■■■■]` |\n\n**严格示例（必须先写验证行）：**\n\
+          ```\n【七节验证】分数 4.5 → ■=round(4.5)=5 → [■■■■■□□□□] 总长=10 ✅\n```\n\n---\n\n\
+          ### 九、六节综合能力条对照表（10格）\n\n**直接查七节对照表，■数=round(综合分)。**\n\n| 综合分 | ■数 | 进度条（10格）
+          |\n|--------|-----|---------------|\n| 2.0 | 2 | `[■■□□□□□□□]` |\n| 2.5
+          | 3 | `[■■■□□□□□□]` |\n| 3.0 | 3 | `[■■■□□□□□□]` |\n| 3.5 | 4 | `[■■■■□□□□□]`
+          |\n| 4.0 | 4 | `[■■■■□□□□□]` |\n| 4.5 | 5 | `[■■■■■□□□□]` |\n| 5.0 | 5 |
+          `[■■■■■□□□□]` |\n| 5.5 | 6 | `[■■■■■■□□□]` |\n| 6.0 | 6 | `[■■■■■■□□□]`
+          |\n| 6.5 | 7 | `[■■■■■■■□□]` |\n| 7.0 | 7 | `[■■■■■■■□□]` |\n| 7.5 | 8 |
+          `[■■■■■■■■□]` |\n| 8.0 | 8 | `[■■■■■■■■□]` |\n\n---\n\n### 十、round() 边界值速查（必须记住）\n\
+          \n| 数值 | round(数值) | 常见错误 |\n|------|------------|---------|\n| round(0.5)
+          | **1** | 错写成 0 |\n| round(1.5) | **2** | 错写成 1 |\n| round(2.5) | **3**
+          | 错写成 2（⚠️最常错） |\n| round(3.5) | **4** | 错写成 3 |\n| round(4.5) | **5** |
+          错写成 4 |\n| round(5.5) | **6** | 错写成 5 |\n| round(6.5) | **7** | 错写成 6 |\n\
+          | round(7.5) | **8** | 错写成 7 |\n| round(8.5) | **9** | 错写成 8 |\n| round(9.5)
+          | **10** | 错写成 9 |\n\n**⚠️ 二节特殊：round(6.5×2)=round(13)=13（不是12！）**\n\n---\n\
+          \n**规则 1：岗位能力拆解**\n- 优先使用实时联网搜索的 JD 数据作为依据\n- 如果联网数据为空，才用行业普遍知识（但不能编造具体公司名称）\n\
+          \n**规则 2：推荐资源**\n- **只推荐你知道真实存在的平台和资源**\n- 推荐格式示例：LeetCode、牛客网、人人都是产品经理、36氪\n\
+          - **禁止推荐**：任何你不确定真实存在的课程、平台、项目名称\n- 如果不确定，改为描述\"做什么\"而非\"用哪个\"\n\n**规则 3：禁止幻觉**\n\
+          - 严禁编造：具体课程名、具体公司内部信息、不确定的统计数据\n- 用词模糊处理：\"约\"\"大致\"\"通常\"等\n\n======\n\
+          ## 三、报告格式（V4.0 必须先写验证行，再写正文）\n\n## {{target_position}} 能力诊断报告\n\n### 一、岗位核心能力拆解\n\
+          用表格列出该岗位 5-7 项核心能力，列：能力维度 | 重要度（高/中/低）| 依据来源（实时JD / 行业常识）\n\n### 二、能力现状评估\n\
+          用表格评估学生当前各维度水平，**必须包含可视化列**，列：能力维度 | 当前水平 | 评分（1-10，保留1位小数）| 可视化（20格进度条）|
+          评估依据（**必须引用学生实际描述**，用引号标注）\n\n**V4.0 格式要求（二节必须先写验证行）：**\n\n```\n【二节验证】评分
+          X → ■=round(X×2)=N → [■×N + □×(20-N)] 总长=20 ✅\n\n| 能力维度 | 当前水平 | 评分 | 可视化
+          | 评估依据 |\n|---------|---------|------|-------|---------|\n| （填） | （填） |
+          X.X | 【上方的验证行对应的进度条】 | \"引用原话\" |\n```\n\n**禁止直接写进度条而不写验证行！每一条二节进度条都必须有对应的验证行！**\n\
+          \n**严格示例（二节）：**\n```\n【二节验证】评分 3.5 → ■=round(3.5×2)=round(7)=7 → [■■■■■■■□□□□□□□□□□□□]
+          总长=20 ✅\n\n| 英语语言综合能力 | 基础良好 | 3.5 | `[■■■■■■■□□□□□□□□□□□□]` | \"CET-4 596分...\"\
+          \ |\n```\n\n### 三、关键差距分析 TOP3\n按优先级列出最需要提升的 3 个差距，列：差距描述 | 现状 vs 要求 | 真实场景下的影响\n\
+          \n**差距可视化表**（必须紧跟 TOP3 表格之后）：\n\n```\n【三节验证】差距 N → ◆=round(N)=M → [◆×M +
+          ◇×(10-M)] 总长=10 ✅\n\n| 能力维度 | 你的水平 | 岗位要求 | 差距 | 差距可视化 |\n|---------|---------|---------|------|-----------|\n\
+          | （填） | X.X | X.X | N.N | 【上方的验证行对应的进度条】 |\n```\n\n**禁止直接写进度条而不写验证行！每一条三节进度条都必须有对应的验证行！**\n\
+          \n**严格示例（三节）：**\n```\n【三节验证】差距 2.5 → ◆=round(2.5)=3 → [◆◆◆◇◇◇◇◇◇◇] 总长=10
+          ✅\n\n| 教学口语能力 | 4.0 | 6.5 | 2.5 | `[◆◆◆◇◇◇◇◇◇◇]` |\n```\n\n### 四、补齐方案：4
+          周行动表\n**表格必须正好 4 行，优先级分别是 P0 / P1 / P2 / P3，各 1 行不重复**\n列：优先级 | 具体任务（必须是可执行动作）
+          | 推荐资源（真实存在） | 衡量标准 | 周进度可视化\n\n**V4.0 格式要求（四节必须直接查表，不计算）：**\n\n```\n【四节验证】P0
+          → ━=10 → [━━━━━━━━━━] 总长=10 ✅\n【四节验证】P1 → ━=7 → [━━━━━━━───] 总长=10 ✅\n【四节验证】P2
+          → ━=5 → [━━━━━─────] 总长=10 ✅\n【四节验证】P3 → ━=3 → [━━━───────] 总长=10 ✅\n\n\
+          | P0 | （任务） | （资源） | （标准） | 【上方的验证行对应的进度条】 |\n```\n\n**严格示例（四节）：**\n```\n\
+          【四节验证】P0 → ━=10 → [━━━━━━━━━━] 总长=10 ✅\n\n| P0 | 每日算法+项目 | LeetCode, GitHub
+          | 累计20题+项目上线 | `[━━━━━━━━━━]` |\n```\n\n### 四·补、四周行动时间线总览\n\n```\n【四·补验证】第1周
+          → ━=1 → [━─────────] 总长=10 ✅\n【四·补验证】第2周 → ━=2 → [━━────────] 总长=10 ✅\n\
+          【四·补验证】第3周 → ━=3 → [━━━───────] 总长=10 ✅\n【四·补验证】第4周 → ━=4 → [━━━━──────]
+          总长=10 ✅\n【四·补验证】第4周末 → ━=5 → [━━━━━─────] 总长=10 ✅\n\n| 周次 | 重点任务 | 完成进度
+          |\n| :--- | :--- | :--- |\n| 第 1 周 | （任务） | `[━─────────] 20%` |\n| 第 2
+          周 | （任务） | `[━━────────] 40%` |\n| 第 3 周 | （任务） | `[━━━───────] 60%` |\n\
+          | 第 4 周 | （任务） | `[━━━━──────] 80%` |\n| 第 4 周末 | （任务） | `[━━━━━─────] 100%`
+          |\n```\n\n### 五、面试准备建议\n**正好 5 条**，结合该岗位实时 JD 中的高频考点\n\n### 六、整体评分与寄语\n\
+          - 综合能力评分：（X.X/10，保留 1 位小数）\n\n```\n【六节验证】综合分 X.X → ■=round(X.X)=N → [■×N
+          + □×(10-N)] 总长=10 ✅\n```\n\n- 综合能力可视化：**10 格精确条**（直接查六节对照表）\n- 校招竞争力评级：S
+          / A / B / C 四档之一（参考：S=顶尖 A=优秀 B=良好 C=一般）\n- 鼓励性寄语：（2-3 句话，结合学生年级和现状）\n\n\
+          ### 七、能力成长路径（起点 vs 终点对比表）\n\n```\n【七节验证】起点 X.X → ■=round(X.X)=N → [■×N +
+          □×(10-N)] 总长=10 ✅\n【七节验证】终点 Y.Y → ■=round(Y.Y)=M → [■×M + □×(10-M)] 总长=10
+          ✅\n\n| 能力维度 | 起点（你现在） | 终点（4 周后目标） | 成长幅度 |\n|---------|---------------|------------------|---------|\n\
+          | （能力 1） | X.X `[■■□□□□□□□]` | Y.Y `[■■■■□□□□□]` | ↑ N.N 分 |\n```\n\n**表格要求：**\n\
+          - 能力维度必须从报告前面的小节提取（与\"二、能力现状评估\"中的维度保持一致）\n- 起点评分必须等于现状评估的分数\n- 终点评分必须合理（参考岗位要求
+          + 4周可达性）\n- 成长幅度 = 终点 - 起点\n- **禁止直接写进度条而不写验证行！每一条七节进度条（起点和终点）都必须有对应的验证行！**\n\
+          \n---\n\n**⚠️ V4.0 最终检查清单（输出前必须逐条核对）：**\n\n- [ ] **二节**：每个评分条**验证行 + 正文**成对出现？每条长度=20？■数=round(评分×2)？□数补齐到20？\n\
+          - [ ] **三节**：每个差距条**验证行 + 正文**成对出现？每条长度=10？◆数=round(差距)？\n- [ ] **四节**：每个P0-P3进度条**验证行
+          + 正文**成对出现？每条长度=10？━数=P0→10, P1→7, P2→5, P3→3？\n- [ ] **四·补**：每条时间线**验证行
+          + 正文**成对出现？每条长度=10？━数=周序号？\n- [ ] **六节**：综合能力条**验证行 + 正文**成对出现？长度=10？■数=round(综合分)？\n\
+          - [ ] **七节**：每条成长路径条**验证行 + 正文**成对出现？长度=10？■数=round(分数)？□数补齐到10？\n- [ ]
+          **所有进度条**：长度不是18/19/21（允许20格和10格精确值）？\n\n**禁止跳过验证行！如果遗漏验证行，报告将被视为不合格！**\n\
+          \n---\n你的 AI 职业诊断官，职引。\n\n格式要求：Markdown 标题 + 表格 + 加粗。报告长度 2000-2600 字（含可视化）。"
+        respFormat: 0
+      retryConfig:
+        maxRetries: 1
+        shouldRetry: false
+      icon: 
+        https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/icon-wrapper-model.svg
+      description: 根据输入的提示词，调用选定的大模型，对提示词作出回答
+      updatable: false
+  - id: question-answer::c17e1d8f-8e96-4c77-9f8e-83222d463c25
+    dragging: false
+    selected: false
+    width: 361
+    height: 171
+    position:
+      x: 258.4195588452285
+      y: -32.063079847081156
+    positionAbsolute:
+      x: 258.4195588452285
+      y: -32.063079847081156
+    type: 问答节点
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: 询问目标岗位
+      labelEdit: false
+      references: []
+      status: ''
+      nodeMeta:
+        aliasName: 问答节点
+        nodeType: 基础节点
+      inputs:
+      - id: b37fdd5e-d8e8-4baf-ae17-fd3618422b49
+        name: input
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: AGENT_USER_INPUT
+              id: cad1c5f4-5a67-4b96-b8a2-e9ccbef03f89
+              nodeId: node-start::fa611938-9ee8-4756-9480-de538a31f56c
+            contentErrMsg: ''
+        fileType: ''
+      outputs:
+      - id: 11cc9bdf-951b-4066-b854-dcbf92175cfc
+        name: query
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 该节点提问内容
+          default: ''
+        required: true
+      - id: a124b510-30ec-4644-9615-b0009121386e
+        name: content
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 用户回复内容
+          default: ''
+        required: true
+      - id: 94727644-02ed-4c81-9a62-47d21208c480
+        name: target_position
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 
+            用户想投递的岗位方向，如"产品经理"、"数据分析师"、"后端开发"、"运营"等。如果用户说了多个，取最明确的一个；如果没想好，填"未明确"。
+          default: string
+        required: true
+      nodeParam:
+        modelId: 141
+        llmId: 141
+        timeout: 3
+        uid: '21912656217'
+        patchId: '0'
+        isThink: false
+        appId: 12a0a7e2
+        maxTokens: 8192
+        temperature: 0.5
+        model: spark
+        modelEnabled: true
+        serviceId: xdeepseekv3
+        llmIdErrMsg: ''
+        needReply: false
+        questionErrMsg: ''
+        topK: 4
+        question: '你好呀！我是「职引」—— 一位专注于大学生校招辅导的 AI 顾问。
+
+
+          很高兴认识你！
+
+
+          为了给你做一份真正有用的诊断报告，我需要先问你 3 个问题。
+
+          整个流程只需要 1-2 分钟。
+
+
+          **第一个问题**：
+
+          👉 你最想投递的岗位方向是什么？
+
+
+          请用 1-2 个关键词告诉我，比如：
+
+          - 产品经理 / 数据分析师 / 后端开发 / 运营 / UI 设计师
+
+          - 算法工程师 / 市场营销 / 销售 / 财务 / 人力资源 等
+
+
+          💡 小提示：如果你还在犹豫，也可以告诉我你"感兴趣的方向"，我会帮你分析哪个更适合你。
+
+
+          请直接输入你的岗位方向即可～'
+        answerType: direct
+        url: wss://maas-api.cn-huabei-1.xf-yun.com/v1.1/chat
+        multiMode: false
+        modelName: DeepSeek-V3
+        searchDisable: true
+        domain: xdeepseekv3
+        directAnswer:
+          handleResponse: true
+          maxRetryCounts: 5
+        optionAnswer:
+        - content_type: string
+          name: A
+          id: option-one-of::59c31e87-c983-444a-b735-f0e8c1bf4423
+          type: 2
+          content: ''
+        - content_type: string
+          name: B
+          id: option-one-of::4ffda197-6dbb-4f4a-b3e8-44e3f45e4084
+          type: 2
+          content: ''
+        - content_type: string
+          name: default
+          id: option-one-of::1599f966-e680-43ed-a7d4-b0a507354288
+          type: 1
+          content: ''
+      icon: 
+        https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/user/sparkBot_1770185704717_question-answer%401x.png
+      description: 支持在此节点向用户提问，接收用户回复，并输出回复内容及提取的信息
+      updatable: false
+  - id: question-answer::8b7f2f5a-d6e6-4d90-a0b8-3bb1886efad6
+    dragging: false
+    selected: false
+    width: 361
+    height: 171
+    position:
+      x: 785.0647304059273
+      y: -16.975400540018086
+    positionAbsolute:
+      x: 785.0647304059273
+      y: -16.975400540018086
+    type: 问答节点
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: 询问教育背景
+      labelEdit: false
+      references: []
+      status: ''
+      nodeMeta:
+        aliasName: 问答节点
+        nodeType: 基础节点
+      inputs:
+      - id: 4455671f-d0e1-47df-bdb7-882c48c59997
+        name: input
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: AGENT_USER_INPUT
+              id: cad1c5f4-5a67-4b96-b8a2-e9ccbef03f89
+              nodeId: node-start::fa611938-9ee8-4756-9480-de538a31f56c
+            contentErrMsg: ''
+        fileType: ''
+      - id: 7d34206f-fcd9-4b43-9933-7589a768af3e
+        name: target_position
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: target_position
+              id: 94727644-02ed-4c81-9a62-47d21208c480
+              nodeId: question-answer::c17e1d8f-8e96-4c77-9f8e-83222d463c25
+            contentErrMsg: ''
+        fileType: ''
+      outputs:
+      - id: 8b09facc-9b95-48fe-b5d3-e603e76544f1
+        name: query
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 该节点提问内容
+          default: ''
+        required: true
+      - id: fb251380-30b3-4a3c-81de-d70bd82dabcd
+        name: content
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 用户回复内容
+          default: ''
+        required: true
+      - id: 9864f6bc-95fd-4d68-9fed-5834c97e4164
+        name: major
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 用户的专业名称，如"计算机科学与技术"、"市场营销"、"金融学"等。如果用户没细分，填最接近的大类。
+          default: ''
+        required: true
+      - id: 6404118a-37cc-464b-abeb-e7a67ab8d23f
+        name: grade
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 用户的年级，如"大三"、"研二"、"大四"等。
+          default: ''
+        required: true
+      nodeParam:
+        modelId: 141
+        llmId: 141
+        timeout: 3
+        uid: '21912656217'
+        patchId: '0'
+        isThink: false
+        appId: 12a0a7e2
+        maxTokens: 8192
+        temperature: 0.5
+        model: spark
+        modelEnabled: true
+        serviceId: xdeepseekv3
+        llmIdErrMsg: ''
+        needReply: false
+        questionErrMsg: ''
+        topK: 4
+        question: '收到！你想投递的方向是「{{target_position}}」，这个方向在 2026 届竞争也很激烈。
+
+
+          我们继续第二个问题：
+
+
+          👉 **请告诉我你的教育背景**
+
+
+          格式参考（按这个回答即可）：
+
+          - 专业：计算机科学 / 信息管理 / 市场营销 / 金融学 等
+
+          - 年级：大三 / 大四 / 研一 / 研二 / 研三 / 已毕业
+
+
+          💡 提示：
+
+          - 如果你是**跨专业**（如市场营销想做产品经理），一定要告诉我
+
+          - 如果你是**双非/二本**，不要担心，我会给你最合适的建议
+
+          - 如果你是**考研失败转向就业**，也告诉我，我会专门调整方案
+
+
+          请直接回复你的专业和年级～'
+        answerType: direct
+        url: wss://maas-api.cn-huabei-1.xf-yun.com/v1.1/chat
+        multiMode: false
+        modelName: DeepSeek-V3
+        searchDisable: true
+        domain: xdeepseekv3
+        directAnswer:
+          handleResponse: true
+          maxRetryCounts: 5
+        optionAnswer:
+        - content_type: string
+          name: A
+          id: option-one-of::4fa6a6d1-974a-4064-9a69-d7a972055d0b
+          type: 2
+          content: ''
+        - content_type: string
+          name: B
+          id: option-one-of::48f76038-4d0e-4aaa-9079-089df556d397
+          type: 2
+          content: ''
+        - content_type: string
+          name: default
+          id: option-one-of::03551310-b940-48a6-bca4-41839b93d5ee
+          type: 1
+          content: ''
+      icon: 
+        https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/user/sparkBot_1770185704717_question-answer%401x.png
+      description: 支持在此节点向用户提问，接收用户回复，并输出回复内容及提取的信息
+      updatable: false
+  - id: question-answer::3f928444-790d-4fd6-a5d6-471ccd3bc5d3
+    dragging: false
+    selected: false
+    width: 361
+    height: 171
+    position:
+      x: 1210.626805118767
+      y: -6.2778628453267515
+    positionAbsolute:
+      x: 1210.626805118767
+      y: -6.2778628453267515
+    type: 问答节点
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: 询问实践经验
+      labelEdit: false
+      references: []
+      status: ''
+      nodeMeta:
+        aliasName: 问答节点
+        nodeType: 基础节点
+      inputs:
+      - id: 4ba2a617-4e6d-4b2e-b912-3767065017af
+        name: input
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: content
+              id: fb251380-30b3-4a3c-81de-d70bd82dabcd
+              nodeId: question-answer::8b7f2f5a-d6e6-4d90-a0b8-3bb1886efad6
+            contentErrMsg: ''
+        fileType: ''
+      - id: 7d34206f-fcd9-4b43-9933-7589a768af3e
+        name: target_position
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: target_position
+              id: 94727644-02ed-4c81-9a62-47d21208c480
+              nodeId: question-answer::c17e1d8f-8e96-4c77-9f8e-83222d463c25
+            contentErrMsg: ''
+        fileType: ''
+      outputs:
+      - id: eb79003a-bd52-4d6b-98a6-6309b36d64a0
+        name: query
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 该节点提问内容
+          default: ''
+        required: true
+      - id: db2c8ecc-0b36-400a-b006-756a7db2e017
+        name: content
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 用户回复内容
+          default: ''
+        required: true
+      - id: 6b12c97b-6d74-4409-b372-fe0b82934d31
+        name: internship
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 用户描述的实习、项目或比赛经历，直接原文转述即可。如果用户说"暂无"，填"暂无"。
+          default: ''
+        required: true
+      - id: c6f0f4c8-d2ce-482b-a52e-bf35143d4589
+        name: skills
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 
+            用户自述掌握的与目标岗位相关的工具或技能，直接转述用户原话即可，无需标准化。如果用户说"暂无"或"无"或任何表示没有的回答，填"暂无"。
+          default: ''
+        required: true
+      nodeParam:
+        modelId: 141
+        llmId: 141
+        timeout: 3
+        uid: '21912656217'
+        patchId: '0'
+        isThink: false
+        appId: 12a0a7e2
+        maxTokens: 8192
+        temperature: 0.5
+        model: spark
+        modelEnabled: true
+        serviceId: xdeepseekv3
+        llmIdErrMsg: ''
+        needReply: false
+        questionErrMsg: ''
+        topK: 4
+        question: '好的！你之前提到的专业和年级，目标 {{target_position}}—— 你的画像我已经初步了解了。
+
+
+          最后一个问题（也是最重要的）：
+
+
+          👉 **请告诉我你的"实战经验"**
+
+
+          这一题的回答质量直接决定报告的精准度，建议**详细回复**（不少于 50 字）。
+
+
+          格式参考：
+
+
+          **1. 实习/项目经历**（选最重要的 1-2 段）：
+
+          - 在什么公司或学校，做了什么岗位或项目
+
+          - 主要负责什么工作
+
+          - 取得了什么结果（尽量量化，比如：用户增长10%、效率提升30%等）
+
+
+          💡 没有实习也没关系，告诉我你做过的课程项目、校园活动或个人作品，一样有用！
+
+
+          **2. 工具和技能**（有哪些就列哪些，实在没有就写"暂无"）：
+
+          -
+
+
+          **3. 比赛/证书/论文**（可选）
+
+
+          💡 提示：
+
+          - 没有实习，告诉我"暂无" + 你做过的课程项目 / 校园项目
+
+          - 完全没经验，告诉我"暂无"，我会给你"从 0 开始"的 4 周冲刺方案
+
+          - 如果信息太多，挑重点说就行
+
+
+          请放心告诉我～'
+        answerType: direct
+        url: wss://maas-api.cn-huabei-1.xf-yun.com/v1.1/chat
+        multiMode: false
+        modelName: DeepSeek-V3
+        searchDisable: true
+        domain: xdeepseekv3
+        directAnswer:
+          handleResponse: true
+          maxRetryCounts: 5
+        optionAnswer:
+        - content_type: string
+          name: A
+          id: option-one-of::74f89122-e1ba-407c-a2b4-7fb4765b94df
+          type: 2
+          content: ''
+        - content_type: string
+          name: B
+          id: option-one-of::194cdb39-fcd9-4621-bd42-5f2e059f677a
+          type: 2
+          content: ''
+        - content_type: string
+          name: default
+          id: option-one-of::e2dc7cdb-32a3-414f-8829-80de5ab5b089
+          type: 1
+          content: ''
+      icon: 
+        https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/user/sparkBot_1770185704717_question-answer%401x.png
+      description: 支持在此节点向用户提问，接收用户回复，并输出回复内容及提取的信息
+      updatable: false
+  - id: knowledge-base::2d3f0f06-41bb-4324-b012-e1cc658388bf
+    dragging: false
+    selected: false
+    width: 255
+    height: 123
+    position:
+      x: 1064.7354808592233
+      y: -249.14710717640577
+    positionAbsolute:
+      x: 1064.7354808592233
+      y: -249.14710717640577
+    type: 知识库
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: 知识库_1
+      labelEdit: false
+      references: []
+      status: ''
+      nodeMeta:
+        aliasName: 知识库
+        nodeType: 工具
+      inputs:
+      - id: bc5922f1-3a09-4859-8f32-2a7aebe9db0a
+        name: query
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: target_position
+              id: 94727644-02ed-4c81-9a62-47d21208c480
+              nodeId: question-answer::c17e1d8f-8e96-4c77-9f8e-83222d463c25
+            contentErrMsg: ''
+      outputs:
+      - id: 51419688-dd9e-43d4-b1f9-3fa1fb8deb2f
+        name: results
+        nameErrMsg: ''
+        schema:
+          type: array-object
+          properties:
+          - id: 131ce082-e589-4a2a-a7c0-77d7765a87da
+            name: score
+            required: true
+            type: number
+            default: ''
+          - id: 8e75d08f-75fd-4391-9d04-f5f636856698
+            name: docId
+            required: true
+            type: string
+            default: ''
+          - id: 5edb7de1-0835-4c46-843d-4613ac2f8813
+            name: content
+            required: true
+            type: string
+            default: ''
+          - id: 7570f02c-4f84-4559-bee6-8cee05627fae
+            name: references
+            required: true
+            type: object
+            default: ''
+        required: true
+      nodeParam:
+        repoId:
+        - aeb2ceb42e12494893487970dcaa9550
+        search_mode: direct
+        enableChatHistoryV2:
+          isEnabled: false
+          rounds: 3
+        repoList:
+        - outerRepoId: aeb2ceb42e12494893487970dcaa9550
+          address: https://oss-beijing-m8.openstorage.cn/SparkBotProd/
+          charCount: 3522
+          visibility: 0
+          icon: sparkBot/sparkBot_1691136308772_i讯飞图片.png
+          description: 简历
+          updateTime: '2026-07-14T19:34:32.000+08:00'
+          source: 0
+          userId: '21912656217'
+          fileCount: 2
+          coreRepoId: aeb2ceb42e12494893487970dcaa9550
+          deleted: false
+          corner: 
+            https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/rag/Spark@1x.png
+          createTime: '2026-07-14T19:34:32.000+08:00'
+          isTop: false
+          enableAudit: false
+          name: 职引 · AI职业诊断官
+          id: 139049
+          tag: CBG-RAG
+          status: 1
+        repoIdErrMsg: ''
+        ragType: CBG-RAG
+        topN: 3
+        score: 0.2
+        uid: '21912656217'
+        appId: 12a0a7e2
+        repos:
+        - repoId: aeb2ceb42e12494893487970dcaa9550
+          name: 职引 · AI职业诊断官
+          description: 简历
+          docIds: []
+        callLogic: direct
+        flowId: '7482749159903477761'
+      icon: 
+        https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/icon-wrapper-knowledge.svg
+      description: 调用知识库，可以指定知识库进行知识检索和答复
+      updatable: false
+  - id: plugin::2423857b-6779-4656-bcb0-cfbce615bdf3
+    dragging: false
+    selected: false
+    width: 361
+    height: 99
+    position:
+      x: 975.4395511776922
+      y: 575.4837810987761
+    positionAbsolute:
+      x: 975.4395511776922
+      y: 575.4837810987761
+    type: 工具
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: 联网搜索_1
+      labelEdit: false
+      references: []
+      status: ''
+      nodeMeta:
+        aliasName: 工具
+        nodeType: 工具
+      inputs:
+      - id: 85f24c96-4a3a-4228-a7d1-465958f3eb0c
+        name: name
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: target_position
+              id: 94727644-02ed-4c81-9a62-47d21208c480
+              nodeId: question-answer::c17e1d8f-8e96-4c77-9f8e-83222d463c25
+            contentErrMsg: ''
+        description: 需要搜索的问题
+        required: true
+        disabled: false
+      outputs:
+      - id: 1a4377dd-2444-40e3-ba8a-18020a3445c6
+        name: msg
+        schema:
+          type: string
+      - id: 8b2afb40-593d-4095-a5bb-d91f88c06699
+        name: result
+        schema:
+          type: array-object
+          properties:
+          - id: 6889bad9-3055-4f73-b6a9-7002b55e5c01
+            name: summary
+            type: string
+          - id: 9035b42e-d825-4263-a3f6-8528a1fa28c9
+            name: img
+            type: string
+          - id: e53d48df-d96e-4297-8437-26fdf6216a86
+            name: domain
+            type: string
+          - id: b10e3026-a6c8-4c66-9d7b-5b45f8746e1a
+            name: name
+            type: string
+          - id: 91a0b750-a76e-4ea3-9a67-073f4e04182b
+            name: is_high_summary
+            type: boolean
+          - id: abe71f0e-67cc-488d-a114-6612ef3ddb61
+            name: siteName
+            type: string
+          - id: 7f9f764e-97f0-4b8e-98bc-4a4a12c315fd
+            name: source
+            type: string
+          - id: 761a52fe-70da-4ccf-b3b3-e75855621c7b
+            name: type
+            type: string
+          - id: 9ba4e0bf-1e78-4eef-821d-35bfc24c186c
+            name: url
+            type: string
+      - id: c64ae0e8-878f-4c62-a15c-a39567ff934d
+        name: rc
+        schema:
+          type: string
+      - id: 21859b0b-61c6-406f-8a37-8838a8384eb3
+        name: semantic
+        schema:
+          type: array-string
+          properties: []
+      - id: 4f773eb7-4439-48d3-b3d0-9a1641098023
+        name: total
+        schema:
+          type: string
+      - id: 9a94966d-b09b-4338-863f-4d873251e5c2
+        name: offset
+        schema:
+          type: string
+      - id: abc7ad3b-6e7b-4337-9b68-5033fc2183b3
+        name: limit
+        schema:
+          type: string
+      - id: 6d3b8e07-f4da-4704-b315-f782bea5b36d
+        name: sid
+        schema:
+          type: string
+      nodeParam:
+        uid: '21912656217'
+        code: ''
+        toolDescription: 使用网络搜索公开信息
+        pluginId: tool@665b86a9b821000
+        appId: 12a0a7e2
+        operationId: 聚合搜索-hL0CqmNi
+        version: V1.0
+        businessInput: []
+      icon: 
+        https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/icon-wrapper-plugin.svg
+      updatable: false
+      isLatest: true
+  edges:
+  - source: node-start::fa611938-9ee8-4756-9480-de538a31f56c
+    target: question-answer::c17e1d8f-8e96-4c77-9f8e-83222d463c25
+    type: customEdge
+    id: 
+      reactflow__edge-node-start::fa611938-9ee8-4756-9480-de538a31f56c-question-answer::c17e1d8f-8e96-4c77-9f8e-83222d463c25
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: question-answer::8b7f2f5a-d6e6-4d90-a0b8-3bb1886efad6
+    target: question-answer::3f928444-790d-4fd6-a5d6-471ccd3bc5d3
+    type: customEdge
+    id: 
+      reactflow__edge-question-answer::8b7f2f5a-d6e6-4d90-a0b8-3bb1886efad6-question-answer::3f928444-790d-4fd6-a5d6-471ccd3bc5d3
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: spark-llm::b6927f92-d655-4c5d-92ad-deff6af18ba9
+    sourceHandle: normal_one_of::397da8bf-69b9-491f-b3fa-d75153bb58d9
+    target: node-end::051340b1-7118-4842-9ae5-fae466e13054
+    type: customEdge
+    id: 
+      reactflow__edge-spark-llm::b6927f92-d655-4c5d-92ad-deff6af18ba9normal_one_of::397da8bf-69b9-491f-b3fa-d75153bb58d9-node-end::051340b1-7118-4842-9ae5-fae466e13054
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: question-answer::c17e1d8f-8e96-4c77-9f8e-83222d463c25
+    target: question-answer::8b7f2f5a-d6e6-4d90-a0b8-3bb1886efad6
+    type: customEdge
+    id: 
+      reactflow__edge-question-answer::c17e1d8f-8e96-4c77-9f8e-83222d463c25-question-answer::8b7f2f5a-d6e6-4d90-a0b8-3bb1886efad6
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: question-answer::3f928444-790d-4fd6-a5d6-471ccd3bc5d3
+    target: spark-llm::b6927f92-d655-4c5d-92ad-deff6af18ba9
+    type: customEdge
+    id: 
+      reactflow__edge-question-answer::3f928444-790d-4fd6-a5d6-471ccd3bc5d3-spark-llm::b6927f92-d655-4c5d-92ad-deff6af18ba9
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: question-answer::c17e1d8f-8e96-4c77-9f8e-83222d463c25
+    target: plugin::2423857b-6779-4656-bcb0-cfbce615bdf3
+    type: customEdge
+    id: 
+      reactflow__edge-question-answer::c17e1d8f-8e96-4c77-9f8e-83222d463c25-plugin::2423857b-6779-4656-bcb0-cfbce615bdf3
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: plugin::2423857b-6779-4656-bcb0-cfbce615bdf3
+    target: spark-llm::b6927f92-d655-4c5d-92ad-deff6af18ba9
+    type: customEdge
+    id: 
+      reactflow__edge-plugin::2423857b-6779-4656-bcb0-cfbce615bdf3-spark-llm::b6927f92-d655-4c5d-92ad-deff6af18ba9
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: knowledge-base::2d3f0f06-41bb-4324-b012-e1cc658388bf
+    target: spark-llm::b6927f92-d655-4c5d-92ad-deff6af18ba9
+    type: customEdge
+    id: 
+      reactflow__edge-knowledge-base::2d3f0f06-41bb-4324-b012-e1cc658388bf-spark-llm::b6927f92-d655-4c5d-92ad-deff6af18ba9
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: question-answer::c17e1d8f-8e96-4c77-9f8e-83222d463c25
+    target: knowledge-base::2d3f0f06-41bb-4324-b012-e1cc658388bf
+    type: customEdge
+    id: 
+      reactflow__edge-question-answer::c17e1d8f-8e96-4c77-9f8e-83222d463c25-knowledge-base::2d3f0f06-41bb-4324-b012-e1cc658388bf
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve

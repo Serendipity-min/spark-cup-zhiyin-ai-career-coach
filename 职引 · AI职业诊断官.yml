@@ -1,0 +1,702 @@
+flowMeta:
+  name: 职引 · AI职业诊断官
+  description: 面向大学生的AI就业竞争力诊断智能体。通过多轮对话深挖能力画像，对比岗位需求生成差距分析与4周学习计划。
+  avatarIcon: https://openres.xfyun.cn/xfyundoc/2026-01-13/4c8f6a33-3a77-4eae-8af6-f89efe33c477/1768290622067/8%402x.png
+  avatarColor: '#4F8BFF'
+  advancedConfig: '{"needGuide":false,"prologue":{"enabled":true,"prologueText":"你好，我是「职引」——你的AI职业诊断官
+    🎯。告诉我你心仪的岗位，我帮你做一次深度能力诊断，输出一份定制化的能力差距报告与4周冲刺计划。","inputExample":["我的目标是产品经理，请帮我诊断","我想应聘数据分析师","我是应届生，岗位还没定"]},"suggestedQuestionsAfterAnswer":{"enabled":true},"chatBackground":{"enabled":true}}'
+  category: 10
+  dslVersion: v1
+flowData:
+  nodes:
+  - id: node-start::fa611938-9ee8-4756-9480-de538a31f56c
+    dragging: false
+    selected: false
+    width: 255
+    height: 73
+    position:
+      x: 0
+      y: 48.94453131634256
+    positionAbsolute:
+      x: -658.9520719869857
+      y: 229.128064704115
+    type: 开始节点
+    data:
+      allowInputReference: false
+      allowOutputReference: true
+      label: 开始
+      status: ''
+      nodeMeta:
+        aliasName: 开始节点
+        nodeType: 基础节点
+      inputs: [
+        ]
+      outputs:
+      - id: cad1c5f4-5a67-4b96-b8a2-e9ccbef03f89
+        name: AGENT_USER_INPUT
+        nameErrMsg: ''
+        schema:
+          type: string
+          default: 用户本轮对话输入内容
+        required: true
+        deleteDisabled: true
+      nodeParam: {
+        }
+      icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/start-node-icon.png
+      description: 工作流的开启节点，用于定义流程调用所需的业务变量信息。
+      updatable: false
+  - id: node-end::051340b1-7118-4842-9ae5-fae466e13054
+    dragging: false
+    selected: false
+    width: 255
+    height: 73
+    position:
+      x: 2172.0910120574204
+      y: 42.39752770335309
+    positionAbsolute:
+      x: 2172.0910120574204
+      y: 42.39752770335309
+    type: 结束节点
+    data:
+      allowInputReference: true
+      allowOutputReference: false
+      label: 结束
+      references: [
+        ]
+      status: ''
+      nodeMeta:
+        aliasName: 结束节点
+        nodeType: 基础节点
+      inputs:
+      - id: b99a49b9-200b-4817-960d-bbca0982ca57
+        name: output
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: output
+              id: 20e5e2e5-2c24-4e26-8514-ae28cb5fecf4
+              nodeId: spark-llm::b6927f92-d655-4c5d-92ad-deff6af18ba9
+            contentErrMsg: ''
+        fileType: ''
+      outputs: [
+        ]
+      nodeParam:
+        template: "\t\n{{output}}"
+        streamOutput: true
+        templateErrMsg: ''
+        outputMode: 1
+        reasoningTemplate: 诊断完成。我已为你完成目标岗位的能力诊断，请查看下方完整报告。
+      icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/end-node-icon.png
+      description: 工作流的结束节点，用于输出工作流运行后的最终结果。
+      updatable: false
+  - id: spark-llm::b6927f92-d655-4c5d-92ad-deff6af18ba9
+    dragging: false
+    selected: false
+    width: 361
+    height: 123
+    position:
+      x: 1737.9740624568085
+      y: 20.655442126940812
+    positionAbsolute:
+      x: 1737.9740624568085
+      y: 20.655442126940812
+    type: 大模型
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: 生成诊断报告
+      labelEdit: false
+      references: [
+        ]
+      status: ''
+      nodeMeta:
+        aliasName: 大模型
+        nodeType: 基础节点
+      inputs:
+      - id: 11fe142c-ec86-439f-b94e-18816d43e878
+        name: input
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: content
+              id: db2c8ecc-0b36-400a-b006-756a7db2e017
+              nodeId: question-answer::3f928444-790d-4fd6-a5d6-471ccd3bc5d3
+            contentErrMsg: ''
+        fileType: ''
+      - id: 7d8844af-31ec-47be-a734-3be37cec87a2
+        name: target_position
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: target_position
+              id: 94727644-02ed-4c81-9a62-47d21208c480
+              nodeId: question-answer::c17e1d8f-8e96-4c77-9f8e-83222d463c25
+            contentErrMsg: ''
+        fileType: ''
+      - id: 87c3ef4e-8aa5-42c5-9948-11b4ae29c411
+        name: major
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: major
+              id: 9864f6bc-95fd-4d68-9fed-5834c97e4164
+              nodeId: question-answer::8b7f2f5a-d6e6-4d90-a0b8-3bb1886efad6
+            contentErrMsg: ''
+        fileType: ''
+      - id: b9ff7742-f401-4307-bf53-35e1af7bc77e
+        name: grade
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: grade
+              id: 6404118a-37cc-464b-abeb-e7a67ab8d23f
+              nodeId: question-answer::8b7f2f5a-d6e6-4d90-a0b8-3bb1886efad6
+            contentErrMsg: ''
+        fileType: ''
+      - id: 7cd972bf-ac7b-4e31-8efc-1cdb45b92c0b
+        name: internship
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: internship
+              id: 6b12c97b-6d74-4409-b372-fe0b82934d31
+              nodeId: question-answer::3f928444-790d-4fd6-a5d6-471ccd3bc5d3
+            contentErrMsg: ''
+        fileType: ''
+      - id: b3b9e14f-38f0-44e6-9e7b-e34b987bddd9
+        name: skills
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: skills
+              id: c6f0f4c8-d2ce-482b-a52e-bf35143d4589
+              nodeId: question-answer::3f928444-790d-4fd6-a5d6-471ccd3bc5d3
+            contentErrMsg: ''
+        fileType: ''
+      outputs:
+      - id: 20e5e2e5-2c24-4e26-8514-ae28cb5fecf4
+        name: output
+        nameErrMsg: ''
+        schema:
+          type: string
+          default: 大模型回复内容
+      nodeParam:
+        template: '{{input}}'
+        modelId: 10000015
+        handlingEdge: normal_one_of::397da8bf-69b9-491f-b3fa-d75153bb58d9
+        auditing: default
+        llmId: 10000015
+        uid: '21912656217'
+        patchId: '0'
+        isThink: false
+        templateErrMsg: ''
+        appId: 12a0a7e2
+        maxTokens: 8192
+        temperature: 0.5
+        model: spark
+        modelEnabled: true
+        serviceId: xdeepseekv31
+        llmIdErrMsg: ''
+        topK: 4
+        enableChatHistoryV2:
+          isEnabled: false
+          rounds: 1
+        exceptionHandlingEdge: fail_one_of::49344075-37d0-4403-b804-dc978946d80b
+        url: wss://maas-api.cn-huabei-1.xf-yun.com/v1.1/chat
+        multiMode: false
+        modelName: DeepSeek-V3.1
+        searchDisable: true
+        domain: xopdeepseekv32
+        systemTemplate: |-
+          你是一位资深的大学生就业辅导顾问，拥有10年以上的互联网科技公司校招面试官经验。
+          你正在为一名中国大学生做目标岗位能力诊断。
+
+          你的核心能力是：
+          1）深度推理：根据用户背景，识别其与目标岗位的显性差距和潜在差距
+          2）结构化输出：使用Markdown表格、列表、加粗，让报告清晰易读
+          3）给出可执行建议：每条建议都要具体到做什么、用什么资源、衡量标准
+
+          你的语气：温暖、专业、不居高临下，鼓励学生但也指出真实差距，避免虚假的赞美。
+
+          请基于以下信息，为学生生成一份目标岗位能力诊断报告。
+
+          【学生信息】
+          目标岗位：{{target_position}}
+          当前专业：{{major}}
+          当前年级：{{grade}}
+          实习或项目经历：{{internship}}
+          掌握工具或技能：{{skills}}
+
+          请按以下结构输出诊断报告，必须使用Markdown格式清晰美观：
+
+          ## {{target_position}} 能力诊断报告
+
+          ### 一、岗位核心能力拆解
+          用表格列出该岗位5到7项核心能力，列：能力维度 | 重要度(高/中/低) | 说明
+
+          ### 二、能力现状评估
+          用表格评估学生当前各维度水平，列：能力维度 | 当前水平 | 评分(1-10) | 评估依据（引用学生的实际描述）
+
+          ### 三、关键差距分析 TOP3
+          按优先级列出最需要提升的3个差距，列：差距描述 | 现状vs要求 | 真实场景下的影响
+
+          ### 四、补齐方案：4周行动表
+          列：优先级 | 具体任务 | 推荐资源 | 衡量标准
+
+          ### 五、面试准备建议
+          3到5条具体可操作的面试准备建议
+
+          ### 六、整体评分与寄语
+          - 综合能力评分：（X/10）
+          - 校招竞争力评级：（S/A/B/C）
+          - 鼓励性寄语：（2-3句话）
+
+          ---
+          你的AI职业诊断官，职引。
+
+          格式要求：使用Markdown标题、表格、加粗。报告控制在1500到2000字之间。
+        respFormat: 0
+      retryConfig:
+        maxRetries: 1
+        shouldRetry: false
+      icon: https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/icon-wrapper-model.svg
+      description: 根据输入的提示词，调用选定的大模型，对提示词作出回答
+      updatable: false
+  - id: question-answer::c17e1d8f-8e96-4c77-9f8e-83222d463c25
+    dragging: false
+    selected: false
+    width: 361
+    height: 171
+    position:
+      x: 363.7399756390115
+      y: 0
+    positionAbsolute:
+      x: 397.0379560528994
+      y: 45.27076400020928
+    type: 问答节点
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: 询问目标岗位
+      labelEdit: false
+      references: [
+        ]
+      status: ''
+      nodeMeta:
+        aliasName: 问答节点
+        nodeType: 基础节点
+      inputs:
+      - id: b37fdd5e-d8e8-4baf-ae17-fd3618422b49
+        name: input
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: AGENT_USER_INPUT
+              id: cad1c5f4-5a67-4b96-b8a2-e9ccbef03f89
+              nodeId: node-start::fa611938-9ee8-4756-9480-de538a31f56c
+            contentErrMsg: ''
+        fileType: ''
+      outputs:
+      - id: 11cc9bdf-951b-4066-b854-dcbf92175cfc
+        name: query
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 该节点提问内容
+          default: ''
+        required: true
+      - id: a124b510-30ec-4644-9615-b0009121386e
+        name: content
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 用户回复内容
+          default: ''
+        required: true
+      - id: 94727644-02ed-4c81-9a62-47d21208c480
+        name: target_position
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 提取的目标岗位方向
+          default: string
+        required: true
+      nodeParam:
+        modelId: 141
+        llmId: 141
+        timeout: 3
+        uid: '21912656217'
+        patchId: '0'
+        isThink: false
+        appId: 12a0a7e2
+        maxTokens: 8192
+        temperature: 0.5
+        model: spark
+        modelEnabled: true
+        serviceId: xdeepseekv3
+        llmIdErrMsg: ''
+        needReply: false
+        questionErrMsg: ''
+        topK: 4
+        question: 请告诉我你最想投递的岗位方向是什么？例如：产品经理 / 数据分析师 / 后端开发 / 运营 等。
+        answerType: direct
+        url: wss://maas-api.cn-huabei-1.xf-yun.com/v1.1/chat
+        multiMode: false
+        modelName: DeepSeek-V3
+        searchDisable: true
+        domain: xdeepseekv3
+        directAnswer:
+          handleResponse: true
+          maxRetryCounts: 2
+        optionAnswer:
+        - content_type: string
+          name: A
+          id: option-one-of::59c31e87-c983-444a-b735-f0e8c1bf4423
+          type: 2
+          content: ''
+        - content_type: string
+          name: B
+          id: option-one-of::4ffda197-6dbb-4f4a-b3e8-44e3f45e4084
+          type: 2
+          content: ''
+        - content_type: string
+          name: default
+          id: option-one-of::1599f966-e680-43ed-a7d4-b0a507354288
+          type: 1
+          content: ''
+      icon: https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/user/sparkBot_1770185704717_question-answer%401x.png
+      description: 支持在此节点向用户提问，接收用户回复，并输出回复内容及提取的信息
+      updatable: false
+  - id: question-answer::8b7f2f5a-d6e6-4d90-a0b8-3bb1886efad6
+    dragging: false
+    selected: false
+    width: 361
+    height: 171
+    position:
+      x: 833.359958814538
+      y: 1.6585640295829762E-5
+    positionAbsolute:
+      x: 795.7879560528993
+      y: 46.770764000209255
+    type: 问答节点
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: 询问教育背景
+      labelEdit: false
+      references: [
+        ]
+      status: ''
+      nodeMeta:
+        aliasName: 问答节点
+        nodeType: 基础节点
+      inputs:
+      - id: 4455671f-d0e1-47df-bdb7-882c48c59997
+        name: input
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: AGENT_USER_INPUT
+              id: cad1c5f4-5a67-4b96-b8a2-e9ccbef03f89
+              nodeId: node-start::fa611938-9ee8-4756-9480-de538a31f56c
+            contentErrMsg: ''
+        fileType: ''
+      - id: 7d34206f-fcd9-4b43-9933-7589a768af3e
+        name: target_position
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: target_position
+              id: 94727644-02ed-4c81-9a62-47d21208c480
+              nodeId: question-answer::c17e1d8f-8e96-4c77-9f8e-83222d463c25
+            contentErrMsg: ''
+        fileType: ''
+      outputs:
+      - id: 8b09facc-9b95-48fe-b5d3-e603e76544f1
+        name: query
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 该节点提问内容
+          default: ''
+        required: true
+      - id: fb251380-30b3-4a3c-81de-d70bd82dabcd
+        name: content
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 用户回复内容
+          default: ''
+        required: true
+      - id: 9864f6bc-95fd-4d68-9fed-5834c97e4164
+        name: major
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 用户当前所学专业
+          default: ''
+        required: true
+      - id: 6404118a-37cc-464b-abeb-e7a67ab8d23f
+        name: grade
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 用户当前年级
+          default: ''
+        required: true
+      nodeParam:
+        modelId: 141
+        llmId: 141
+        timeout: 3
+        uid: '21912656217'
+        patchId: '0'
+        isThink: false
+        appId: 12a0a7e2
+        maxTokens: 8192
+        temperature: 0.5
+        model: spark
+        modelEnabled: true
+        serviceId: xdeepseekv3
+        llmIdErrMsg: ''
+        needReply: false
+        questionErrMsg: ''
+        topK: 4
+        question: 好的，你最想投递的岗位是：{{target_position}}。请告诉我你的教育背景：你的专业是什么？你目前是大学几年级或研究生几年级？
+        answerType: direct
+        url: wss://maas-api.cn-huabei-1.xf-yun.com/v1.1/chat
+        multiMode: false
+        modelName: DeepSeek-V3
+        searchDisable: true
+        domain: xdeepseekv3
+        directAnswer:
+          handleResponse: true
+          maxRetryCounts: 2
+        optionAnswer:
+        - content_type: string
+          name: A
+          id: option-one-of::4fa6a6d1-974a-4064-9a69-d7a972055d0b
+          type: 2
+          content: ''
+        - content_type: string
+          name: B
+          id: option-one-of::48f76038-4d0e-4aaa-9079-089df556d397
+          type: 2
+          content: ''
+        - content_type: string
+          name: default
+          id: option-one-of::03551310-b940-48a6-bca4-41839b93d5ee
+          type: 1
+          content: ''
+      icon: https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/user/sparkBot_1770185704717_question-answer%401x.png
+      description: 支持在此节点向用户提问，接收用户回复，并输出回复内容及提取的信息
+      updatable: false
+  - id: question-answer::3f928444-790d-4fd6-a5d6-471ccd3bc5d3
+    dragging: false
+    selected: false
+    width: 361
+    height: 171
+    position:
+      x: 1302.9799419900644
+      y: 0
+    positionAbsolute:
+      x: 1214.6997678487785
+      y: 44.91801118372868
+    type: 问答节点
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: 询问实践经验
+      labelEdit: false
+      references: [
+        ]
+      status: ''
+      nodeMeta:
+        aliasName: 问答节点
+        nodeType: 基础节点
+      inputs:
+      - id: 4ba2a617-4e6d-4b2e-b912-3767065017af
+        name: input
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: content
+              id: fb251380-30b3-4a3c-81de-d70bd82dabcd
+              nodeId: question-answer::8b7f2f5a-d6e6-4d90-a0b8-3bb1886efad6
+            contentErrMsg: ''
+        fileType: ''
+      - id: 7d34206f-fcd9-4b43-9933-7589a768af3e
+        name: target_position
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: target_position
+              id: 94727644-02ed-4c81-9a62-47d21208c480
+              nodeId: question-answer::c17e1d8f-8e96-4c77-9f8e-83222d463c25
+            contentErrMsg: ''
+        fileType: ''
+      outputs:
+      - id: eb79003a-bd52-4d6b-98a6-6309b36d64a0
+        name: query
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 该节点提问内容
+          default: ''
+        required: true
+      - id: db2c8ecc-0b36-400a-b006-756a7db2e017
+        name: content
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 用户回复内容
+          default: ''
+        required: true
+      - id: 6b12c97b-6d74-4409-b372-fe0b82934d31
+        name: internship
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 用户的实习或项目经历
+          default: ''
+        required: true
+      - id: c6f0f4c8-d2ce-482b-a52e-bf35143d4589
+        name: skills
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 用户掌握的技能和工具
+          default: ''
+        required: true
+      nodeParam:
+        modelId: 141
+        llmId: 141
+        timeout: 3
+        uid: '21912656217'
+        patchId: '0'
+        isThink: false
+        appId: 12a0a7e2
+        maxTokens: 8192
+        temperature: 0.5
+        model: spark
+        modelEnabled: true
+        serviceId: xdeepseekv3
+        llmIdErrMsg: ''
+        needReply: false
+        questionErrMsg: ''
+        topK: 4
+        question: |-
+          接下来聊聊你的实战经验：
+          你有没有相关的实习、校园项目或比赛经历？
+          你会使用哪些与 {{target_position}} 相关的工具或技能？比如 SQL、Python、Figma 等。
+          如果没有的话，回复「暂无」即可。
+        answerType: direct
+        url: wss://maas-api.cn-huabei-1.xf-yun.com/v1.1/chat
+        multiMode: false
+        modelName: DeepSeek-V3
+        searchDisable: true
+        domain: xdeepseekv3
+        directAnswer:
+          handleResponse: true
+          maxRetryCounts: 2
+        optionAnswer:
+        - content_type: string
+          name: A
+          id: option-one-of::74f89122-e1ba-407c-a2b4-7fb4765b94df
+          type: 2
+          content: ''
+        - content_type: string
+          name: B
+          id: option-one-of::194cdb39-fcd9-4621-bd42-5f2e059f677a
+          type: 2
+          content: ''
+        - content_type: string
+          name: default
+          id: option-one-of::e2dc7cdb-32a3-414f-8829-80de5ab5b089
+          type: 1
+          content: ''
+      icon: https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/user/sparkBot_1770185704717_question-answer%401x.png
+      description: 支持在此节点向用户提问，接收用户回复，并输出回复内容及提取的信息
+      updatable: false
+  edges:
+  - source: node-start::fa611938-9ee8-4756-9480-de538a31f56c
+    target: question-answer::c17e1d8f-8e96-4c77-9f8e-83222d463c25
+    type: customEdge
+    id: reactflow__edge-node-start::fa611938-9ee8-4756-9480-de538a31f56c-question-answer::c17e1d8f-8e96-4c77-9f8e-83222d463c25
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: question-answer::8b7f2f5a-d6e6-4d90-a0b8-3bb1886efad6
+    target: question-answer::3f928444-790d-4fd6-a5d6-471ccd3bc5d3
+    type: customEdge
+    id: reactflow__edge-question-answer::8b7f2f5a-d6e6-4d90-a0b8-3bb1886efad6-question-answer::3f928444-790d-4fd6-a5d6-471ccd3bc5d3
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: spark-llm::b6927f92-d655-4c5d-92ad-deff6af18ba9
+    sourceHandle: normal_one_of::397da8bf-69b9-491f-b3fa-d75153bb58d9
+    target: node-end::051340b1-7118-4842-9ae5-fae466e13054
+    type: customEdge
+    id: reactflow__edge-spark-llm::b6927f92-d655-4c5d-92ad-deff6af18ba9normal_one_of::397da8bf-69b9-491f-b3fa-d75153bb58d9-node-end::051340b1-7118-4842-9ae5-fae466e13054
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: question-answer::c17e1d8f-8e96-4c77-9f8e-83222d463c25
+    target: question-answer::8b7f2f5a-d6e6-4d90-a0b8-3bb1886efad6
+    type: customEdge
+    id: reactflow__edge-question-answer::c17e1d8f-8e96-4c77-9f8e-83222d463c25-question-answer::8b7f2f5a-d6e6-4d90-a0b8-3bb1886efad6
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: question-answer::3f928444-790d-4fd6-a5d6-471ccd3bc5d3
+    target: spark-llm::b6927f92-d655-4c5d-92ad-deff6af18ba9
+    type: customEdge
+    id: reactflow__edge-question-answer::3f928444-790d-4fd6-a5d6-471ccd3bc5d3-spark-llm::b6927f92-d655-4c5d-92ad-deff6af18ba9
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
