@@ -1,0 +1,43 @@
+﻿Case ID,Name,Target Job,Status,Interrupt Rounds,Total Wall Time (s),Final Gen Time (s),Total Tokens,Ping Count,Char Count,Job Fidelity,Unrendered Vars,Errors,Warnings,Raw Log
+T01,新用户普通入口（全流程三轮问答）,算法工程师,PASS,3,109.62,95.33,7394,2,4360,PASS,0,,,../raw/T01.jsonl
+T02,首句直接给出岗位（跳过Q1）,算法工程师,PASS,2,116.01,108.22,6377,3,4742,PASS,0,,,raw/T02.jsonl
+T03,明确目标为产品经理（包含项目经验）,产品经理,PASS,2,109.22,101.16,7836,2,4195,PASS,0,,,../raw/T03.jsonl
+T04,数据分析师（首轮自带技能）,数据分析师,PASS,2,99.24,90.30,6488,2,4290,PASS,0,,,../raw/T04.jsonl
+T05,Java后端开发岗位,Java后端开发,PASS,2,96.07,88.51,8143,2,4382,PASS,0,,,../raw/T05.jsonl
+T06,UI开发工程师（原词保真）,UI开发工程师,PASS,3,107.22,92.74,6491,2,4503,PASS,0,,,../raw/T06.jsonl
+T07,产品运营（暂无经历合法完成）,产品运营,PASS,3,106.46,94.43,5508,2,4767,PASS,0,,,../raw/T07.jsonl
+T08,数据分析师（不完整教育信息多轮追问）,数据分析师,PASS,4,122.29,99.51,6473,2,4369,PASS,0,,,raw/T08.jsonl
+T09,重新诊断（状态重置入Q1）,Java后端开发,PASS,3,102.29,90.01,6436,2,4447,PASS,0,,,../raw/T09.jsonl
+T10,未确定岗位（进入Q1引导）,数据分析师,PASS,3,102.08,89.62,6547,2,4443,PASS,0,,,../raw/T10.jsonl
+STATE_RESET,完整诊断后重置状态（不得继承旧职业状态）,状态重置校验,PASS,1,126.49,107.90,6356,3,4703,PASS,0,,,raw/STATE_RESET.jsonl
+ABORT_AND_SWITCH,中途放弃并切换新岗位（不得继承旧职业状态）,产品经理,PASS,2,104.70,93.49,7867,2,4076,PASS,0,,,raw/ABORT_AND_SWITCH.jsonl
+STAB_ALGO_01,算法工程师稳定性验证 01/10,算法工程师,PASS,2,99.38,91.75,7578,2,4598,PASS,0,,,../raw/STAB_ALGO_01.jsonl
+STAB_ALGO_02,算法工程师稳定性验证 02/10,算法工程师,PASS,2,95.74,86.64,7579,2,4555,PASS,0,,,../raw/STAB_ALGO_02.jsonl
+STAB_ALGO_03,算法工程师稳定性验证 03/10,算法工程师,PASS,2,100.31,93.84,7557,2,4637,PASS,0,,,../raw/STAB_ALGO_03.jsonl
+STAB_ALGO_04,算法工程师稳定性验证 04/10,算法工程师,PASS,2,103.13,83.08,7491,2,4384,PASS,0,,,../raw/STAB_ALGO_04.jsonl
+STAB_ALGO_05,算法工程师稳定性验证 05/10,算法工程师,PASS,2,100.22,91.56,7570,2,4599,PASS,0,,,../raw/STAB_ALGO_05.jsonl
+STAB_ALGO_06,算法工程师稳定性验证 06/10,算法工程师,PASS,2,95.30,87.86,7441,2,4401,PASS,0,,,../raw/STAB_ALGO_06.jsonl
+STAB_ALGO_07,算法工程师稳定性验证 07/10,算法工程师,PASS,2,109.71,100.53,7721,2,4900,PASS,0,,,../raw/STAB_ALGO_07.jsonl
+STAB_ALGO_08,算法工程师稳定性验证 08/10,算法工程师,PASS,2,102.99,95.80,7703,2,4883,PASS,0,,,../raw/STAB_ALGO_08.jsonl
+STAB_ALGO_09,算法工程师稳定性验证 09/10,算法工程师,PASS,2,99.97,93.09,7670,2,4770,PASS,0,,,../raw/STAB_ALGO_09.jsonl
+STAB_ALGO_10,算法工程师稳定性验证 10/10,算法工程师,PASS,2,93.02,85.23,7395,2,4287,PASS,0,,,../raw/STAB_ALGO_10.jsonl
+STAB_UI_01,UI开发工程师稳定性验证 01/10,UI开发工程师,PASS,2,105.73,97.70,6653,3,4822,PASS,0,,,../raw/STAB_UI_01.jsonl
+STAB_UI_02,UI开发工程师稳定性验证 02/10,UI开发工程师,PASS,2,109.44,101.67,6459,2,4518,PASS,0,,,../raw/STAB_UI_02.jsonl
+STAB_UI_03,UI开发工程师稳定性验证 03/10,UI开发工程师,PASS,2,100.11,91.57,6495,2,4621,PASS,0,,,../raw/STAB_UI_03.jsonl
+STAB_UI_04,UI开发工程师稳定性验证 04/10,UI开发工程师,PASS,2,96.20,88.40,6499,2,4550,PASS,0,,,../raw/STAB_UI_04.jsonl
+STAB_UI_05,UI开发工程师稳定性验证 05/10,UI开发工程师,PASS,2,98.05,91.37,6562,2,4694,PASS,0,,,../raw/STAB_UI_05.jsonl
+STAB_UI_06,UI开发工程师稳定性验证 06/10,UI开发工程师,PASS,2,103.05,94.47,6621,2,4819,PASS,0,,,../raw/STAB_UI_06.jsonl
+STAB_UI_07,UI开发工程师稳定性验证 07/10,UI开发工程师,PASS,2,101.43,94.80,6492,2,4566,PASS,0,,,../raw/STAB_UI_07.jsonl
+STAB_UI_08,UI开发工程师稳定性验证 08/10,UI开发工程师,PASS,2,88.79,80.83,6441,2,4482,PASS,0,,,../raw/STAB_UI_08.jsonl
+STAB_UI_09,UI开发工程师稳定性验证 09/10,UI开发工程师,PASS,2,94.97,87.87,6457,2,4462,PASS,0,,,../raw/STAB_UI_09.jsonl
+STAB_UI_10,UI开发工程师稳定性验证 10/10,UI开发工程师,PASS,2,113.61,101.08,6690,3,4822,PASS,0,,,../raw/STAB_UI_10.jsonl
+STAB_JAVA_01,Java后端开发工程师稳定性验证 01/10,Java后端开发工程师,PASS,2,95.45,88.45,9205,2,4143,PASS,0,,,../raw/STAB_JAVA_01.jsonl
+STAB_JAVA_02,Java后端开发工程师稳定性验证 02/10,Java后端开发工程师,PASS,2,93.03,85.67,9514,2,4830,PASS,0,,,../raw/STAB_JAVA_02.jsonl
+STAB_JAVA_03,Java后端开发工程师稳定性验证 03/10,Java后端开发工程师,PASS,2,101.96,93.91,9519,2,4816,PASS,0,,,../raw/STAB_JAVA_03.jsonl
+STAB_JAVA_04,Java后端开发工程师稳定性验证 04/10,Java后端开发工程师,PASS,2,98.11,91.44,9433,2,4684,PASS,0,,,../raw/STAB_JAVA_04.jsonl
+STAB_JAVA_05,Java后端开发工程师稳定性验证 05/10,Java后端开发工程师,PASS,2,98.05,88.50,9322,2,4397,PASS,0,,,../raw/STAB_JAVA_05.jsonl
+STAB_JAVA_06,Java后端开发工程师稳定性验证 06/10,Java后端开发工程师,PASS,2,100.74,86.72,9458,2,4752,PASS,0,,,../raw/STAB_JAVA_06.jsonl
+STAB_JAVA_07,Java后端开发工程师稳定性验证 07/10,Java后端开发工程师,PASS,2,83.67,77.42,9284,2,4369,PASS,0,,,../raw/STAB_JAVA_07.jsonl
+STAB_JAVA_08,Java后端开发工程师稳定性验证 08/10,Java后端开发工程师,PASS,2,90.15,83.43,9435,2,4661,PASS,0,,,../raw/STAB_JAVA_08.jsonl
+STAB_JAVA_09,Java后端开发工程师稳定性验证 09/10,Java后端开发工程师,PASS,2,92.40,85.62,9478,2,4636,PASS,0,,,../raw/STAB_JAVA_09.jsonl
+STAB_JAVA_10,Java后端开发工程师稳定性验证 10/10,Java后端开发工程师,PASS,2,94.74,85.37,9423,2,4584,PASS,0,,,../raw/STAB_JAVA_10.jsonl
