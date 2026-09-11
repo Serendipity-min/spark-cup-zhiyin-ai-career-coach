@@ -1,0 +1,460 @@
+# 职引 · AI职业诊断官 回归与岗位稳定性测试用例集
+cases:
+  # =========================================================================
+  # 核心功能与流程回归集 (T01 ~ T10)
+  # =========================================================================
+  - id: T01
+    name: 新用户普通入口（全流程三轮问答）
+    target_job: "算法工程师"
+    initial: "你好"
+    replies:
+      - "算法工程师"
+      - "计算机科学与技术，大三"
+      - "暂无"
+    expectations:
+      first_interrupt_contains: "岗位"
+      expected_interrupt_rounds: 3
+      final_contains:
+        - "算法工程师"
+      forbidden:
+        - "改造工程师"
+
+  - id: T02
+    name: 首句直接给出岗位（跳过Q1）
+    target_job: "算法工程师"
+    initial: "算法工程师"
+    replies:
+      - "计算机科学与技术，大三"
+      - "暂无"
+    expectations:
+      first_interrupt_contains: "专业"
+      expected_interrupt_rounds: 2
+      final_contains:
+        - "算法工程师"
+      forbidden:
+        - "改造工程师"
+
+  - id: T03
+    name: 明确目标为产品经理（包含项目经验）
+    target_job: "产品经理"
+    initial: "我的目标是产品经理，请帮我诊断"
+    replies:
+      - "软件工程，大三"
+      - "做过校园二手交易平台，熟悉Axure"
+    expectations:
+      final_contains:
+        - "产品经理"
+      forbidden:
+        - "算法工程师"
+
+  - id: T04
+    name: 数据分析师（首轮自带技能）
+    target_job: "数据分析师"
+    initial: "我想应聘数据分析师，已经学了Python和SQL"
+    replies:
+      - "统计学，大三"
+      - "做过销售数据分析项目"
+    expectations:
+      final_contains:
+        - "数据分析师"
+
+  - id: T05
+    name: Java后端开发岗位
+    target_job: "Java后端开发"
+    initial: "我想找Java后端开发岗位"
+    replies:
+      - "软件工程，大三"
+      - "做过Spring Boot项目，MySQL较熟悉"
+    expectations:
+      final_contains:
+        - "Java"
+
+  - id: T06
+    name: UI开发工程师（原词保真）
+    target_job: "UI开发工程师"
+    initial: "你好"
+    replies:
+      - "UI开发工程师"
+      - "计算机科学与技术，大二"
+      - "暂无"
+    expectations:
+      final_contains:
+        - "UI"
+
+  - id: T07
+    name: 产品运营（暂无经历合法完成）
+    target_job: "产品运营"
+    initial: "你好"
+    replies:
+      - "产品运营"
+      - "市场营销，大四"
+      - "暂无"
+    expectations:
+      final_contains:
+        - "产品运营"
+
+  - id: T08
+    name: 数据分析师（不完整教育信息多轮追问）
+    target_job: "数据分析师"
+    initial: "你好"
+    replies:
+      - "数据分析师"
+      - "计算机科学与技术"
+      - "大三"
+      - "暂无"
+    expectations:
+      expected_interrupt_rounds: 4
+      final_contains:
+        - "数据分析师"
+
+  - id: T09
+    name: 重新诊断（状态重置入Q1）
+    target_job: "Java后端开发"
+    initial: "重新诊断"
+    replies:
+      - "Java后端开发"
+      - "软件工程，大三"
+      - "暂无"
+    expectations:
+      first_interrupt_contains: "岗位"
+      expected_interrupt_rounds: 3
+      final_contains:
+        - "Java"
+
+  - id: T10
+    name: 未确定岗位（进入Q1引导）
+    target_job: "数据分析师"
+    initial: "我还没确定岗位"
+    replies:
+      - "数据分析师"
+      - "金融学，大三"
+      - "暂无"
+    expectations:
+      first_interrupt_contains: "岗位"
+      expected_interrupt_rounds: 3
+      final_contains:
+        - "数据分析师"
+
+  # =========================================================================
+  # 状态机专项 (STATE_RESET & ABORT_AND_SWITCH)
+  # =========================================================================
+  - id: STATE_RESET
+    name: 完整诊断后重置状态（不得继承旧职业状态）
+    case_type: state_reset
+
+  - id: ABORT_AND_SWITCH
+    name: 中途放弃并切换新岗位（不得继承旧职业状态）
+    case_type: abort_and_switch
+
+  # =========================================================================
+  # 岗位稳定性循环专项 (各重复 10 次，严防字符漂移)
+  # =========================================================================
+  - id: STAB_ALGO_01
+    name: 算法工程师稳定性验证 01/10
+    target_job: "算法工程师"
+    initial: "算法工程师"
+    replies:
+      - "计算机科学与技术，大三"
+      - "暂无"
+    expectations:
+      final_contains: ["算法工程师"]
+      forbidden: ["改造工程师"]
+
+  - id: STAB_ALGO_02
+    name: 算法工程师稳定性验证 02/10
+    target_job: "算法工程师"
+    initial: "算法工程师"
+    replies:
+      - "计算机科学与技术，大三"
+      - "暂无"
+    expectations:
+      final_contains: ["算法工程师"]
+      forbidden: ["改造工程师"]
+
+  - id: STAB_ALGO_03
+    name: 算法工程师稳定性验证 03/10
+    target_job: "算法工程师"
+    initial: "算法工程师"
+    replies:
+      - "计算机科学与技术，大三"
+      - "暂无"
+    expectations:
+      final_contains: ["算法工程师"]
+      forbidden: ["改造工程师"]
+
+  - id: STAB_ALGO_04
+    name: 算法工程师稳定性验证 04/10
+    target_job: "算法工程师"
+    initial: "算法工程师"
+    replies:
+      - "计算机科学与技术，大三"
+      - "暂无"
+    expectations:
+      final_contains: ["算法工程师"]
+      forbidden: ["改造工程师"]
+
+  - id: STAB_ALGO_05
+    name: 算法工程师稳定性验证 05/10
+    target_job: "算法工程师"
+    initial: "算法工程师"
+    replies:
+      - "计算机科学与技术，大三"
+      - "暂无"
+    expectations:
+      final_contains: ["算法工程师"]
+      forbidden: ["改造工程师"]
+
+  - id: STAB_ALGO_06
+    name: 算法工程师稳定性验证 06/10
+    target_job: "算法工程师"
+    initial: "算法工程师"
+    replies:
+      - "计算机科学与技术，大三"
+      - "暂无"
+    expectations:
+      final_contains: ["算法工程师"]
+      forbidden: ["改造工程师"]
+
+  - id: STAB_ALGO_07
+    name: 算法工程师稳定性验证 07/10
+    target_job: "算法工程师"
+    initial: "算法工程师"
+    replies:
+      - "计算机科学与技术，大三"
+      - "暂无"
+    expectations:
+      final_contains: ["算法工程师"]
+      forbidden: ["改造工程师"]
+
+  - id: STAB_ALGO_08
+    name: 算法工程师稳定性验证 08/10
+    target_job: "算法工程师"
+    initial: "算法工程师"
+    replies:
+      - "计算机科学与技术，大三"
+      - "暂无"
+    expectations:
+      final_contains: ["算法工程师"]
+      forbidden: ["改造工程师"]
+
+  - id: STAB_ALGO_09
+    name: 算法工程师稳定性验证 09/10
+    target_job: "算法工程师"
+    initial: "算法工程师"
+    replies:
+      - "计算机科学与技术，大三"
+      - "暂无"
+    expectations:
+      final_contains: ["算法工程师"]
+      forbidden: ["改造工程师"]
+
+  - id: STAB_ALGO_10
+    name: 算法工程师稳定性验证 10/10
+    target_job: "算法工程师"
+    initial: "算法工程师"
+    replies:
+      - "计算机科学与技术，大三"
+      - "暂无"
+    expectations:
+      final_contains: ["算法工程师"]
+      forbidden: ["改造工程师"]
+
+  - id: STAB_UI_01
+    name: UI开发工程师稳定性验证 01/10
+    target_job: "UI开发工程师"
+    initial: "UI开发工程师"
+    replies:
+      - "软件工程，大三"
+      - "熟练使用Figma与Vue前端组件库"
+    expectations:
+      final_contains: ["UI"]
+
+  - id: STAB_UI_02
+    name: UI开发工程师稳定性验证 02/10
+    target_job: "UI开发工程师"
+    initial: "UI开发工程师"
+    replies:
+      - "软件工程，大三"
+      - "熟练使用Figma与Vue前端组件库"
+    expectations:
+      final_contains: ["UI"]
+
+  - id: STAB_UI_03
+    name: UI开发工程师稳定性验证 03/10
+    target_job: "UI开发工程师"
+    initial: "UI开发工程师"
+    replies:
+      - "软件工程，大三"
+      - "熟练使用Figma与Vue前端组件库"
+    expectations:
+      final_contains: ["UI"]
+
+  - id: STAB_UI_04
+    name: UI开发工程师稳定性验证 04/10
+    target_job: "UI开发工程师"
+    initial: "UI开发工程师"
+    replies:
+      - "软件工程，大三"
+      - "熟练使用Figma与Vue前端组件库"
+    expectations:
+      final_contains: ["UI"]
+
+  - id: STAB_UI_05
+    name: UI开发工程师稳定性验证 05/10
+    target_job: "UI开发工程师"
+    initial: "UI开发工程师"
+    replies:
+      - "软件工程，大三"
+      - "熟练使用Figma与Vue前端组件库"
+    expectations:
+      final_contains: ["UI"]
+
+  - id: STAB_UI_06
+    name: UI开发工程师稳定性验证 06/10
+    target_job: "UI开发工程师"
+    initial: "UI开发工程师"
+    replies:
+      - "软件工程，大三"
+      - "熟练使用Figma与Vue前端组件库"
+    expectations:
+      final_contains: ["UI"]
+
+  - id: STAB_UI_07
+    name: UI开发工程师稳定性验证 07/10
+    target_job: "UI开发工程师"
+    initial: "UI开发工程师"
+    replies:
+      - "软件工程，大三"
+      - "熟练使用Figma与Vue前端组件库"
+    expectations:
+      final_contains: ["UI"]
+
+  - id: STAB_UI_08
+    name: UI开发工程师稳定性验证 08/10
+    target_job: "UI开发工程师"
+    initial: "UI开发工程师"
+    replies:
+      - "软件工程，大三"
+      - "熟练使用Figma与Vue前端组件库"
+    expectations:
+      final_contains: ["UI"]
+
+  - id: STAB_UI_09
+    name: UI开发工程师稳定性验证 09/10
+    target_job: "UI开发工程师"
+    initial: "UI开发工程师"
+    replies:
+      - "软件工程，大三"
+      - "熟练使用Figma与Vue前端组件库"
+    expectations:
+      final_contains: ["UI"]
+
+  - id: STAB_UI_10
+    name: UI开发工程师稳定性验证 10/10
+    target_job: "UI开发工程师"
+    initial: "UI开发工程师"
+    replies:
+      - "软件工程，大三"
+      - "熟练使用Figma与Vue前端组件库"
+    expectations:
+      final_contains: ["UI"]
+
+  - id: STAB_JAVA_01
+    name: Java后端开发工程师稳定性验证 01/10
+    target_job: "Java后端开发工程师"
+    initial: "Java后端开发工程师"
+    replies:
+      - "计算机科学与技术，大三"
+      - "掌握Spring Boot与MySQL"
+    expectations:
+      final_contains: ["Java"]
+
+  - id: STAB_JAVA_02
+    name: Java后端开发工程师稳定性验证 02/10
+    target_job: "Java后端开发工程师"
+    initial: "Java后端开发工程师"
+    replies:
+      - "计算机科学与技术，大三"
+      - "掌握Spring Boot与MySQL"
+    expectations:
+      final_contains: ["Java"]
+
+  - id: STAB_JAVA_03
+    name: Java后端开发工程师稳定性验证 03/10
+    target_job: "Java后端开发工程师"
+    initial: "Java后端开发工程师"
+    replies:
+      - "计算机科学与技术，大三"
+      - "掌握Spring Boot与MySQL"
+    expectations:
+      final_contains: ["Java"]
+
+  - id: STAB_JAVA_04
+    name: Java后端开发工程师稳定性验证 04/10
+    target_job: "Java后端开发工程师"
+    initial: "Java后端开发工程师"
+    replies:
+      - "计算机科学与技术，大三"
+      - "掌握Spring Boot与MySQL"
+    expectations:
+      final_contains: ["Java"]
+
+  - id: STAB_JAVA_05
+    name: Java后端开发工程师稳定性验证 05/10
+    target_job: "Java后端开发工程师"
+    initial: "Java后端开发工程师"
+    replies:
+      - "计算机科学与技术，大三"
+      - "掌握Spring Boot与MySQL"
+    expectations:
+      final_contains: ["Java"]
+
+  - id: STAB_JAVA_06
+    name: Java后端开发工程师稳定性验证 06/10
+    target_job: "Java后端开发工程师"
+    initial: "Java后端开发工程师"
+    replies:
+      - "计算机科学与技术，大三"
+      - "掌握Spring Boot与MySQL"
+    expectations:
+      final_contains: ["Java"]
+
+  - id: STAB_JAVA_07
+    name: Java后端开发工程师稳定性验证 07/10
+    target_job: "Java后端开发工程师"
+    initial: "Java后端开发工程师"
+    replies:
+      - "计算机科学与技术，大三"
+      - "掌握Spring Boot与MySQL"
+    expectations:
+      final_contains: ["Java"]
+
+  - id: STAB_JAVA_08
+    name: Java后端开发工程师稳定性验证 08/10
+    target_job: "Java后端开发工程师"
+    initial: "Java后端开发工程师"
+    replies:
+      - "计算机科学与技术，大三"
+      - "掌握Spring Boot与MySQL"
+    expectations:
+      final_contains: ["Java"]
+
+  - id: STAB_JAVA_09
+    name: Java后端开发工程师稳定性验证 09/10
+    target_job: "Java后端开发工程师"
+    initial: "Java后端开发工程师"
+    replies:
+      - "计算机科学与技术，大三"
+      - "掌握Spring Boot与MySQL"
+    expectations:
+      final_contains: ["Java"]
+
+  - id: STAB_JAVA_10
+    name: Java后端开发工程师稳定性验证 10/10
+    target_job: "Java后端开发工程师"
+    initial: "Java后端开发工程师"
+    replies:
+      - "计算机科学与技术，大三"
+      - "掌握Spring Boot与MySQL"
+    expectations:
+      final_contains: ["Java"]

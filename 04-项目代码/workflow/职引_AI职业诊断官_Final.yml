@@ -1,0 +1,2605 @@
+flowMeta:
+  name: 职引 · AI职业诊断官
+  description: 面向大学生的AI就业竞争力诊断智能体。通过多轮对话深挖能力画像，对比岗位需求生成差距分析与4周学习计划。
+  avatarIcon: https://oss-beijing-m8.openstorage.cn/SparkBotProd/aicloud-robot/user-icon/d626d6e10706a87ecee3af8321424257.jpg
+  avatarColor: '#4F8BFF'
+  advancedConfig: '{"needGuide":false,"prologue":{"enabled":true,"prologueText":"你好，我是「职引」——你的AI职业诊断官
+    🎯。告诉我你心仪的岗位，我帮你做一次深度能力诊断，输出一份定制化的能力差距报告与4周冲刺计划。\n（温馨提示：最终生成报告在3分钟左右，请您耐心等待，感谢您的理解。）","inputExample":["我是应届毕业生/在校生，想找产品运营岗，请帮我诊断竞争力","我的目标是数据分析师，已经学了Python和SQL，还差什么？","我还没确定岗位，想先了解一下互联网行业的招聘JD有什么共性要求"]},"suggestedQuestionsAfterAnswer":{"enabled":true},"chatBackground":{"enabled":true,"info":{"name":"ChatGPT
+    Image 2026年7月17日 17_11_04.jpg","type":"jpg","total":"371.59 KB","url":"https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/user/sparkBot_1784351069641_ChatGPTImage2026%E5%B9%B47%E6%9C%8817%E6%97%A517_11_04.jpg"}}}'
+  category: 10
+  dslVersion: v1
+flowData:
+  nodes:
+  - id: node-start::fa611938-9ee8-4756-9480-de538a31f56c
+    dragging: false
+    selected: false
+    width: 255
+    height: 115
+    position:
+      x: -34.79761638032153
+      y: -888.5801642485828
+    positionAbsolute:
+      x: -34.79761638032153
+      y: -888.5801642485828
+    type: 开始节点
+    data:
+      allowInputReference: false
+      allowOutputReference: true
+      label: 开始
+      status: ''
+      nodeMeta:
+        aliasName: 开始节点
+        nodeType: 基础节点
+      inputs: [
+        ]
+      outputs:
+      - id: cad1c5f4-5a67-4b96-b8a2-e9ccbef03f89
+        name: AGENT_USER_INPUT
+        nameErrMsg: ''
+        schema:
+          type: string
+          default: 用户本轮对话输入内容
+        required: true
+        deleteDisabled: true
+      nodeParam: {
+        }
+      icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/start-node-icon.png
+      description: 工作流的开启节点，用于定义流程调用所需的业务变量信息。
+      updatable: false
+  - id: node-end::051340b1-7118-4842-9ae5-fae466e13054
+    dragging: false
+    selected: false
+    width: 255
+    height: 73
+    position:
+      x: 8789.59172654284
+      y: -839.7814565249375
+    positionAbsolute:
+      x: 8789.59172654284
+      y: -839.7814565249375
+    type: 结束节点
+    data:
+      allowInputReference: true
+      allowOutputReference: false
+      label: 结束
+      references: [
+        ]
+      status: ''
+      nodeMeta:
+        aliasName: 结束节点
+        nodeType: 基础节点
+      inputs:
+      - id: b99a49b9-200b-4817-960d-bbca0982ca57
+        name: output
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: output
+              id: QUALITY_NODE_OUTPUT
+              nodeId: ifly-code::89665ee0-d710-400d-a56c-9560d042a517
+            contentErrMsg: ''
+        fileType: ''
+      outputs: [
+        ]
+      nodeParam:
+        template: |-
+          {{output}}
+
+
+          ---
+
+          ✨ **觉得报告有用？**
+          - 点个 ⭐「收藏」方便回看，下次打开直接继续
+          - 分享给身边 2026 届的同学，他们一定也需要
+          - 回复「重新诊断」，换一个岗位再来一次
+
+          ---
+
+          你的 AI 职业诊断官，**职引**。祝你秋招顺利！
+        streamOutput: true
+        templateErrMsg: ''
+        outputMode: 1
+        reasoningTemplate: |-
+          ✅ 诊断完成！我已基于你的背景，为你生成了一份深度目标岗位能力诊断报告。请查看下方完整内容。
+
+          📌 **报告使用建议**：
+          - 🔍 **重点看「四、补齐方案」**：这是你未来 4 周的冲刺清单
+          - ⭐ **重点看「六、整体评分与寄语」**：这是你的起点 + 终点
+          - 🎯 **重点看「三、关键差距分析」**：这是你和目标岗位的真正距离
+
+          💡 **你还可以**：
+          - 🔄 回复「重新诊断」，换 1 个岗位再来一次
+          - 📤 把这份报告分享给身边需要的朋友
+      icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/end-node-icon.png
+      description: 工作流的结束节点，用于输出工作流运行后的最终结果。
+      updatable: false
+  - id: spark-llm::b3bf12cd-77b9-4ee2-9023-e7da278b08f5
+    dragging: false
+    selected: false
+    width: 255
+    height: 165
+    position:
+      x: 359.1670459342672
+      y: -892.8264226124752
+    positionAbsolute:
+      x: 359.1670459342672
+      y: -892.8264226124752
+    type: 大模型
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: 输入预识别｜新岗位 / 重开 / 继续_1
+      labelEdit: false
+      references: [
+        ]
+      status: ''
+      nodeMeta:
+        aliasName: 大模型
+        nodeType: 基础节点
+      inputs:
+      - id: 4e532b25-9be5-4ac9-b220-25a69462a6bc
+        name: input
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: AGENT_USER_INPUT
+              id: cad1c5f4-5a67-4b96-b8a2-e9ccbef03f89
+              nodeId: node-start::fa611938-9ee8-4756-9480-de538a31f56c
+            contentErrMsg: ''
+        fileType: ''
+      outputs:
+      - id: d8e2ef81-8560-479a-b7df-c43caf81edbf
+        name: output
+        nameErrMsg: ''
+        schema:
+          type: string
+          default: 未明确
+      nodeParam:
+        template: '{{input}}'
+        modelId: 10000017
+        handlingEdge: normal_one_of::pre-target-normal
+        auditing: default
+        llmId: 10000017
+        uid: '21912656217'
+        patchId: '0'
+        isThink: false
+        templateErrMsg: ''
+        appId: 12a0a7e2
+        maxTokens: 8192
+        temperature: 0.5
+        model: spark
+        setAnswerContentErrMsg: ''
+        modelEnabled: true
+        serviceId: xdeepseekv32exp
+        llmIdErrMsg: ''
+        topK: 4
+        enableChatHistoryV2:
+          isEnabled: false
+          rounds: 1
+        exceptionHandlingEdge: fail_one_of::pre-target-fail
+        url: wss://maas-api.cn-huabei-1.xf-yun.com/v1.1/chat
+        multiMode: false
+        modelName: DeepSeek-V3.2-Exp
+        searchDisable: true
+        domain: xopdeepseekv32
+        systemTemplate: |-
+          你是「职引」工作流的当前输入设备识别器。
+
+          你只能输出以下三类结果之一：
+          1. 标准化的“目标名称岗位”
+          2.重新开始
+          3. 未明确
+
+          判定规则（按优先级执行）：
+
+          【一个明确的新目标岗位 → 只输出岗位名称】
+          只有当用户明确表达“求职/应聘/投递/职业目标/想寻找某阵地/换成某阵地/改成某阵地/转向某阵地”等职业宣言时，才夺取目标阵地。
+          如果输入用户本身已经是完整、常见的岗位名称（如“算法工程师”“产品经理”“数据分析师”），必须原样保留，禁止改写为读音或字形相近的其他职业。
+          原文：
+          - “我的目标是产品经理” → 产品经理
+          - “我想应聘数据分析师” → 数据分析师
+          - “我想找 Java 劳动力开发岗位” → Java 劳动力开发岗位
+          - “换成算法工程师吧” → 算法工程师
+          - “不做产品了，改成接口开发” → 接口开发
+
+          重要：前面提到的技术、项目、课程或经历，并不代表更换职业。
+          原文：
+          - “我参与 Java 项目” → 未明确
+          - “我会 Python 和 SQL” → 未明确
+          - “我是软件工程大三” → 未明确
+          - “最近打算一个前期项目” → 未明确
+          - “暂无” → 未明确
+
+          【B. 明确要求重开，但没有给予新的岗位→只输出：重新开始】
+          包括：
+          - “重新诊断”
+          - “重新开始”
+          - “从头开始”
+          - “之前的信息清空”
+          - “换个方向重新选择”
+          - “我想重新选职业”
+          如果同一句话已经明确提出新阵地，优先执行A，直接输出新阵地，而不是“重新开始输出”。
+
+          【C. 其他情况→只输出：未明确】
+          包括：
+          - “你好”
+          - “继续”
+          - 年级、专业、项目、技能、比赛、证书等补充信息
+          - 对当前码头的正常回答
+          - 无法确认是否属于新职业目标的模糊表达
+
+          输出合同：
+          - 禁止解释。
+          - 禁止 Markdown。
+          - 禁止引号、句号、冒号或任何辅助修饰符。
+          - 只能输出“岗位名称”、“重新开始”或“未明确”三类内容。
+        respFormat: 0
+        multipleDialog: 0
+      retryConfig:
+        maxRetries: 1
+        shouldRetry: false
+        customOutput: |-
+          {
+            "output": ""
+          }
+      icon: https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/icon-wrapper-model.svg
+      description: 每一轮先检查当前输入。明确提出新目标岗位时抢占旧断点；明确要求重新开始时清空旧状态；其余输入继续原断点。
+      updatable: false
+  - id: node-variable::0af64cda-a38a-428e-ad30-818acd62d122
+    dragging: false
+    selected: false
+    width: 361
+    height: 73
+    position:
+      x: 1276.6608968602409
+      y: -939.2973629967198
+    positionAbsolute:
+      x: 1276.6608968602409
+      y: -939.2973629967198
+    type: 变量存储器
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: 状态读取｜检查断点_1
+      labelEdit: false
+      references: [
+        ]
+      status: ''
+      nodeMeta:
+        aliasName: 变量存储器
+        nodeType: 基础节点
+      inputs: [
+        ]
+      outputs:
+      - id: get-init-target
+        name: state_target_position
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: ''
+        required: true
+        refId: vm-target-position
+      - id: get-init-has-target
+        name: state_has_target
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: ''
+        required: true
+        refId: vm-has-target
+      - id: get-init-major
+        name: state_major
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: ''
+        required: true
+        refId: vm-major
+      - id: get-init-grade
+        name: state_grade
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: ''
+        required: true
+        refId: vm-grade
+      - id: get-init-has-edu
+        name: state_has_edu
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: ''
+        required: true
+        refId: vm-has-edu
+      - id: get-init-internship
+        name: state_internship
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: ''
+        required: true
+        refId: vm-internship
+      - id: get-init-skills
+        name: state_skills
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: ''
+        required: true
+        refId: vm-skills
+      - id: get-init-has-practice
+        name: state_has_practice
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: ''
+        required: true
+        refId: vm-has-practice
+      nodeParam:
+        method: get
+      icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/variable-memory-icon.png
+      description: 读取会话变量；若前序执行异常，可根据已保存阶段直接恢复。
+      updatable: false
+  - id: node-variable::dce01640-a277-4006-ac11-f0c2d4702de3
+    dragging: false
+    selected: false
+    width: 361
+    height: 73
+    position:
+      x: 1267.9895018228328
+      y: -1424.8830943629441
+    positionAbsolute:
+      x: 1267.9895018228328
+      y: -1424.8830943629441
+    type: 变量存储器
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: 状态重置｜用户要求重新开始_1
+      labelEdit: false
+      references: [
+        ]
+      status: ''
+      nodeMeta:
+        aliasName: 变量存储器
+        nodeType: 基础节点
+      inputs:
+      - id: a2f3600a-7758-42b9-962a-894685b148df
+        name: state_target_position
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: literal
+            content: 未设置
+            contentErrMsg: ''
+      - id: b244594c-0657-4acd-a03d-56c84491e58d
+        name: state_has_target
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: literal
+            content: '0'
+            contentErrMsg: ''
+      - id: a538cbf5-f4d5-47d3-8c65-48f207d69ffc
+        name: state_major
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: literal
+            content: 未设置
+            contentErrMsg: ''
+      - id: 031b4101-5ba8-4f80-b009-d2234b0c4e96
+        name: state_grade
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: literal
+            content: 未设置
+            contentErrMsg: ''
+      - id: a8a54c78-5dd8-4889-82ca-3e1187e87c5d
+        name: state_has_edu
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: literal
+            content: '0'
+            contentErrMsg: ''
+      - id: 47fee822-7200-4a2d-8960-3ffcbe607d09
+        name: state_internship
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: literal
+            content: 未设置
+            contentErrMsg: ''
+      - id: 92ced7d2-62ce-476b-ac13-6e55f80943ee
+        name: state_skills
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: literal
+            content: 未设置
+            contentErrMsg: ''
+      - id: dcf43031-6188-465f-a765-bd4bf67723bd
+        name: state_has_practice
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: literal
+            content: '0'
+            contentErrMsg: ''
+      outputs: [
+        ]
+      nodeParam:
+        method: set
+      icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/variable-memory-icon.png
+      description: 用户明确要求重新诊断/从头开始且未指定新岗位时，清空旧诊断状态并回到Q1。
+      updatable: false
+  - id: question-answer::3fb08a43-454b-4deb-800e-bdb7559c6542
+    dragging: false
+    selected: false
+    width: 361
+    height: 171
+    position:
+      x: 2315.731102438398
+      y: -1210.2030000566997
+    positionAbsolute:
+      x: 2315.731102438398
+      y: -1210.2030000566997
+    type: 问答节点
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: Q1｜识别目标岗位_1
+      labelEdit: false
+      references: [
+        ]
+      status: ''
+      nodeMeta:
+        aliasName: 问答节点
+        nodeType: 基础节点
+      inputs:
+      - id: 30807369-ea50-4697-8268-67c625bf2d5d
+        name: input
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: AGENT_USER_INPUT
+              id: cad1c5f4-5a67-4b96-b8a2-e9ccbef03f89
+              nodeId: node-start::fa611938-9ee8-4756-9480-de538a31f56c
+            contentErrMsg: ''
+        fileType: ''
+      outputs:
+      - id: 11cc9bdf-951b-4066-b854-dcbf92175cfc
+        name: query
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 该节点提问内容
+          default: ''
+        required: true
+      - id: a124b510-30ec-4644-9615-b0009121386e
+        name: content
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 用户回复内容
+          default: ''
+        required: true
+      - id: 94727644-02ed-4c81-9a62-47d21208c480
+        name: target_position
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 从用户回复中提取一个明确的首选目标岗位。优先标准化为常见岗位名称。若用户同时给出多个岗位，提取其明确表示最优先的一个；若没有优先级，提取第一个并保持原意。如果完全无法判断，输出“未明确”。禁止自行替用户决定岗位。
+          default: ''
+        required: true
+      nodeParam:
+        modelId: 110
+        llmId: 110
+        timeout: 3
+        uid: '21912656217'
+        patchId: '0'
+        isThink: false
+        appId: 12a0a7e2
+        maxTokens: 2048
+        temperature: 0.5
+        model: spark
+        modelEnabled: true
+        serviceId: bm4
+        llmIdErrMsg: ''
+        needReply: false
+        questionErrMsg: ''
+        topK: 4
+        question: |-
+          嗨同学 👋 我是「职引」，你的 AI 职业诊断官。
+
+          **第 1 个问题：你目前最想投递的目标岗位是什么？**
+
+          例如：
+          - 产品经理 / 数据分析师 / Java 后端开发
+          - 前端开发 / 算法工程师 / UI 设计师
+          - 运营 / 市场营销 / 教师 等
+
+          > 如果有多个方向，请先选一个当前最优先的岗位。这样我才能用对应的岗位要求做准确诊断。
+        answerType: direct
+        url: wss://spark-api.xf-yun.com/v4.0/chat
+        multiMode: false
+        modelName: Spark4.0 Ultra
+        domain: 4.0Ultra
+        directAnswer:
+          handleResponse: true
+          maxRetryCounts: 2
+        multipleDialog: 0
+        optionAnswer:
+        - content_type: string
+          name: A
+          id: option-one-of::59c31e87-c983-444a-b735-f0e8c1bf4423
+          type: 2
+          content: ''
+        - content_type: string
+          name: B
+          id: option-one-of::4ffda197-6dbb-4f4a-b3e8-44e3f45e4084
+          type: 2
+          content: ''
+        - content_type: string
+          name: default
+          id: option-one-of::1599f966-e680-43ed-a7d4-b0a507354288
+          type: 1
+          content: ''
+      icon: https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/user/sparkBot_1770185704717_question-answer%401x.png
+      description: 询问并结构化提取目标岗位。
+      updatable: false
+  - id: node-variable::aa463b6a-5a22-49ce-9a53-dcc56347df30
+    dragging: false
+    selected: false
+    width: 318
+    height: 73
+    position:
+      x: 2761.2763934072645
+      y: -1122.9955076807803
+    positionAbsolute:
+      x: 2761.2763934072645
+      y: -1122.9955076807803
+    type: 变量存储器
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: 状态写入｜已获取目标岗位_1
+      labelEdit: false
+      references: [
+        ]
+      status: ''
+      nodeMeta:
+        aliasName: 变量存储器
+        nodeType: 基础节点
+      inputs:
+      - id: 7f6dd2bb-0845-4b46-b6e3-06bda6b1d2e7
+        name: state_target_position
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: target_position
+              id: 94727644-02ed-4c81-9a62-47d21208c480
+              nodeId: question-answer::3fb08a43-454b-4deb-800e-bdb7559c6542
+            contentErrMsg: ''
+        fileType: ''
+      - id: 964af34c-068d-4eaf-a13f-225a99afc2bc
+        name: state_has_target
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: literal
+            content: '1'
+            contentErrMsg: ''
+      outputs: [
+        ]
+      nodeParam:
+        method: set
+      icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/variable-memory-icon.png
+      description: 将已完成阶段的结构化信息写入会话变量，用于同一会话中的跨轮次状态恢复。
+      updatable: false
+  - id: node-variable::9c4299a4-a5ad-4391-a507-f34a038ec6ae
+    dragging: false
+    selected: false
+    width: 361
+    height: 73
+    position:
+      x: 1315.0915528637067
+      y: -498.48659126299106
+    positionAbsolute:
+      x: 1315.0915528637067
+      y: -498.48659126299106
+    type: 变量存储器
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: 状态覆盖｜切换到新目标岗位_1
+      labelEdit: false
+      references: [
+        ]
+      status: ''
+      nodeMeta:
+        aliasName: 变量存储器
+        nodeType: 基础节点
+      inputs:
+      - id: 644c9f60-bfd0-4faa-b023-9c1bbc1d96af
+        name: state_target_position
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: output
+              id: d8e2ef81-8560-479a-b7df-c43caf81edbf
+              nodeId: spark-llm::b3bf12cd-77b9-4ee2-9023-e7da278b08f5
+            contentErrMsg: ''
+        fileType: ''
+      - id: aaa80e0c-9e24-4c72-a140-4c4c5da31106
+        name: state_has_target
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: literal
+            content: '1'
+            contentErrMsg: ''
+      - id: 4c3c7db4-309c-4fa2-80e1-75d96202ed0b
+        name: state_major
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: literal
+            content: 未设置
+            contentErrMsg: ''
+      - id: dadb7e69-5b5d-4193-bd6f-50c749421bb5
+        name: state_grade
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: literal
+            content: 未设置
+            contentErrMsg: ''
+      - id: 9703ed83-520e-4b0e-9123-9b8e1c81cbcb
+        name: state_has_edu
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: literal
+            content: '0'
+            contentErrMsg: ''
+      - id: 19198d7b-26dc-40bf-ba58-02517a991740
+        name: state_internship
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: literal
+            content: 未设置
+            contentErrMsg: ''
+      - id: f108de05-fc02-483a-867a-f9f6cbb59cb6
+        name: state_skills
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: literal
+            content: 未设置
+            contentErrMsg: ''
+      - id: a91c7d8f-75b6-4557-84c8-e1520b27e3d0
+        name: state_has_practice
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: literal
+            content: '0'
+            contentErrMsg: ''
+      outputs: [
+        ]
+      nodeParam:
+        method: set
+      icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/variable-memory-icon.png
+      description: 覆盖旧岗位并清空旧教育/实践阶段状态，然后进入Q2。
+      updatable: false
+  - id: node-variable::73879ebe-973b-4e19-bac6-cff946509a0c
+    dragging: false
+    selected: false
+    width: 293
+    height: 73
+    position:
+      x: 3129.012792233526
+      y: -667.7082484142443
+    positionAbsolute:
+      x: 3129.012792233526
+      y: -667.7082484142443
+    type: 变量存储器
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: 状态读取｜目标岗位_1
+      labelEdit: false
+      references: [
+        ]
+      status: ''
+      nodeMeta:
+        aliasName: 变量存储器
+        nodeType: 基础节点
+      inputs: [
+        ]
+      outputs:
+      - id: get-target-value
+        name: state_target_position
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: ''
+        required: true
+        refId: vm-target-position
+      nodeParam:
+        method: get
+      icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/variable-memory-icon.png
+      description: 读取会话变量；若前序执行异常，可根据已保存阶段直接恢复。
+      updatable: false
+  - id: question-answer::5895cb4d-e1da-4e36-afb8-018944019cfa
+    dragging: false
+    selected: false
+    width: 361
+    height: 171
+    position:
+      x: 3677.766922464683
+      y: -680.5330016851433
+    positionAbsolute:
+      x: 3677.766922464683
+      y: -680.5330016851433
+    type: 问答节点
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: Q2｜教育背景_1
+      labelEdit: false
+      references: [
+        ]
+      status: ''
+      nodeMeta:
+        aliasName: 问答节点
+        nodeType: 基础节点
+      inputs:
+      - id: b39c11c8-10da-431c-9fa1-3a84140be489
+        name: input
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: state_target_position
+              id: get-target-value
+              nodeId: node-variable::73879ebe-973b-4e19-bac6-cff946509a0c
+            contentErrMsg: ''
+        fileType: ''
+      - id: 02bbd219-9cc6-484e-a2d9-abeee689dd9d
+        name: target_position
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: state_target_position
+              id: get-target-value
+              nodeId: node-variable::73879ebe-973b-4e19-bac6-cff946509a0c
+            contentErrMsg: ''
+        fileType: ''
+      outputs:
+      - id: 8b09facc-9b95-48fe-b5d3-e603e76544f1
+        name: query
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 该节点提问内容
+          default: ''
+        required: true
+      - id: fb251380-30b3-4a3c-81de-d70bd82dabcd
+        name: content
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 用户回复内容
+          default: ''
+        required: true
+      - id: 9864f6bc-95fd-4d68-9fed-5834c97e4164
+        name: major
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 提取用户当前专业，尽量保持正式专业名称。未明确细分时可输出“工科（未细分）”“商科（未细分）”等。完全无法判断时必须输出“未提及”，禁止猜测。
+          default: ''
+        required: true
+      - id: 6404118a-37cc-464b-abeb-e7a67ab8d23f
+        name: grade
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 提取当前阶段。优先输出：大一、大二、大三、大四、研一、研二、研三、已毕业、已工作、未提及。如“大三下学期”统一为“大三”。无法判断时输出“未提及”，绝对不能默认“大四”。
+          default: ''
+        required: true
+      nodeParam:
+        modelId: 110
+        llmId: 110
+        timeout: 3
+        uid: '21912656217'
+        patchId: '0'
+        isThink: false
+        appId: 12a0a7e2
+        maxTokens: 2048
+        temperature: 0.5
+        model: spark
+        modelEnabled: true
+        serviceId: bm4
+        llmIdErrMsg: ''
+        needReply: false
+        questionErrMsg: ''
+        topK: 4
+        question: |-
+          收到，你的首选方向是 **{{target_position}}**。
+
+          **第 2 个问题：请告诉我你的专业和当前年级/阶段。**
+
+          例如：
+          - 软件工程，大三
+          - 金融学，研二
+          - 市场营销，已毕业
+
+          > 如果是跨专业求职，也请如实填写。专业背景只用于判断能力起点，不会直接决定你的竞争力评分。
+        answerType: direct
+        url: wss://spark-api.xf-yun.com/v4.0/chat
+        multiMode: false
+        modelName: Spark4.0 Ultra
+        domain: 4.0Ultra
+        directAnswer:
+          handleResponse: true
+          maxRetryCounts: 2
+        multipleDialog: 0
+        optionAnswer:
+        - content_type: string
+          name: A
+          id: option-one-of::4fa6a6d1-974a-4064-9a69-d7a972055d0b
+          type: 2
+          content: ''
+        - content_type: string
+          name: B
+          id: option-one-of::48f76038-4d0e-4aaa-9079-089df556d397
+          type: 2
+          content: ''
+        - content_type: string
+          name: default
+          id: option-one-of::03551310-b940-48a6-bca4-41839b93d5ee
+          type: 1
+          content: ''
+      icon: https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/user/sparkBot_1770185704717_question-answer%401x.png
+      description: 询问并提取专业与年级；缺失信息不自动补造。
+      updatable: false
+  - id: node-variable::cbc0c8d9-73f4-45ea-8fc0-9f28b6311977
+    dragging: false
+    selected: false
+    width: 354
+    height: 115
+    position:
+      x: 4272.181993109695
+      y: -530.143530898886
+    positionAbsolute:
+      x: 4272.181993109695
+      y: -530.143530898886
+    type: 变量存储器
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: 状态写入｜已获取教育背景_2
+      labelEdit: false
+      references: [
+        ]
+      status: ''
+      nodeMeta:
+        aliasName: 变量存储器
+        nodeType: 基础节点
+      inputs:
+      - id: 5a04f386-22ec-4a52-bac6-a7443f562231
+        name: state_major
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: major
+              id: 9864f6bc-95fd-4d68-9fed-5834c97e4164
+              nodeId: question-answer::5895cb4d-e1da-4e36-afb8-018944019cfa
+            contentErrMsg: ''
+        fileType: ''
+      - id: bd698a59-50eb-487a-8897-4c17e3003216
+        name: state_grade
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: grade
+              id: 6404118a-37cc-464b-abeb-e7a67ab8d23f
+              nodeId: question-answer::5895cb4d-e1da-4e36-afb8-018944019cfa
+            contentErrMsg: ''
+        fileType: ''
+      - id: 2e9c27c6-7de0-4e54-89a3-66c9cb93a7a6
+        name: state_has_edu
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: literal
+            content: '1'
+            contentErrMsg: ''
+      outputs: [
+        ]
+      nodeParam:
+        method: set
+      icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/variable-memory-icon.png
+      description: 将已完成阶段的结构化信息写入会话变量，用于同一会话中的跨轮次状态恢复。
+      updatable: false
+  - id: node-variable::d432234e-b045-4990-85da-e5da4cc8facf
+    dragging: false
+    selected: false
+    width: 361
+    height: 115
+    position:
+      x: 4827.34084697322
+      y: -703.0731734998469
+    positionAbsolute:
+      x: 4827.34084697322
+      y: -703.0731734998469
+    type: 变量存储器
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: 状态读取｜教育背景_1
+      labelEdit: false
+      references: [
+        ]
+      status: ''
+      nodeMeta:
+        aliasName: 变量存储器
+        nodeType: 基础节点
+      inputs: [
+        ]
+      outputs:
+      - id: get-edu-target
+        name: state_target_position
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: ''
+        required: true
+        refId: vm-target-position
+      - id: get-edu-major
+        name: state_major
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: ''
+        required: true
+        refId: vm-major
+      - id: get-edu-grade
+        name: state_grade
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: ''
+        required: true
+        refId: vm-grade
+      nodeParam:
+        method: get
+      icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/variable-memory-icon.png
+      description: 读取会话变量；若前序执行异常，可根据已保存阶段直接恢复。
+      updatable: false
+  - id: question-answer::37f173b9-34a9-4672-bdb9-36494c8acfed
+    dragging: false
+    selected: false
+    width: 361
+    height: 213
+    position:
+      x: 5356.56739814045
+      y: -780.3839050800846
+    positionAbsolute:
+      x: 5356.56739814045
+      y: -780.3839050800846
+    type: 问答节点
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: Q3｜实践证据与技能_1
+      labelEdit: false
+      references: [
+        ]
+      status: ''
+      nodeMeta:
+        aliasName: 问答节点
+        nodeType: 基础节点
+      inputs:
+      - id: 15c86f93-fa09-4e87-bf65-dd23b1df2287
+        name: input
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: state_target_position
+              id: get-edu-target
+              nodeId: node-variable::d432234e-b045-4990-85da-e5da4cc8facf
+            contentErrMsg: ''
+        fileType: ''
+      - id: e19a8c4a-73b9-48f4-adcd-1d1e1937efba
+        name: target_position
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: state_target_position
+              id: get-edu-target
+              nodeId: node-variable::d432234e-b045-4990-85da-e5da4cc8facf
+            contentErrMsg: ''
+        fileType: ''
+      outputs:
+      - id: eb79003a-bd52-4d6b-98a6-6309b36d64a0
+        name: query
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 该节点提问内容
+          default: ''
+        required: true
+      - id: db2c8ecc-0b36-400a-b006-756a7db2e017
+        name: content
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 用户回复原文
+          default: ''
+        required: true
+      - id: 6b12c97b-6d74-4409-b372-fe0b82934d31
+        name: internship
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 从用户回复中提取实习、项目、比赛、科研、校园实践等可验证经历。若用户明确回答“无/暂无/没有/没做过”等，直接输出“暂无明确实践经历”；若未提及该类经历，也使用默认值继续，不得触发重复追问。
+          default: 暂无明确实践经历
+        required: false
+      - id: c6f0f4c8-d2ce-482b-a52e-bf35143d4589
+        name: skills
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: 提取用户明确掌握的技能、工具、编程语言、框架、软件和熟练度。若用户明确回答“无/暂无/没有”等，直接输出“暂无明确技能证据”；未提及技能时使用默认值继续，不得把兴趣或计划学习当成已掌握技能。
+          default: 暂无明确技能证据
+        required: false
+      nodeParam:
+        modelId: 110
+        llmId: 110
+        timeout: 3
+        uid: '21912656217'
+        patchId: '0'
+        isThink: false
+        appId: 12a0a7e2
+        maxTokens: 2048
+        temperature: 0.5
+        model: spark
+        modelEnabled: true
+        serviceId: bm4
+        llmIdErrMsg: ''
+        needReply: false
+        questionErrMsg: ''
+        topK: 4
+        question: |-
+          最后一个核心问题：请告诉我与你的目标岗位 **{{target_position}}** 相关的真实经历和技能。
+
+          你可以按下面 3 点回答：
+          1. **实习 / 项目 / 比赛 / 科研经历**：你具体做了什么？
+          2. **结果或产出**：有没有量化结果、作品、上线成果、获奖等？
+          3. **工具与技能**：你实际会使用哪些工具、语言、框架或方法？大概熟练到什么程度？
+
+          > 如果没有实习、项目或明确技能，直接回复「暂无」或「无」即可。
+          > 为保护隐私，不需要提供手机号、身份证号、住址等敏感信息。
+        answerType: direct
+        url: wss://spark-api.xf-yun.com/v4.0/chat
+        multiMode: false
+        modelName: Spark4.0 Ultra
+        domain: 4.0Ultra
+        directAnswer:
+          handleResponse: true
+          maxRetryCounts: 2
+        multipleDialog: 0
+        optionAnswer:
+        - content_type: string
+          name: A
+          id: option-one-of::74f89122-e1ba-407c-a2b4-7fb4765b94df
+          type: 2
+          content: ''
+        - content_type: string
+          name: B
+          id: option-one-of::194cdb39-fcd9-4621-bd42-5f2e059f677a
+          type: 2
+          content: ''
+        - content_type: string
+          name: default
+          id: option-one-of::e2dc7cdb-32a3-414f-8829-80de5ab5b089
+          type: 1
+          content: ''
+      icon: https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/user/sparkBot_1770185704717_question-answer%401x.png
+      description: 合并收集项目、实习、比赛、科研经历、成果和技能熟练度。
+      updatable: false
+  - id: node-variable::39b8ec9b-d83b-4434-9e9d-865a67e84ef5
+    dragging: false
+    selected: false
+    width: 361
+    height: 115
+    position:
+      x: 5821.12923348793
+      y: -719.7273068991897
+    positionAbsolute:
+      x: 5821.12923348793
+      y: -719.7273068991897
+    type: 变量存储器
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: 状态写入｜已获取实践信息_1
+      labelEdit: false
+      references: [
+        ]
+      status: ''
+      nodeMeta:
+        aliasName: 变量存储器
+        nodeType: 基础节点
+      inputs:
+      - id: 878e283b-4952-4b90-a95a-a68379d1d189
+        name: state_internship
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: internship
+              id: 6b12c97b-6d74-4409-b372-fe0b82934d31
+              nodeId: question-answer::37f173b9-34a9-4672-bdb9-36494c8acfed
+            contentErrMsg: ''
+        fileType: ''
+      - id: 8632a9ef-5378-47d8-bb33-6a4ada854512
+        name: state_skills
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: skills
+              id: c6f0f4c8-d2ce-482b-a52e-bf35143d4589
+              nodeId: question-answer::37f173b9-34a9-4672-bdb9-36494c8acfed
+            contentErrMsg: ''
+        fileType: ''
+      - id: d5fa0e1e-bef4-4df7-b8e5-9286e55a6352
+        name: state_has_practice
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: literal
+            content: '1'
+            contentErrMsg: ''
+      outputs: [
+        ]
+      nodeParam:
+        method: set
+      icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/variable-memory-icon.png
+      description: 将已完成阶段的结构化信息写入会话变量，用于同一会话中的跨轮次状态恢复。
+      updatable: false
+  - id: node-variable::b8975cdb-491e-4e17-a31c-8f56feeddb5c
+    dragging: false
+    selected: false
+    width: 361
+    height: 115
+    position:
+      x: 6267.74791120199
+      y: -1022.4279972274337
+    positionAbsolute:
+      x: 6267.74791120199
+      y: -1022.4279972274337
+    type: 变量存储器
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: 状态读取｜完整画像_1
+      labelEdit: false
+      references: [
+        ]
+      status: ''
+      nodeMeta:
+        aliasName: 变量存储器
+        nodeType: 基础节点
+      inputs: [
+        ]
+      outputs:
+      - id: get-full-target
+        name: state_target_position
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: ''
+        required: true
+        refId: vm-target-position
+      - id: get-full-major
+        name: state_major
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: ''
+        required: true
+        refId: vm-major
+      - id: get-full-grade
+        name: state_grade
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: ''
+        required: true
+        refId: vm-grade
+      - id: get-full-internship
+        name: state_internship
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: ''
+        required: true
+        refId: vm-internship
+      - id: get-full-skills
+        name: state_skills
+        nameErrMsg: ''
+        schema:
+          type: string
+          description: ''
+        required: true
+        refId: vm-skills
+      nodeParam:
+        method: get
+      icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/variable-memory-icon.png
+      description: 读取会话变量；若前序执行异常，可根据已保存阶段直接恢复。
+      updatable: false
+  - id: plugin::927eb11e-7629-4ad8-b557-d1915dbb155e
+    dragging: false
+    selected: false
+    width: 361
+    height: 141
+    position:
+      x: 6869.630758791491
+      y: -1128.6679526755108
+    positionAbsolute:
+      x: 6869.630758791491
+      y: -1128.6679526755108
+    type: 工具
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: 联网搜索｜公开校招JD_1
+      labelEdit: false
+      references: [
+        ]
+      status: ''
+      nodeMeta:
+        aliasName: 工具
+        nodeType: 工具
+      inputs:
+      - id: d2aa3ee0-60af-46e0-9266-6db534172a45
+        name: name
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: state_target_position
+              id: get-full-target
+              nodeId: node-variable::b8975cdb-491e-4e17-a31c-8f56feeddb5c
+            contentErrMsg: ''
+        required: true
+      outputs:
+      - id: 1a4377dd-2444-40e3-ba8a-18020a3445c6
+        name: msg
+        schema:
+          type: string
+      - id: 8b2afb40-593d-4095-a5bb-d91f88c06699
+        name: result
+        schema:
+          type: array-object
+          properties:
+          - id: 6889bad9-3055-4f73-b6a9-7002b55e5c01
+            name: summary
+            type: string
+          - id: 9035b42e-d825-4263-a3f6-8528a1fa28c9
+            name: img
+            type: string
+          - id: e53d48df-d96e-4297-8437-26fdf6216a86
+            name: domain
+            type: string
+          - id: b10e3026-a6c8-4c66-9d7b-5b45f8746e1a
+            name: name
+            type: string
+          - id: 91a0b750-a76e-4ea3-9a67-073f4e04182b
+            name: is_high_summary
+            type: boolean
+          - id: abe71f0e-67cc-488d-a114-6612ef3ddb61
+            name: siteName
+            type: string
+          - id: 7f9f764e-97f0-4b8e-98bc-4a4a12c315fd
+            name: source
+            type: string
+          - id: 761a52fe-70da-4ccf-b3b3-e75855621c7b
+            name: type
+            type: string
+          - id: 9ba4e0bf-1e78-4eef-821d-35bfc24c186c
+            name: url
+            type: string
+      - id: c64ae0e8-878f-4c62-a15c-a39567ff934d
+        name: rc
+        schema:
+          type: string
+      - id: 21859b0b-61c6-406f-8a37-8838a8384eb3
+        name: semantic
+        schema:
+          type: array-string
+          properties: [
+            ]
+      - id: 4f773eb7-4439-48d3-b3d0-9a1641098023
+        name: total
+        schema:
+          type: string
+      - id: 9a94966d-b09b-4338-863f-4d873251e5c2
+        name: offset
+        schema:
+          type: string
+      - id: abc7ad3b-6e7b-4337-9b68-5033fc2183b3
+        name: limit
+        schema:
+          type: string
+      - id: 6d3b8e07-f4da-4704-b315-f782bea5b36d
+        name: sid
+        schema:
+          type: string
+      nodeParam:
+        uid: '21912656217'
+        code: ''
+        toolDescription: 使用网络搜索公开信息
+        pluginId: tool@665b86a9b821000
+        appId: 12a0a7e2
+        operationId: 聚合搜索-hL0CqmNi
+        handlingEdge: normal_one_of::01e81a4e-ba9e-4c7c-a7f6-3d79779a469b
+        setAnswerContentErrMsg: ''
+        exceptionHandlingEdge: fail_one_of::6412c5dc-6592-412c-9d5a-1c014ff65a8e
+        version: V1.0
+        businessInput: [
+          ]
+      retryConfig:
+        maxRetries: 1
+        shouldRetry: true
+        customOutput: |-
+          {
+            "msg": "",
+            "result": [],
+            "rc": "fallback",
+            "semantic": [],
+            "total": "0",
+            "offset": "0",
+            "limit": "0",
+            "sid": ""
+          }
+        errorStrategy: 1
+        timeout: 30
+      icon: https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/icon-wrapper-plugin.svg
+      updatable: false
+      isLatest: true
+  - id: knowledge-base::a8726d32-5e7c-4f18-8cbc-05e942663ed6
+    dragging: false
+    selected: false
+    width: 321
+    height: 165
+    position:
+      x: 6744.312690379749
+      y: -702.2372282014612
+    positionAbsolute:
+      x: 6744.312690379749
+      y: -702.2372282014612
+    type: 知识库
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: 知识库｜岗位能力与学习路线_1
+      labelEdit: false
+      references: [
+        ]
+      status: ''
+      nodeMeta:
+        aliasName: 知识库
+        nodeType: 工具
+      inputs:
+      - id: fdbf535c-d8da-40aa-8786-9883f749af34
+        name: query
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: state_target_position
+              id: get-full-target
+              nodeId: node-variable::b8975cdb-491e-4e17-a31c-8f56feeddb5c
+            contentErrMsg: ''
+        fileType: ''
+      outputs:
+      - id: 51419688-dd9e-43d4-b1f9-3fa1fb8deb2f
+        name: results
+        nameErrMsg: ''
+        schema:
+          type: array-object
+          properties:
+          - id: 131ce082-e589-4a2a-a7c0-77d7765a87da
+            name: score
+            required: true
+            type: number
+            default: ''
+          - id: 8e75d08f-75fd-4391-9d04-f5f636856698
+            name: docId
+            required: true
+            type: string
+            default: ''
+          - id: 5edb7de1-0835-4c46-843d-4613ac2f8813
+            name: content
+            required: true
+            type: string
+            default: ''
+          - id: 7570f02c-4f84-4559-bee6-8cee05627fae
+            name: references
+            required: true
+            type: object
+            default: ''
+        required: true
+      nodeParam:
+        repoId:
+        - aeb2ceb42e12494893487970dcaa9550
+        search_mode: direct
+        enableChatHistoryV2:
+          isEnabled: false
+          rounds: 3
+        handlingEdge: normal_one_of::22c2bec9-f43f-4623-9c6a-e4aeff18f689
+        repoList:
+        - outerRepoId: aeb2ceb42e12494893487970dcaa9550
+          address: https://oss-beijing-m8.openstorage.cn/SparkBotProd/
+          charCount: 3522
+          visibility: 0
+          icon: sparkBot/sparkBot_1691136308772_i讯飞图片.png
+          description: 简历
+          updateTime: '2026-07-14T19:34:32.000+08:00'
+          source: 0
+          userId: '21912656217'
+          fileCount: 2
+          coreRepoId: aeb2ceb42e12494893487970dcaa9550
+          deleted: false
+          corner: https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/rag/Spark@1x.png
+          createTime: '2026-07-14T19:34:32.000+08:00'
+          isTop: false
+          enableAudit: false
+          name: 职引 · AI职业诊断官
+          id: 139049
+          tag: CBG-RAG
+          status: 1
+        repoIdErrMsg: ''
+        exceptionHandlingEdge: fail_one_of::da7c4e64-e120-47d4-906d-1f992ea7807f
+        ragType: CBG-RAG
+        topN: 5
+        score: 0.2
+        uid: '21912656217'
+        appId: 12a0a7e2
+        repos:
+        - repoId: aeb2ceb42e12494893487970dcaa9550
+          name: 职引 · AI职业诊断官
+          description: 简历
+          docIds: [
+            ]
+        callLogic: direct
+        setAnswerContentErrMsg: ''
+        flowId: '7482749159903477761'
+      retryConfig:
+        maxRetries: 1
+        shouldRetry: true
+        customOutput: |-
+          {
+            "results": []
+          }
+        errorStrategy: 1
+        timeout: 30
+      icon: https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/icon-wrapper-knowledge.svg
+      description: 按目标岗位检索岗位能力模型、学习路线、面试与投递资料。导入后建议重新绑定复赛知识库。
+      updatable: false
+  - id: spark-llm::a4e333ed-15be-4be3-8927-8fe48b479f4d
+    dragging: false
+    selected: false
+    width: 361
+    height: 123
+    position:
+      x: 7215.114818138223
+      y: -838.3848152102462
+    positionAbsolute:
+      x: 7215.114818138223
+      y: -838.3848152102462
+    type: 大模型
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: 证据融合｜生成诊断报告_1
+      labelEdit: false
+      references: [
+        ]
+      status: ''
+      nodeMeta:
+        aliasName: 大模型
+        nodeType: 基础节点
+      inputs:
+      - id: 454ca148-ed3a-4a14-aaef-d24450123798
+        name: input
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: state_internship
+              id: get-full-internship
+              nodeId: node-variable::b8975cdb-491e-4e17-a31c-8f56feeddb5c
+            contentErrMsg: ''
+        fileType: ''
+      - id: 42ea3bb8-1ff1-44ca-8e48-cd6ee20f0f5c
+        name: target_position
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: state_target_position
+              id: get-full-target
+              nodeId: node-variable::b8975cdb-491e-4e17-a31c-8f56feeddb5c
+            contentErrMsg: ''
+        fileType: ''
+      - id: 8febdeb4-7119-4e78-bd56-98588523465b
+        name: major
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: state_major
+              id: get-full-major
+              nodeId: node-variable::b8975cdb-491e-4e17-a31c-8f56feeddb5c
+            contentErrMsg: ''
+        fileType: ''
+      - id: 393dd41d-6b0f-4246-b5ee-d47369afe3b2
+        name: grade
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: state_grade
+              id: get-full-grade
+              nodeId: node-variable::b8975cdb-491e-4e17-a31c-8f56feeddb5c
+            contentErrMsg: ''
+        fileType: ''
+      - id: 41a95cb9-4e46-454c-98e8-7def921cbb55
+        name: internship
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: state_internship
+              id: get-full-internship
+              nodeId: node-variable::b8975cdb-491e-4e17-a31c-8f56feeddb5c
+            contentErrMsg: ''
+        fileType: ''
+      - id: 3d071989-0a23-4917-bf94-4712775926b6
+        name: skills
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: state_skills
+              id: get-full-skills
+              nodeId: node-variable::b8975cdb-491e-4e17-a31c-8f56feeddb5c
+            contentErrMsg: ''
+        fileType: ''
+      - id: 5eb57b04-73ff-417d-a07f-ea1a8356bd22
+        name: online_jd
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: result.summary
+              id: 6889bad9-3055-4f73-b6a9-7002b55e5c01
+              nodeId: plugin::927eb11e-7629-4ad8-b557-d1915dbb155e
+            contentErrMsg: ''
+        fileType: ''
+      - id: fadf88e4-8576-45e8-83a3-09576ed784fe
+        name: kb_context
+        nameErrMsg: ''
+        schema:
+          type: array-object
+          value:
+            type: ref
+            content:
+              name: results
+              id: 51419688-dd9e-43d4-b1f9-3fa1fb8deb2f
+              nodeId: knowledge-base::a8726d32-5e7c-4f18-8cbc-05e942663ed6
+            contentErrMsg: ''
+        fileType: ''
+      outputs:
+      - id: 20e5e2e5-2c24-4e26-8514-ae28cb5fecf4
+        name: output
+        nameErrMsg: ''
+        schema:
+          type: string
+          default: 大模型回复内容
+      nodeParam:
+        template: '{{input}}'
+        modelId: 10000017
+        handlingEdge: normal_one_of::397da8bf-69b9-491f-b3fa-d75153bb58d9
+        auditing: default
+        llmId: 10000017
+        uid: '21912656217'
+        patchId: '0'
+        isThink: false
+        templateErrMsg: ''
+        appId: 12a0a7e2
+        maxTokens: 4096
+        temperature: 0.3
+        model: spark
+        modelEnabled: true
+        serviceId: xdeepseekv32exp
+        llmIdErrMsg: ''
+        topK: 4
+        enableChatHistoryV2:
+          isEnabled: false
+          rounds: 1
+        exceptionHandlingEdge: fail_one_of::49344075-37d0-4403-b804-dc978946d80b
+        url: wss://maas-api.cn-huabei-1.xf-yun.com/v1.1/chat
+        multiMode: false
+        modelName: DeepSeek-V3.2-Exp
+        searchDisable: true
+        domain: xopdeepseekv32
+        systemTemplate: |
+          你是「职引」，一个面向中国大学生求职场景的 AI 职业诊断助手。
+          不要虚构自己曾在任何公司任职，不要声称拥有不存在的真实履历。
+
+          你的目标：依据“用户真实自述 + 公开岗位检索 + 专业知识库”完成一份可解释、可执行、低幻觉的职业竞争力诊断。
+
+          【学生信息】
+          - 目标岗位：{{target_position}}
+          - 当前专业：{{major}}
+          - 当前年级/阶段：{{grade}}
+          - 实习/项目/比赛/科研等证据：{{internship}}
+          - 明确掌握的技能：{{skills}}
+
+          【公开岗位检索】
+          {{online_jd}}
+
+          【知识库检索】
+          {{kb_context}}
+
+          ========================================
+          一、证据优先级与事实边界
+          ========================================
+          1. 用户本人明确说过的事实 > 公开岗位检索 > 知识库 > 模型通用知识。
+          2. “感兴趣、准备学、接触过”不能等同于“已掌握”。
+          3. 用户没有提供的项目、成果、学校层次、证书、实习、奖项，一律不得补造。
+          4. 如果公开检索或知识库返回为空、无关或冲突：
+             - 不得声称“根据实时JD/知识库可知”；
+             - 使用“公开检索证据不足”或“知识库未提供足够证据”明确标注；
+             - 必要时只给通用建议，并标注“建议结合目标企业最新JD自行核对”。
+          5. 禁止编造薪资、录取率、公司内部标准、具体课程名称、招聘人数等无法核验的数据。
+          6. 学校层次、专业背景只能作为环境信息，不得直接决定能力评分或评级。
+
+          ========================================
+          二、评分方法
+          ========================================
+          1. 先根据目标岗位，从公开JD和知识库归纳“正好6项”核心能力维度。
+          2. 每项能力评分 1.0~10.0，必须同时给出岗位要求依据、用户证据、证据状态（充分/部分/不足）。
+          3. 如果某维度没有用户证据，不得假装知道真实水平；“当前水平”写“待验证”；分数若做保守暂估，必须说明为低置信度估计。
+          4. 综合评分 = 6项能力的合理加权综合结果。权重按岗位重要性确定，不允许根据985/211、公司名气直接加分。
+          5. 校招准备度评级仅表示当前准备成熟度：
+             - S：8.5~10.0，关键能力基本达标且证据充分
+             - A：7.0~8.4，大部分关键能力达标，仍有少数明显短板
+             - B：5.0~6.9，有一定基础，但关键能力或实践证据不足
+             - C：1.0~4.9，当前准备不足，需要先补基础或实践
+          6. 额外输出“诊断可信度：高/中/低”：
+             -若公开JD与知识库均无有效内容，则“诊断可信度”最高只能评为“中”；      若用户自身证据也不足，则评为“低”。
+             - 高：6项能力中至少5项有明确用户证据，并且外部岗位证据可用
+             - 中：至少3项有明确用户证据
+             - 低：少于3项，或用户信息明显不足
+          7. 输出“证据覆盖度：X/6”，表示6项能力中有多少项得到用户实际经历或技能支持。
+
+          ========================================
+          三、报告固定结构
+          ========================================
+          报告必须严格包含以下6章，使用 Markdown。
+
+          ## {{target_position}} 能力诊断报告
+
+          ### 一、岗位核心能力拆解
+          正好6项。
+          表格列：能力维度 | 重要度 | 岗位要求摘要 | 依据来源
+          “依据来源”只允许：公开JD / 知识库 / 公开JD + 知识库 / 通用岗位常识。
+
+          ### 二、能力现状评估
+          正好对应上一章6项。
+          表格列：能力维度 | 当前水平 | 评分(1-10) | 用户证据 | 证据状态 | 改进提示
+          - 用户证据必须忠实引用或转述用户真实信息；
+          - 无证据写“未提供相关证据”；
+          - 评分≤5.0必须给一条具体改进提示。
+
+          ### 三、关键差距分析 TOP3
+          正好3项。
+          表格列：优先级 | 关键差距 | 当前证据 | 岗位要求 | 为什么优先
+          优先级只允许 P0 / P1 / P2。
+
+          ### 四、4周行动计划
+          必须正好4行：Week 1 / Week 2 / Week 3 / Week 4。
+          表格列：周次 | 本周目标 | 优先级 | 具体任务 | 推荐资源/方法 | 可验收产出
+          - P0/P1/P2只表示任务优先级，不能代替周次；
+          - 每周至少有一个能保存或展示的产出；
+          - 资源只推荐真实存在且与岗位匹配的资源或方法；
+          - 知识库检索到具体方法时优先使用；没有证据时不要假装来源于知识库。
+
+          ### 五、面试准备建议
+          正好5条，至少覆盖：
+          1. 项目/经历深挖
+          2. 岗位核心技能
+          3. 业务或场景题
+          4. STAR结构化表达
+          5. 反问面试官策略
+          如果公开JD检索可用，建议与其中高频要求对齐。
+
+          ### 六、整体评分、可信度与寄语
+          必须包含：
+          - 综合能力评分：X.X / 10
+          - 校招准备度评级：S / A / B / C
+          - 诊断可信度：高 / 中 / 低
+          - 证据覆盖度：X / 6
+          - 当前最优先动作：一句话
+          - 寄语：2~3句，温暖但不虚假夸赞
+
+          ========================================
+          四、输出风格
+          ========================================
+          - 总字数建议 1600~2200 中文字。
+          - 使用 Markdown 标题、表格、加粗。
+          - 不输出内部思考过程。
+          - 不生成复杂字符进度条，不为了可视化牺牲事实准确性。
+          - 遇到信息不足，明确说“不足”，不要补造。
+          - 如果 target_position = “未明确”，不要硬生成岗位诊断；应说明需要先明确一个首选岗位，并给3个选择岗位的判断维度。
+          - 最终输出应让用户可以立刻执行，而不是泛泛而谈。
+
+          ---
+          你的 AI 职业诊断官，职引。
+        respFormat: 0
+        multipleDialog: 0
+      retryConfig:
+        maxRetries: 1
+        shouldRetry: false
+      icon: https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/icon-wrapper-model.svg
+      description: 融合学生证据、公开JD和知识库结果，生成可解释职业诊断。
+      updatable: false
+  - id: ifly-code::89665ee0-d710-400d-a56c-9560d042a517
+    dragging: false
+    selected: false
+    width: 255
+    height: 99
+    position:
+      x: 7744.907129709673
+      y: -848.3857713808825
+    positionAbsolute:
+      x: 7744.907129709673
+      y: -848.3857713808825
+    type: 代码
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: 轻量质量检查_1
+      labelEdit: false
+      references: [
+        ]
+      status: ''
+      nodeMeta:
+        aliasName: 代码
+        nodeType: 基础节点
+      inputs:
+      - id: f738214a-d7c0-418b-9290-ed765a9facae
+        name: input
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: output
+              id: 20e5e2e5-2c24-4e26-8514-ae28cb5fecf4
+              nodeId: spark-llm::a4e333ed-15be-4be3-8927-8fe48b479f4d
+            contentErrMsg: ''
+        fileType: ''
+      outputs:
+      - id: QUALITY_NODE_OUTPUT
+        name: output
+        nameErrMsg: ''
+        schema:
+          type: string
+          default: 校验后的报告
+      nodeParam:
+        uid: '21912656217'
+        code: |
+          # -*- coding: utf-8 -*-
+          import re
+
+          def main(input):
+              text = input if input else ""
+              issues = []
+
+              required = [
+                  "一、岗位核心能力拆解",
+                  "二、能力现状评估",
+                  "三、关键差距分析",
+                  "四、4周行动计划",
+                  "五、面试准备建议",
+                  "六、整体评分",
+              ]
+              for sec in required:
+                  if sec not in text:
+                      issues.append("缺失章节：" + sec)
+
+              if "{{" in text or "}}" in text:
+                  issues.append("存在未替换变量占位符")
+
+              if len(text.strip()) < 1000:
+                  issues.append("报告明显过短")
+
+              text = re.sub(r"^[ \t]*\*{0,2}【[^】\n]*验证[^】\n]*】[^\n]*$\n?", "", text, flags=re.MULTILINE)
+              text = re.sub(r"\n{3,}", "\n\n", text).strip()
+
+              if issues:
+                  text += "\n\n---\n> ⚠️ 自动完整性检查：" + "；".join(issues) + "。建议重新生成一次或检查节点输入。"
+
+              return {"output": text}
+        appId: 12a0a7e2
+        codeLanguage: python
+        codeErrMsg: ''
+      icon: https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/icon-wrapper-code.svg
+      description: 只检查章节、变量占位符和明显过短问题；不二次调用大模型。
+      updatable: false
+  - id: node-variable::54722a60-8f9b-4222-9d49-34cb2c01e6e2
+    dragging: false
+    selected: false
+    width: 361
+    height: 73
+    position:
+      x: 8138.686437360469
+      y: -840.3850064443723
+    positionAbsolute:
+      x: 8138.686437360469
+      y: -840.3850064443723
+    type: 变量存储器
+    data:
+      allowInputReference: true
+      allowOutputReference: true
+      label: 状态重置｜诊断已完成_1
+      labelEdit: false
+      references: [
+        ]
+      status: ''
+      nodeMeta:
+        aliasName: 变量存储器
+        nodeType: 基础节点
+      inputs:
+      - id: ddb15078-ee33-4199-bb0e-b7eb55fddc0b
+        name: state_target_position
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: literal
+            content: 未设置
+            contentErrMsg: ''
+      - id: 1a0b4d5d-7838-468e-8ac8-2db76add910f
+        name: state_has_target
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: literal
+            content: '0'
+            contentErrMsg: ''
+      - id: 15715c17-6ebf-4a50-af45-42523ec18fda
+        name: state_major
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: literal
+            content: 未设置
+            contentErrMsg: ''
+      - id: b8eccae1-a752-421a-92c3-a3b104ee29cc
+        name: state_grade
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: literal
+            content: 未设置
+            contentErrMsg: ''
+      - id: 08d6ab29-a0f5-4ecb-bba4-4a9ae2ad78ab
+        name: state_has_edu
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: literal
+            content: '0'
+            contentErrMsg: ''
+      - id: f281c258-1402-4c0a-a7ec-832931aa0ccd
+        name: state_internship
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: literal
+            content: 未设置
+            contentErrMsg: ''
+      - id: f08d95f9-7a77-4c2b-9ddc-9bb3cae93033
+        name: state_skills
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: literal
+            content: 未设置
+            contentErrMsg: ''
+      - id: 736cb6ed-a19f-4326-bc27-09a672928a6d
+        name: state_has_practice
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: literal
+            content: '0'
+            contentErrMsg: ''
+      outputs: [
+        ]
+      nodeParam:
+        method: set
+      icon: https://oss-beijing-m8.openstorage.cn/pro-bucket/sparkBot/common/workflow/icon/variable-memory-icon.png
+      description: 诊断报告成功生成并完成质量检查后，重置会话状态，使下一轮从Q1重新开始。
+      updatable: false
+  - id: if-else::747cf1aa-d4e7-4801-a6db-7e0f3b5c168f
+    dragging: false
+    selected: false
+    width: 361
+    height: 206
+    position:
+      x: 815.9739759400298
+      y: -900.6662483466024
+    positionAbsolute:
+      x: 815.9739759400298
+      y: -900.6662483466024
+    type: 分支器
+    data:
+      allowInputReference: true
+      allowOutputReference: false
+      label: 分支器_1
+      labelEdit: false
+      references: [
+        ]
+      status: ''
+      nodeMeta:
+        aliasName: 分支器
+        nodeType: 分支器
+      inputs:
+      - id: 5b6c5c8c-2acd-4963-a417-60ee477510b0
+        name: input
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: output
+              id: d8e2ef81-8560-479a-b7df-c43caf81edbf
+              nodeId: spark-llm::b3bf12cd-77b9-4ee2-9023-e7da278b08f5
+            contentErrMsg: ''
+        fileType: ''
+      - id: e9de0d29-f8d5-4800-a7cd-c4f55194f4cb
+        name: input1
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: literal
+            content: 重新开始
+            contentErrMsg: ''
+      - id: 65b8d3f3-e8ad-43d5-af8b-6289850a64f9
+        name: inputfa932fd18d05417888a1f911ddb4b559
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: output
+              id: d8e2ef81-8560-479a-b7df-c43caf81edbf
+              nodeId: spark-llm::b3bf12cd-77b9-4ee2-9023-e7da278b08f5
+            contentErrMsg: ''
+        fileType: ''
+      - id: 35461d71-4c90-404e-913d-b1b69c80014a
+        name: input2eb88a1f99fc43b9a95947cab3368ea1
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: literal
+            content: 未明确
+            contentErrMsg: ''
+      outputs: [
+        ]
+      nodeParam:
+        uid: '21912656217'
+        cases:
+        - level: 1
+          logicalOperator: and
+          id: branch_one_of::0274cd3a-8fea-42bc-8085-485098321a13
+          conditions:
+          - leftVarIndex: 5b6c5c8c-2acd-4963-a417-60ee477510b0
+            rightVarIndex: e9de0d29-f8d5-4800-a7cd-c4f55194f4cb
+            compareOperatorErrMsg: ''
+            id: ''
+            compareOperator: eq
+        - level: 2
+          logicalOperator: and
+          id: branch_one_of::513662a6-dd07-453a-ba1f-a92510332e03
+          conditions:
+          - leftVarIndex: 65b8d3f3-e8ad-43d5-af8b-6289850a64f9
+            rightVarIndex: 35461d71-4c90-404e-913d-b1b69c80014a
+            compareOperatorErrMsg: ''
+            id: 85072e80-2b19-4dbc-902c-3eda3f78c93c
+            compareOperator: eq
+        - level: 999
+          logicalOperator: and
+          id: branch_one_of::6e2c46db-75f3-4b90-9007-43a2a0b39b58
+          conditions: [
+            ]
+        appId: 12a0a7e2
+      icon: https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/icon-wrapper-if-else.svg
+      description: 根据设立的条件，判断选择分支走向
+      updatable: false
+  - id: if-else::d0b3db86-e6f3-4e59-899a-3d8520c6053c
+    dragging: false
+    selected: false
+    width: 361
+    height: 347
+    position:
+      x: 1935.4051555549631
+      y: -1081.6787985971328
+    positionAbsolute:
+      x: 1935.4051555549631
+      y: -1081.6787985971328
+    type: 分支器
+    data:
+      allowInputReference: true
+      allowOutputReference: false
+      label: 分支器_2
+      labelEdit: false
+      references: [
+        ]
+      status: ''
+      nodeMeta:
+        aliasName: 分支器
+        nodeType: 分支器
+      inputs:
+      - id: d0339e6d-1bd1-4753-ab43-4b2bc5491714
+        name: input
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: state_has_target
+              id: get-init-has-target
+              nodeId: node-variable::0af64cda-a38a-428e-ad30-818acd62d122
+            contentErrMsg: ''
+        fileType: ''
+      - id: 631b961f-52d5-4d93-a401-51d1d5ab6680
+        name: input1
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: literal
+            content: '1'
+            contentErrMsg: ''
+      - id: f0fc4caa-f8d1-4a6c-b526-447672c85d10
+        name: inputb5bcd37eb6334c72ba8be4cc4b9f1f52
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: state_has_target
+              id: get-init-has-target
+              nodeId: node-variable::0af64cda-a38a-428e-ad30-818acd62d122
+            contentErrMsg: ''
+        fileType: ''
+      - id: 23382426-c2ca-41d9-9e62-dec1a63b4402
+        name: input1cb454417ec84b1e801c710bb9d971a6
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: literal
+            content: '1'
+            contentErrMsg: ''
+      - id: e15a92a6-8af4-4132-a879-08bfe89f60e7
+        name: input8184e4bdda7447eeb036242ca5ac1c6f
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: state_has_target
+              id: get-init-has-target
+              nodeId: node-variable::0af64cda-a38a-428e-ad30-818acd62d122
+            contentErrMsg: ''
+        fileType: ''
+      - id: 41198d4e-7453-4eec-88fd-d6fdcb861b4a
+        name: input838f258afa6a4cab9e443ea1d152022e
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: literal
+            content: '1'
+            contentErrMsg: ''
+      - id: 23277337-2ad5-432f-9e5e-cfcad8869e65
+        name: input8f8bea2d871e49f1afccb91b2d872710
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: state_has_edu
+              id: get-init-has-edu
+              nodeId: node-variable::0af64cda-a38a-428e-ad30-818acd62d122
+            contentErrMsg: ''
+        fileType: ''
+      - id: 823576c5-b0e4-4e64-9206-e3163d571e47
+        name: input51d3e0492a924b7287bb646a7a3bcb78
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: literal
+            content: '1'
+            contentErrMsg: ''
+      - id: f73584b5-dd2e-427c-810f-0ccdbc3adef5
+        name: input4750ce5715bf4acea3fd5eebc240ddc3
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: state_has_practice
+              id: get-init-has-practice
+              nodeId: node-variable::0af64cda-a38a-428e-ad30-818acd62d122
+            contentErrMsg: ''
+        fileType: ''
+      - id: 948e284f-d64a-4443-8abd-7c9c5eb817eb
+        name: input1aacb61d6d944d3d9b780a05b4ae3f6a
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: literal
+            content: '1'
+            contentErrMsg: ''
+      - id: bccd86ee-8e8d-4f11-907c-802722ef6638
+        name: input608a8007dd27441a837b3cb59d616e56
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: ref
+            content:
+              name: state_has_edu
+              id: get-init-has-edu
+              nodeId: node-variable::0af64cda-a38a-428e-ad30-818acd62d122
+            contentErrMsg: ''
+        fileType: ''
+      - id: 8912291f-facd-4e80-9576-f4000d45f447
+        name: input7817d8873b1d439ea22c874fe6c8ac0c
+        nameErrMsg: ''
+        schema:
+          type: string
+          value:
+            type: literal
+            content: '1'
+            contentErrMsg: ''
+      outputs: [
+        ]
+      nodeParam:
+        uid: '21912656217'
+        cases:
+        - level: 1
+          logicalOperator: and
+          id: branch_one_of::2128109d-77e9-451d-aa8d-0fcd57a5aa75
+          conditions:
+          - leftVarIndex: d0339e6d-1bd1-4753-ab43-4b2bc5491714
+            rightVarIndex: 631b961f-52d5-4d93-a401-51d1d5ab6680
+            compareOperatorErrMsg: ''
+            id: ''
+            compareOperator: eq
+          - leftVarIndex: 23277337-2ad5-432f-9e5e-cfcad8869e65
+            rightVarIndex: 823576c5-b0e4-4e64-9206-e3163d571e47
+            compareOperatorErrMsg: ''
+            id: a379d64c-7a39-4935-9b32-db60bd4e6220
+            compareOperator: eq
+          - leftVarIndex: f73584b5-dd2e-427c-810f-0ccdbc3adef5
+            rightVarIndex: 948e284f-d64a-4443-8abd-7c9c5eb817eb
+            compareOperatorErrMsg: ''
+            id: 7471f462-95c1-41b5-b0de-190d10cfedb8
+            compareOperator: eq
+        - level: 2
+          logicalOperator: and
+          id: branch_one_of::2629a4d1-24e9-453a-a9df-ff4ebf8d2509
+          conditions:
+          - leftVarIndex: f0fc4caa-f8d1-4a6c-b526-447672c85d10
+            rightVarIndex: 23382426-c2ca-41d9-9e62-dec1a63b4402
+            compareOperatorErrMsg: ''
+            id: 19968de7-167c-4079-93ed-3907ab682193
+            compareOperator: eq
+          - leftVarIndex: bccd86ee-8e8d-4f11-907c-802722ef6638
+            rightVarIndex: 8912291f-facd-4e80-9576-f4000d45f447
+            compareOperatorErrMsg: ''
+            id: 379c227d-2006-4d71-9f77-14c2cc62a3d4
+            compareOperator: eq
+        - level: 3
+          logicalOperator: and
+          id: branch_one_of::a8dd1abf-d780-4300-954b-fe258e48ff73
+          conditions:
+          - leftVarIndex: e15a92a6-8af4-4132-a879-08bfe89f60e7
+            rightVarIndex: 41198d4e-7453-4eec-88fd-d6fdcb861b4a
+            compareOperatorErrMsg: ''
+            id: 8534542c-7351-4d3b-a5ab-2f417d3b0ba9
+            compareOperator: eq
+        - level: 999
+          logicalOperator: and
+          id: branch_one_of::6b0008ea-d6ca-4649-8c86-f7533d78bdb2
+          conditions: [
+            ]
+        appId: 12a0a7e2
+      icon: https://oss-beijing-m8.openstorage.cn/SparkBotProd/icon/icon-wrapper-if-else.svg
+      description: 根据设立的条件，判断选择分支走向
+      updatable: false
+  edges:
+  - source: node-start::fa611938-9ee8-4756-9480-de538a31f56c
+    target: spark-llm::b3bf12cd-77b9-4ee2-9023-e7da278b08f5
+    type: customEdge
+    id: reactflow__edge-node-start::fa611938-9ee8-4756-9480-de538a31f56c-spark-llm::b3bf12cd-77b9-4ee2-9023-e7da278b08f5
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: node-variable::dce01640-a277-4006-ac11-f0c2d4702de3
+    target: question-answer::3fb08a43-454b-4deb-800e-bdb7559c6542
+    type: customEdge
+    id: reactflow__edge-node-variable::dce01640-a277-4006-ac11-f0c2d4702de3-question-answer::3fb08a43-454b-4deb-800e-bdb7559c6542
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: question-answer::3fb08a43-454b-4deb-800e-bdb7559c6542
+    target: node-variable::aa463b6a-5a22-49ce-9a53-dcc56347df30
+    type: customEdge
+    id: reactflow__edge-question-answer::3fb08a43-454b-4deb-800e-bdb7559c6542-node-variable::aa463b6a-5a22-49ce-9a53-dcc56347df30
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: node-variable::aa463b6a-5a22-49ce-9a53-dcc56347df30
+    target: node-variable::73879ebe-973b-4e19-bac6-cff946509a0c
+    type: customEdge
+    id: reactflow__edge-node-variable::aa463b6a-5a22-49ce-9a53-dcc56347df30-node-variable::73879ebe-973b-4e19-bac6-cff946509a0c
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: node-variable::73879ebe-973b-4e19-bac6-cff946509a0c
+    target: question-answer::5895cb4d-e1da-4e36-afb8-018944019cfa
+    type: customEdge
+    id: reactflow__edge-node-variable::73879ebe-973b-4e19-bac6-cff946509a0c-question-answer::5895cb4d-e1da-4e36-afb8-018944019cfa
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: question-answer::5895cb4d-e1da-4e36-afb8-018944019cfa
+    target: node-variable::cbc0c8d9-73f4-45ea-8fc0-9f28b6311977
+    type: customEdge
+    id: reactflow__edge-question-answer::5895cb4d-e1da-4e36-afb8-018944019cfa-node-variable::cbc0c8d9-73f4-45ea-8fc0-9f28b6311977
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: node-variable::cbc0c8d9-73f4-45ea-8fc0-9f28b6311977
+    target: node-variable::d432234e-b045-4990-85da-e5da4cc8facf
+    type: customEdge
+    id: reactflow__edge-node-variable::cbc0c8d9-73f4-45ea-8fc0-9f28b6311977-node-variable::d432234e-b045-4990-85da-e5da4cc8facf
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: node-variable::d432234e-b045-4990-85da-e5da4cc8facf
+    target: question-answer::37f173b9-34a9-4672-bdb9-36494c8acfed
+    type: customEdge
+    id: reactflow__edge-node-variable::d432234e-b045-4990-85da-e5da4cc8facf-question-answer::37f173b9-34a9-4672-bdb9-36494c8acfed
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: question-answer::37f173b9-34a9-4672-bdb9-36494c8acfed
+    target: node-variable::39b8ec9b-d83b-4434-9e9d-865a67e84ef5
+    type: customEdge
+    id: reactflow__edge-question-answer::37f173b9-34a9-4672-bdb9-36494c8acfed-node-variable::39b8ec9b-d83b-4434-9e9d-865a67e84ef5
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: node-variable::39b8ec9b-d83b-4434-9e9d-865a67e84ef5
+    target: node-variable::b8975cdb-491e-4e17-a31c-8f56feeddb5c
+    type: customEdge
+    id: reactflow__edge-node-variable::39b8ec9b-d83b-4434-9e9d-865a67e84ef5-node-variable::b8975cdb-491e-4e17-a31c-8f56feeddb5c
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: node-variable::b8975cdb-491e-4e17-a31c-8f56feeddb5c
+    target: plugin::927eb11e-7629-4ad8-b557-d1915dbb155e
+    type: customEdge
+    id: reactflow__edge-node-variable::b8975cdb-491e-4e17-a31c-8f56feeddb5c-plugin::927eb11e-7629-4ad8-b557-d1915dbb155e
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: plugin::927eb11e-7629-4ad8-b557-d1915dbb155e
+    sourceHandle: normal_one_of::01e81a4e-ba9e-4c7c-a7f6-3d79779a469b
+    target: spark-llm::a4e333ed-15be-4be3-8927-8fe48b479f4d
+    type: customEdge
+    id: reactflow__edge-plugin::927eb11e-7629-4ad8-b557-d1915dbb155enormal_one_of::01e81a4e-ba9e-4c7c-a7f6-3d79779a469b-spark-llm::a4e333ed-15be-4be3-8927-8fe48b479f4d
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: node-variable::b8975cdb-491e-4e17-a31c-8f56feeddb5c
+    target: spark-llm::a4e333ed-15be-4be3-8927-8fe48b479f4d
+    type: customEdge
+    id: reactflow__edge-node-variable::b8975cdb-491e-4e17-a31c-8f56feeddb5c-spark-llm::a4e333ed-15be-4be3-8927-8fe48b479f4d
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: node-variable::b8975cdb-491e-4e17-a31c-8f56feeddb5c
+    target: knowledge-base::a8726d32-5e7c-4f18-8cbc-05e942663ed6
+    type: customEdge
+    id: reactflow__edge-node-variable::b8975cdb-491e-4e17-a31c-8f56feeddb5c-knowledge-base::a8726d32-5e7c-4f18-8cbc-05e942663ed6
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: knowledge-base::a8726d32-5e7c-4f18-8cbc-05e942663ed6
+    sourceHandle: normal_one_of::22c2bec9-f43f-4623-9c6a-e4aeff18f689
+    target: spark-llm::a4e333ed-15be-4be3-8927-8fe48b479f4d
+    type: customEdge
+    id: reactflow__edge-knowledge-base::a8726d32-5e7c-4f18-8cbc-05e942663ed6normal_one_of::22c2bec9-f43f-4623-9c6a-e4aeff18f689-spark-llm::a4e333ed-15be-4be3-8927-8fe48b479f4d
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: spark-llm::a4e333ed-15be-4be3-8927-8fe48b479f4d
+    sourceHandle: normal_one_of::397da8bf-69b9-491f-b3fa-d75153bb58d9
+    target: ifly-code::89665ee0-d710-400d-a56c-9560d042a517
+    type: customEdge
+    id: reactflow__edge-spark-llm::a4e333ed-15be-4be3-8927-8fe48b479f4dnormal_one_of::397da8bf-69b9-491f-b3fa-d75153bb58d9-ifly-code::89665ee0-d710-400d-a56c-9560d042a517
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: ifly-code::89665ee0-d710-400d-a56c-9560d042a517
+    target: node-variable::54722a60-8f9b-4222-9d49-34cb2c01e6e2
+    type: customEdge
+    id: reactflow__edge-ifly-code::89665ee0-d710-400d-a56c-9560d042a517-node-variable::54722a60-8f9b-4222-9d49-34cb2c01e6e2
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: node-variable::54722a60-8f9b-4222-9d49-34cb2c01e6e2
+    target: node-end::051340b1-7118-4842-9ae5-fae466e13054
+    type: customEdge
+    id: reactflow__edge-node-variable::54722a60-8f9b-4222-9d49-34cb2c01e6e2-node-end::051340b1-7118-4842-9ae5-fae466e13054
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: node-variable::9c4299a4-a5ad-4391-a507-f34a038ec6ae
+    target: node-variable::73879ebe-973b-4e19-bac6-cff946509a0c
+    type: customEdge
+    id: reactflow__edge-node-variable::9c4299a4-a5ad-4391-a507-f34a038ec6ae-node-variable::73879ebe-973b-4e19-bac6-cff946509a0c
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: spark-llm::b3bf12cd-77b9-4ee2-9023-e7da278b08f5
+    sourceHandle: normal_one_of::pre-target-normal
+    target: if-else::747cf1aa-d4e7-4801-a6db-7e0f3b5c168f
+    type: customEdge
+    id: reactflow__edge-spark-llm::b3bf12cd-77b9-4ee2-9023-e7da278b08f5normal_one_of::pre-target-normal-if-else::747cf1aa-d4e7-4801-a6db-7e0f3b5c168f
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: if-else::747cf1aa-d4e7-4801-a6db-7e0f3b5c168f
+    sourceHandle: branch_one_of::0274cd3a-8fea-42bc-8085-485098321a13
+    target: node-variable::dce01640-a277-4006-ac11-f0c2d4702de3
+    type: customEdge
+    id: reactflow__edge-if-else::747cf1aa-d4e7-4801-a6db-7e0f3b5c168fbranch_one_of::0274cd3a-8fea-42bc-8085-485098321a13-node-variable::dce01640-a277-4006-ac11-f0c2d4702de3
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: if-else::747cf1aa-d4e7-4801-a6db-7e0f3b5c168f
+    sourceHandle: branch_one_of::513662a6-dd07-453a-ba1f-a92510332e03
+    target: node-variable::0af64cda-a38a-428e-ad30-818acd62d122
+    type: customEdge
+    id: reactflow__edge-if-else::747cf1aa-d4e7-4801-a6db-7e0f3b5c168fbranch_one_of::513662a6-dd07-453a-ba1f-a92510332e03-node-variable::0af64cda-a38a-428e-ad30-818acd62d122
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: if-else::747cf1aa-d4e7-4801-a6db-7e0f3b5c168f
+    sourceHandle: branch_one_of::6e2c46db-75f3-4b90-9007-43a2a0b39b58
+    target: node-variable::9c4299a4-a5ad-4391-a507-f34a038ec6ae
+    type: customEdge
+    id: reactflow__edge-if-else::747cf1aa-d4e7-4801-a6db-7e0f3b5c168fbranch_one_of::6e2c46db-75f3-4b90-9007-43a2a0b39b58-node-variable::9c4299a4-a5ad-4391-a507-f34a038ec6ae
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: node-variable::0af64cda-a38a-428e-ad30-818acd62d122
+    target: if-else::d0b3db86-e6f3-4e59-899a-3d8520c6053c
+    type: customEdge
+    id: reactflow__edge-node-variable::0af64cda-a38a-428e-ad30-818acd62d122-if-else::d0b3db86-e6f3-4e59-899a-3d8520c6053c
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: if-else::d0b3db86-e6f3-4e59-899a-3d8520c6053c
+    sourceHandle: branch_one_of::2128109d-77e9-451d-aa8d-0fcd57a5aa75
+    target: node-variable::b8975cdb-491e-4e17-a31c-8f56feeddb5c
+    type: customEdge
+    id: reactflow__edge-if-else::d0b3db86-e6f3-4e59-899a-3d8520c6053cbranch_one_of::2128109d-77e9-451d-aa8d-0fcd57a5aa75-node-variable::b8975cdb-491e-4e17-a31c-8f56feeddb5c
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: if-else::d0b3db86-e6f3-4e59-899a-3d8520c6053c
+    sourceHandle: branch_one_of::6b0008ea-d6ca-4649-8c86-f7533d78bdb2
+    target: question-answer::3fb08a43-454b-4deb-800e-bdb7559c6542
+    type: customEdge
+    id: reactflow__edge-if-else::d0b3db86-e6f3-4e59-899a-3d8520c6053cbranch_one_of::6b0008ea-d6ca-4649-8c86-f7533d78bdb2-question-answer::3fb08a43-454b-4deb-800e-bdb7559c6542
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: if-else::d0b3db86-e6f3-4e59-899a-3d8520c6053c
+    sourceHandle: branch_one_of::2629a4d1-24e9-453a-a9df-ff4ebf8d2509
+    target: node-variable::d432234e-b045-4990-85da-e5da4cc8facf
+    type: customEdge
+    id: reactflow__edge-if-else::d0b3db86-e6f3-4e59-899a-3d8520c6053cbranch_one_of::2629a4d1-24e9-453a-a9df-ff4ebf8d2509-node-variable::d432234e-b045-4990-85da-e5da4cc8facf
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
+  - source: if-else::d0b3db86-e6f3-4e59-899a-3d8520c6053c
+    sourceHandle: branch_one_of::a8dd1abf-d780-4300-954b-fe258e48ff73
+    target: node-variable::73879ebe-973b-4e19-bac6-cff946509a0c
+    type: customEdge
+    id: reactflow__edge-if-else::d0b3db86-e6f3-4e59-899a-3d8520c6053cbranch_one_of::a8dd1abf-d780-4300-954b-fe258e48ff73-node-variable::73879ebe-973b-4e19-bac6-cff946509a0c
+    markerEnd:
+      color: '#6356EA'
+      type: arrow
+    data:
+      edgeType: curve
